@@ -1,0 +1,59 @@
+/* Better default Mermaid rendering in Obsidian */
+
+.mermaid {
+  /* breathing room */
+  padding: 1.5em 1em !important;
+  background: var(--background-primary-alt) !important;
+  border-radius: 8px;
+  margin: 1em 0;
+}
+
+/* Cleaner edges */
+.mermaid .edgePath .path {
+  stroke-width: 1.5px !important;
+}
+
+/* Edge labels */
+.mermaid .edgeLabel {
+  background-color: var(--background-primary-alt) !important;
+  font-size: 0.85em !important;
+  padding: 2px 6px !important;
+}
+
+/* Default node styling — softer than Mermaid default */
+.mermaid .node rect,
+.mermaid .node polygon,
+.mermaid .node circle,
+.mermaid .node ellipse {
+  stroke-width: 1.5px !important;
+}
+
+/* Subgraph styling */
+.mermaid .cluster rect {
+  fill: var(--background-secondary) !important;
+  stroke: var(--background-modifier-border) !important;
+  stroke-width: 1px !important;
+  rx: 8;
+  ry: 8;
+}
+
+.mermaid .cluster .nodeLabel {
+  font-weight: 600 !important;
+  font-size: 0.95em !important;
+}
+
+/* Make text use Obsidian's font for consistency */
+.mermaid .nodeLabel,
+.mermaid .edgeLabel,
+.mermaid foreignObject div {
+  font-family: var(--font-text) !important;
+}
+
+/* Code-style elements (e.g., dimensions like 224×224×3) */
+.mermaid .nodeLabel code {
+  font-family: var(--font-monospace) !important;
+  font-size: 0.85em;
+  background: rgba(0,0,0,0.05);
+  padding: 1px 4px;
+  border-radius: 3px;
+}

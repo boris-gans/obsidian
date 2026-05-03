@@ -1,0 +1,23 @@
+{
+  "id": "conv-1777209394460-3r4jcyeqz",
+  "providerId": "claude",
+  "title": "Begin study session",
+  "titleGenerationStatus": "success",
+  "createdAt": 1777209394472,
+  "updatedAt": 1777209420625,
+  "lastResponseAt": 1777209401386,
+  "sessionId": "712d1f58-24f5-46a1-abd2-08c214de0894",
+  "providerState": {
+    "providerSessionId": "712d1f58-24f5-46a1-abd2-08c214de0894"
+  },
+  "currentNote": "40-Reviews/Computer-Vision/exam-blueprint.md",
+  "usage": {
+    "model": "haiku",
+    "inputTokens": 10,
+    "cacheCreationInputTokens": 38189,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 38199,
+    "percentage": 19
+  }
+}

@@ -1,0 +1,275 @@
+{
+  "version": 1,
+  "sessionId": "da34603d-0efe-48a7-9d0c-6c8540b5d103",
+  "agentId": "claude-code-acp",
+  "messages": [
+    {
+      "id": "8133019e-8204-41c4-9ee4-73b724c35811",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "explain reco ranking metrics"
+        }
+      ],
+      "timestamp": "2026-04-27T08:09:44.438Z"
+    },
+    {
+      "id": "e0a7c9f1-eec9-4b65-b90b-35de62b60acc",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "agent_thought",
+          "text": ""
+        }
+      ],
+      "timestamp": "2026-04-27T08:09:46.703Z"
+    },
+    {
+      "id": "59dc0dfe-6cc4-451d-914a-2515ddbf3e1e",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_015T9kJm32XM2ZjoUNL2GNUN",
+          "title": "ls /Users/mattporteous/Obsidian/School/30-Sources/ /Users/mattporteous/Obsidian/School/20-Concepts/ 2>/dev/null | head -100",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls /Users/mattporteous/Obsidian/School/30-Sources/ /Users/mattporteous/Obsidian/School/20-Concepts/ 2>/dev/null | head -100",
+            "description": "List courses and concepts"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T08:09:47.525Z"
+    },
+    {
+      "id": "77213cb4-bd93-456c-b66c-f7fc7e913e09",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01RVr3uEMpJrYvV2cnPZuPsR",
+          "title": "ls /Users/mattporteous/Obsidian/School/30-Sources/",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls /Users/mattporteous/Obsidian/School/30-Sources/",
+            "description": "List courses"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        }
+      ],
+      "timestamp": "2026-04-27T08:09:51.304Z"
+    },
+    {
+      "id": "75a656c3-7080-404e-ab87-72d4dc064c04",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_0199MGFiqeQRzjeFAnoofJxB",
+          "title": "ls /Users/mattporteous/Obsidian/School/20-Concepts/ | grep -iE \"rank|ndcg|recall|precision|map|metric|hit|mrr\"",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls /Users/mattporteous/Obsidian/School/20-Concepts/ | grep -iE \"rank|ndcg|recall|precision|map|metric|hit|mrr\"",
+            "description": "Find ranking metric concepts"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T08:09:54.444Z"
+    },
+    {
+      "id": "b449f2c5-d47b-4b08-a7b1-4ff981f330d3",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01AtQNxntJbBtr3VChdFMsD8",
+          "title": "Read 20-Concepts/reco-ranking-metrics.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/reco-ranking-metrics.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/reco-ranking-metrics.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T08:09:57.596Z"
+    },
+    {
+      "id": "faa8ebf4-ddce-498a-8b3f-4aa5122d0e89",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01Y5wcjWX5S66rMd3dSCiTFT",
+          "title": "ls /Users/mattporteous/Obsidian/School/30-Sources/Chatbots/pdf/ 2>/dev/null | grep -i \"reco\"",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls /Users/mattporteous/Obsidian/School/30-Sources/Chatbots/pdf/ 2>/dev/null | grep -i \"reco\"",
+            "description": "Find reco PDFs"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T08:09:59.914Z"
+    },
+    {
+      "id": "65da7b7a-6a4a-484a-bb15-2554a8722a64",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01PZTFmTuA7mgGz1sScuVCBu",
+          "title": "Read 30-Sources/Chatbots/_course.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Chatbots/_course.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/30-Sources/Chatbots/_course.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T08:10:02.014Z"
+    },
+    {
+      "id": "756f5c9e-b04b-4d84-b707-bf5b46085df7",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01TcSDoQEccgbLvEZgdQsvkt",
+          "title": "ls /Users/mattporteous/Obsidian/School/10-Courses/Chatbots/lectures/ 2>/dev/null | head -30",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls /Users/mattporteous/Obsidian/School/10-Courses/Chatbots/lectures/ 2>/dev/null | head -30",
+            "description": "List Chatbots lectures"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T08:10:04.097Z"
+    },
+    {
+      "id": "0955a612-36f1-4da7-8927-0bad554d56dc",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_017pRg94PdaJZPrAX7Uk4E8h",
+          "title": "Read 10-Courses/Chatbots/lectures/lecture-04-offline-vs-online-metrics.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/10-Courses/Chatbots/lectures/lecture-04-offline-vs-online-metrics.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/10-Courses/Chatbots/lectures/lecture-04-offline-vs-online-metrics.md"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        }
+      ],
+      "timestamp": "2026-04-27T08:10:07.103Z"
+    },
+    {
+      "id": "61c918fb-a395-4a49-ac7d-46f98c149a45",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01Gb2usQtEy16Tsx5VDtv3VN",
+          "title": "ls /Users/mattporteous/Obsidian/School/30-Sources/Chatbots/slides-png/ | grep -i \"Reco 04\"",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls /Users/mattporteous/Obsidian/School/30-Sources/Chatbots/slides-png/ | grep -i \"Reco 04\"",
+            "description": "List slide 04 PNGs"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T08:10:13.653Z"
+    },
+    {
+      "id": "fef1078a-5b21-4c8a-a2a7-3bf410d2bde9",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01GXHZ8ocu5gvNb4sBbQQkk6",
+          "title": "ls \"/Users/mattporteous/Obsidian/School/30-Sources/Chatbots/slides-png/Chatbots and Reco 04/\"",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls \"/Users/mattporteous/Obsidian/School/30-Sources/Chatbots/slides-png/Chatbots and Reco 04/\"",
+            "description": "List slide PNGs for lecture 04"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T08:10:17.335Z"
+    },
+    {
+      "id": "6d7d4c00-a484-4194-9d8d-6fa02f87bf54",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01Nwaksj48v2THy3zMrZKSAD",
+          "title": "Read 30-Sources/Chatbots/slides-png/Chatbots and Reco 04/slide-04.png",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Chatbots/slides-png/Chatbots and Reco 04/slide-04.png"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/30-Sources/Chatbots/slides-png/Chatbots and Reco 04/slide-04.png"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "# Ranking metrics for recommenders\n\nRanking metrics answer the question that actually matters in production: **\"how good is the top-K list of items I'm about to show this user?\"** Most users see a list, not a score, so in practice these dominate the older [[reco-rating-metrics|rating metrics]] like RMSE.\n\nThe setup is simple. For each user $u$:\n\n- $R_u$ = the top-K items the model recommends\n- $T_u$ = the items that are actually relevant for $u$ (held-out positives from the test set)\n\nThere are four metrics worth knowing. The first two are about *what's in the set*; the last two add *where it sits in the ranking*.\n\n## Precision@K and Recall@K — set-level\n\n$$\\text{Precision@K} = \\frac{|R_u \\cap T_u|}{K}, \\qquad \\text{Recall@K} = \\frac{|R_u \\cap T_u|}{|T_u|}$$\n\n**Precision@K** asks: *of the K things I recommended, how many were correct?* Denominator is fixed at K, so it tells you about the quality of what made the list.\n\n**Recall@K** asks: *of all the relevant items that exist, how many did I surface in the top-K?* Denominator is the total number of relevant items, so it tells you about coverage of the user's true interests.\n\nThese trade off against each other. For small K (think K = 10 in a Netflix shelf), **precision dominates the user experience** — nobody cares that you missed 200 other relevant items if the 10 you showed are great. For a candidate-generation step ahead of a reranker (the **2-step architecture** from this lecture), recall is what matters because you want the reranker to have all the good candidates available.\n\nCrucially, both metrics are **set-based** — they don't care whether the hit is at rank 1 or rank 10, as long as it's in the top-K. That's the gap NDCG and MAP fill.\n\n## MAP@K — position-weighted precision\n\nFor one user, **Average Precision** is:\n\n$$\\text{AP@K} = \\frac{1}{|T_u|} \\sum_{k=1}^{K} \\text{Precision@}k \\cdot \\mathbb{1}[\\text{item at position } k \\in T_u]$$\n\nRead it as: walk down the list from rank 1 to K, and every time you hit a relevant item, record the running Precision@k *at that position*. Average those records and divide by the total number of relevant items.\n\nThe trick is that an early hit produces a higher partial Precision@k (because the denominator is small), so **a hit at rank 1 contributes a lot more than a hit at rank K**. Average AP@K across users → **MAP@K**.\n\n## NDCG@K — ranking quality with a logarithmic discount\n\nNDCG is the metric most papers report when they want to claim \"we rank well.\" Two-step definition:\n\n$$\\text{DCG@K} = \\sum_{k=1}^{K} \\frac{2^{\\text{rel}_k} - 1}{\\log_2(k+1)}, \\qquad \\text{NDCG@K} = \\frac{\\text{DCG@K}}{\\text{IDCG@K}}$$\n\n- $\\text{rel}_k$ is the relevance score at rank $k$ (binary 0/1 in implicit-feedback settings; graded 1–5 with explicit ratings)\n- The numerator $2^{\\text{rel}_k} - 1$ makes higher relevance count exponentially more\n- The denominator $\\log_2(k+1)$ **discounts items further down the list** — that's where \"ranking\" enters the metric\n- IDCG is the DCG of the *ideal* ordering (all relevant items at the top, sorted by relevance), so NDCG ∈ [0, 1] regardless of how many relevant items the user actually has\n\nWhy log₂? It's a smooth, slow decay — rank 1 gets full weight (log₂(2) = 1), rank 7 gets ~⅓, rank 31 gets ~⅕. Punishes \"the right answer at rank 8\" without being as harsh as a 1/k discount.\n\n## Quick comparison\n\n| Metric | Cares about hits? | Cares about position? | Single number per user? |\n|---|---|---|---|\n| **Precision@K** | yes | no | yes |\n| **Recall@K** | yes | no | yes |\n| **MAP@K** | yes | yes (via partial precisions) | averaged over users |\n| **NDCG@K** | yes | yes (log₂ discount) | normalised to [0, 1] |\n\n## When to pick which\n\n- **Building a candidate generator** (first stage of a [[reco-architectures|2-step pipeline]]): optimise Recall@K with a large K (100–1000). You want the reranker to see every good candidate.\n- **Final ranking shown to users**: NDCG@K with small K (5–20). It penalises bad ordering and is bounded, so cross-model comparisons are meaningful.\n- **Reporting to non-ML stakeholders**: Precision@K — it's the easiest to explain (\"8 of the 10 recommendations were relevant\").\n- **Optimising a model directly**: pair these offline metrics with a ranking-aware loss like [[bpr-loss]], because cross-entropy on individual items doesn't penalise bad ordering the way these do.\n\nAnd remember: all four are **offline** metrics. They tell you a model is *probably* better. The deployment decision uses [[reco-online-metrics|online metrics]] — CTR, conversion, LTV — measured under [[ab-test|A/B test]].\n\n---\n\n*The source's exact framing:* The lecture introduces ranking metrics as those that \"measure how relevant recommendations are for users.\" Precision@K is \"the proportion of recommended items that are relevant — the ability of the model to label a correct sample as correct.\" Recall@K is \"the proportion of relevant items that are recommended — the ability to capture all correct samples.\" NDCG@K \"evaluates how well the recommender performs in recommending ranked items to users — both hit of relevant items and correctness in ranking matter.\" MAP@K \"evaluates the average precision for each user in the dataset.\" [slide 4](30-Sources/Chatbots/pdf/Chatbots and Reco 04.pdf#page=4)\n\n**Remember this:** Precision@K = hits ÷ K; Recall@K = hits ÷ |relevant|; MAP@K weights hits by partial precision (early hits matter more); NDCG@K applies a log₂(k+1) discount and normalises by the ideal ordering.\n\n**Beyond the lecture:** the trade-offs around which metric to optimise where in a 2-step pipeline (recall for candidate generation, NDCG for final ranking), the explanation of why log₂ is the chosen discount, and the connection to BPR-loss as a ranking-aware training objective — none of that is on the slide; the slide just lists definitions."
+        }
+      ],
+      "timestamp": "2026-04-27T08:10:19.774Z"
+    }
+  ],
+  "savedAt": "2026-04-27T08:11:05.167Z"
+}

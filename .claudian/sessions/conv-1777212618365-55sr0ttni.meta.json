@@ -1,0 +1,23 @@
+{
+  "id": "conv-1777212618365-55sr0ttni",
+  "providerId": "claude",
+  "title": "Explain Fourier and sampling theory",
+  "titleGenerationStatus": "success",
+  "createdAt": 1777212618365,
+  "updatedAt": 1777212708873,
+  "lastResponseAt": 1777212663071,
+  "sessionId": "8d3dc9b1-c0f0-4fdb-b3d0-80f795ce8b45",
+  "providerState": {
+    "providerSessionId": "8d3dc9b1-c0f0-4fdb-b3d0-80f795ce8b45"
+  },
+  "usage": {
+    "model": "haiku",
+    "inputTokens": 8,
+    "cacheCreationInputTokens": 1675,
+    "cacheReadInputTokens": 45121,
+    "contextWindow": 200000,
+    "contextTokens": 46804,
+    "percentage": 23,
+    "contextWindowIsAuthoritative": true
+  }
+}

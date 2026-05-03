@@ -1,0 +1,1930 @@
+{
+  "version": 1,
+  "sessionId": "624b9c90-35a6-4642-90fc-fa72d5fd1fa8",
+  "agentId": "claude-code-acp",
+  "messages": [
+    {
+      "id": "f1ee6190-d2c7-49fb-9384-2425c0fde96a",
+      "role": "user",
+      "content": [
+        {
+          "type": "text_with_context",
+          "text": "@CLAUDE.md follow the slide ingest workflow on every PDF in 30-Sources/Computer-Vision/pdf/ in numeric order, from 10_fourier_transform2.pdf through 20_autoencoders.pdf.\nImportant rules for this batch:\n\nProcess one lecture fully before starting the next\nBefore each lecture, search 20-Concepts/ for existing concepts and EXTEND them rather than creating duplicates — add the new course/lecture context to existing notes\nAdd [[wikilinks]] to concepts from earlier lectures wherever the current lecture builds on them (e.g. lecture 16 CNNs should link back to concepts from lecture 14/15 on DL)\nFor each lecture, show me a brief file plan (lecture note path + concept names + flashcard count), then write the files. You don't need to wait for \"go\" between lectures — proceed through all 11.\nAt the very end, give me a summary table: lecture | concepts created | concepts extended | flashcards | total links\n\nStart with 10_fourier_transform2.pdf.",
+          "autoMentionContext": {
+            "noteName": "CLAUDE",
+            "notePath": "CLAUDE.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:28:23.334Z"
+    },
+    {
+      "id": "fc6d27ff-78fc-490f-81a8-0f0b6c1617f9",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "agent_thought",
+          "text": ""
+        }
+      ],
+      "timestamp": "2026-04-26T09:28:26.331Z"
+    },
+    {
+      "id": "a407e9d8-35ce-42e0-a166-fd19357bba20",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01HGDD1w7yj3AVewq2R71fqr",
+          "title": "ls -la /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls -la /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/",
+            "description": "List Computer Vision PDFs"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:28:26.739Z"
+    },
+    {
+      "id": "195e5032-6292-46e9-b0c5-eb3f58f98183",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_018BMeLq7Z2Ro4AdccmamvZK",
+          "title": "ls -la /Users/mattporteous/Obsidian/School/20-Concepts/ 2>/dev/null | head -50",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls -la /Users/mattporteous/Obsidian/School/20-Concepts/ 2>/dev/null | head -50",
+            "description": "List existing concepts"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:28:27.576Z"
+    },
+    {
+      "id": "2dbf73a9-dca6-4053-a47e-80aa33813b0b",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01Af3K4TNtqdqXkA959dphMr",
+          "title": "ls -la /Users/mattporteous/Obsidian/School/10-Courses/ 2>/dev/null",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls -la /Users/mattporteous/Obsidian/School/10-Courses/ 2>/dev/null",
+            "description": "List courses"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:28:28.798Z"
+    },
+    {
+      "id": "1a9c7362-229f-49a3-a93c-bcce1b17e2a3",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_014cY4rPhrC9nxis3i5jU7vH",
+          "title": "ls -la /Users/mattporteous/Obsidian/School/40-Reviews/ 2>/dev/null",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls -la /Users/mattporteous/Obsidian/School/40-Reviews/ 2>/dev/null",
+            "description": "List reviews"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:28:29.049Z"
+    },
+    {
+      "id": "9a97b7e3-70f0-4396-bfd5-7474c1d6a174",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01JQVsPNJdttTjneuAfocz9d",
+          "title": "ls -la /Users/mattporteous/Obsidian/School/10-Courses/Computer-Vision/ /Users/mattporteous/Obsidian/School/40-Reviews/Computer-Vision/ 2>/dev/null",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls -la /Users/mattporteous/Obsidian/School/10-Courses/Computer-Vision/ /Users/mattporteous/Obsidian/School/40-Reviews/Computer-Vision/ 2>/dev/null",
+            "description": "List CV course and reviews"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:28:31.149Z"
+    },
+    {
+      "id": "d243f61a-d5fa-492c-bac8-82fe365717f9",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01FV3bRvMtwc7pxj4PcpJhTF",
+          "title": "ls /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/ | head -20; ls /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/ 2>/dev/null",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/ | head -20; ls /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/ 2>/dev/null",
+            "description": "Check sources structure"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "Starting with lecture 10. Reading the PDF now."
+        }
+      ],
+      "timestamp": "2026-04-26T09:28:32.359Z"
+    },
+    {
+      "id": "de280584-fe39-4b2b-916a-86e45843f64d",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01JWgfMfx3DmqWdSXJNdNe8y",
+          "title": "Read 30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf",
+            "pages": "1-20"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:28:35.968Z"
+    },
+    {
+      "id": "86a2e240-a4c6-4ee0-8fd0-d43491d23c16",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01Spi1guWsMwMsb3WUpfX6PR",
+          "title": "mdls -name kMDItemNumberOfPages /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf 2>/dev/null",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "mdls -name kMDItemNumberOfPages /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf 2>/dev/null",
+            "description": "Get page count of lecture 10 PDF"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:28:43.982Z"
+    },
+    {
+      "id": "386e04b1-2964-408e-878b-0b309aa4b7d0",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01J2ks92V8hYv1TWrZaU2zjw",
+          "title": "Read 30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf",
+            "pages": "21-40"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:28:51.322Z"
+    },
+    {
+      "id": "5cbdd966-13cb-4b34-9fec-7a016dc8ca5f",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_013msABjrfRwpZQk7LeiLDKb",
+          "title": "ToolSearch",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "query": "select:TodoWrite",
+            "max_results": 1
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:28:59.081Z"
+    },
+    {
+      "id": "2a8b3a5a-a959-4020-8ea7-44eacbeaafdf",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01UQviS6mwQeaYkQ38gp2W4r",
+          "title": "Read 30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf",
+            "pages": "41-49"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "I have lecture 10 fully. Setting up tracking and starting the build.**Lecture 10 plan — Fourier transform 2**\n- Lecture note: `10-Courses/Computer-Vision/lectures/lecture-10-fourier-transform-2.md`\n- Concepts (new in `20-Concepts/`):\n  - `fourier-transform-2d.md`\n  - `fft-shift.md`\n  - `low-pass-filter.md`\n  - `high-pass-filter.md`\n  - `band-pass-filter.md`\n  - `butterworth-filter.md`\n  - `convolution-theorem.md`\n  - `fourier-shift-theorem.md`\n  - `fourier-resizing.md`\n  - `deconvolution.md`\n  - `wiener-filter.md`\n  - `nyquist-theorem.md`\n  - `aliasing.md`\n  - `point-spread-function.md`\n- Flashcards: `40-Reviews/Computer-Vision/lecture-10.md` — ~22 cards\n\nWriting now."
+        },
+        {
+          "type": "plan",
+          "entries": [
+            {
+              "content": "Process lecture 10: Fourier transform 2",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Process lecture 11: Feature detectors",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Process lecture 12: Feature detectors 2",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Process lecture 13: Binary object characterization",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Process lecture 14: Intro to PyTorch DL",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Process lecture 15: Intro to DL",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Process lecture 16: CNNs",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Process lecture 17: Advanced architectures",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Process lecture 18: Segmentation and object detection",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Process lecture 19: Self-supervised and contrastive learning",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Process lecture 20: Autoencoders",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Final summary table",
+              "priority": "medium",
+              "status": "pending"
+            }
+          ]
+        }
+      ],
+      "timestamp": "2026-04-26T09:28:59.899Z"
+    },
+    {
+      "id": "0796a2d2-3ab5-4199-bf92-0545610098e1",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_015rWGiSNwUiQ4j7PucZtabh",
+          "title": "Write 10-Courses/Computer-Vision/lectures/lecture-10-fourier-transform-2.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/10-Courses/Computer-Vision/lectures/lecture-10-fourier-transform-2.md",
+              "newText": "---\ntags: [lecture]\ncourse: Computer-Vision\nsource: 10_fourier_transform2.pdf\nlecture: 10\ncreated: 2026-04-26\n---\n\n# Lecture 10 — Fourier transform 2\n\n## Overview\nContinues 2D Fourier analysis of images. Covers practical applications: low-/high-/band-pass filtering, the convolution theorem (and why FFT-based convolution is faster for large kernels), shifting and resizing in Fourier space, deconvolution (and why it is ill-posed), Wiener regularization, and sampling theory ending at the Nyquist criterion.\n\n## Key concepts\n- [[fourier-transform-2d]] — 2D forward and inverse transform; one Fourier-space pixel encodes a global plane wave.\n- [[fft-shift]] — reorders FFT output so frequency 0 is centered.\n- [[low-pass-filter]], [[high-pass-filter]], [[band-pass-filter]] — circular masks in Fourier space; soft masks (raised cosine, [[butterworth-filter]]) avoid ringing.\n- [[convolution-theorem]] — multiplication in Fourier ↔ convolution in space; gives O(n log n) convolution.\n- [[fourier-shift-theorem]] — translation in space ↔ phase ramp in frequency; supports subpixel shifts without interpolation.\n- [[fourier-resizing]] — crop spectrum to downsample, zero-pad to upsample.\n- [[deconvolution]] — inverse of convolution; ill-posed because of noise and zeros in the PSF spectrum.\n- [[point-spread-function]] — kernel `h` in `g = f*h + η`.\n- [[wiener-filter]] — regularized deconvolution that minimizes MSE.\n- [[nyquist-theorem]], [[aliasing]] — must sample at ≥ 2·u_max to avoid spectral overlap.\n\n## Equations\n- 2D FT: $\\mathcal{F}(g(x,y))=\\hat g(f_x,f_y)=\\int\\int g(x,y) e^{-2\\pi i(xf_x+yf_y)}\\,dx\\,dy$\n- Convolution theorem: $h=f*g \\iff \\hat h=\\hat f\\cdot\\hat g$ ; $h=f\\cdot g \\iff \\hat h=\\hat f*\\hat g$\n- Shift theorem: $I(x-x_0,y-y_0)\\iff \\hat I(u,v)\\,e^{-2\\pi i(ux_0+vy_0)/L}$\n- Imaging model: $g=f*h+\\eta\\Rightarrow \\hat g=\\hat f\\cdot\\hat h+\\hat\\eta$\n- Naïve inverse: $\\hat f=\\hat g/\\hat h$\n- Wiener: $W(u,v)=\\dfrac{\\hat h^*(u,v)}{|\\hat h(u,v)|^2+\\lambda(u,v)}$, $\\lambda=1/\\text{SNR}$\n- Nyquist: $u_{max}\\le 1/(2x_0)$ ; sample period must be ≤ half the smallest feature.\n- FFT convolution complexity: O(n log n) vs O(nk) for spatial.\n\n## Diagrams (described)\n- Concentric rings of magnitude spectrum: low frequencies near center (overall shape), outer rings high frequencies (edges, noise).\n- Spectrum of natural images decays roughly as $1/\\sqrt{f_x^2+f_y^2}$ — visualized via log(A+1).\n- Sampling: convolving signal with an impulse train (period $x_0$) replicates its spectrum at spacing $1/x_0$; if replicas overlap → aliasing.\n\n## Open questions\n- How are the heuristics A/B/C for $\\lambda(u,v)$ chosen in practice when the signal/noise spectra are unknown?\n- Trade-off between Butterworth order n and ringing artifacts.\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/10-Courses/Computer-Vision/lectures/lecture-10-fourier-transform-2.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/10-Courses/Computer-Vision/lectures/lecture-10-fourier-transform-2.md",
+            "content": "---\ntags: [lecture]\ncourse: Computer-Vision\nsource: 10_fourier_transform2.pdf\nlecture: 10\ncreated: 2026-04-26\n---\n\n# Lecture 10 — Fourier transform 2\n\n## Overview\nContinues 2D Fourier analysis of images. Covers practical applications: low-/high-/band-pass filtering, the convolution theorem (and why FFT-based convolution is faster for large kernels), shifting and resizing in Fourier space, deconvolution (and why it is ill-posed), Wiener regularization, and sampling theory ending at the Nyquist criterion.\n\n## Key concepts\n- [[fourier-transform-2d]] — 2D forward and inverse transform; one Fourier-space pixel encodes a global plane wave.\n- [[fft-shift]] — reorders FFT output so frequency 0 is centered.\n- [[low-pass-filter]], [[high-pass-filter]], [[band-pass-filter]] — circular masks in Fourier space; soft masks (raised cosine, [[butterworth-filter]]) avoid ringing.\n- [[convolution-theorem]] — multiplication in Fourier ↔ convolution in space; gives O(n log n) convolution.\n- [[fourier-shift-theorem]] — translation in space ↔ phase ramp in frequency; supports subpixel shifts without interpolation.\n- [[fourier-resizing]] — crop spectrum to downsample, zero-pad to upsample.\n- [[deconvolution]] — inverse of convolution; ill-posed because of noise and zeros in the PSF spectrum.\n- [[point-spread-function]] — kernel `h` in `g = f*h + η`.\n- [[wiener-filter]] — regularized deconvolution that minimizes MSE.\n- [[nyquist-theorem]], [[aliasing]] — must sample at ≥ 2·u_max to avoid spectral overlap.\n\n## Equations\n- 2D FT: $\\mathcal{F}(g(x,y))=\\hat g(f_x,f_y)=\\int\\int g(x,y) e^{-2\\pi i(xf_x+yf_y)}\\,dx\\,dy$\n- Convolution theorem: $h=f*g \\iff \\hat h=\\hat f\\cdot\\hat g$ ; $h=f\\cdot g \\iff \\hat h=\\hat f*\\hat g$\n- Shift theorem: $I(x-x_0,y-y_0)\\iff \\hat I(u,v)\\,e^{-2\\pi i(ux_0+vy_0)/L}$\n- Imaging model: $g=f*h+\\eta\\Rightarrow \\hat g=\\hat f\\cdot\\hat h+\\hat\\eta$\n- Naïve inverse: $\\hat f=\\hat g/\\hat h$\n- Wiener: $W(u,v)=\\dfrac{\\hat h^*(u,v)}{|\\hat h(u,v)|^2+\\lambda(u,v)}$, $\\lambda=1/\\text{SNR}$\n- Nyquist: $u_{max}\\le 1/(2x_0)$ ; sample period must be ≤ half the smallest feature.\n- FFT convolution complexity: O(n log n) vs O(nk) for spatial.\n\n## Diagrams (described)\n- Concentric rings of magnitude spectrum: low frequencies near center (overall shape), outer rings high frequencies (edges, noise).\n- Spectrum of natural images decays roughly as $1/\\sqrt{f_x^2+f_y^2}$ — visualized via log(A+1).\n- Sampling: convolving signal with an impulse train (period $x_0$) replicates its spectrum at spacing $1/x_0$; if replicas overlap → aliasing.\n\n## Open questions\n- How are the heuristics A/B/C for $\\lambda(u,v)$ chosen in practice when the signal/noise spectra are unknown?\n- Trade-off between Butterworth order n and ringing artifacts.\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:29:29.111Z"
+    },
+    {
+      "id": "14937c07-cb70-4a36-8b41-bda92164da40",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01CVB5SV2qdKU4Zm4SdhpNWW",
+          "title": "Write 20-Concepts/fourier-transform-2d.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/fourier-transform-2d.md",
+              "newText": "---\nname: 2D Fourier transform\ndescription: Definition and properties of the 2D Fourier transform applied to images\ntype: concept\ntags: [concept, fourier, signal-processing]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# 2D Fourier transform\n\nDecomposes an image $g(x,y)$ into a sum of 2D plane waves $e^{2\\pi i(xf_x+yf_y)}$.\n\n## Definition\n$$\\hat g(f_x,f_y)=\\int_{-\\infty}^{\\infty}\\int_{-\\infty}^{\\infty} g(x,y)\\,e^{-2\\pi i(xf_x+yf_y)}\\,dx\\,dy$$\n$$g(x,y)=\\int\\int \\hat g(f_x,f_y)\\,e^{2\\pi i(xf_x+yf_y)}\\,df_x\\,df_y$$\n\n## Properties\n- One pixel in Fourier space contains information about ALL pixels in real space (and vice versa).\n- Each Fourier-space pixel is one **complex number** — magnitude + phase. Magnitude is what we usually plot.\n- Frequencies with the same $|f|=\\sqrt{f_x^2+f_y^2}$ form **concentric rings**.\n  - Center → low frequencies (overall shape, slow variations).\n  - Outer rings → high frequencies (edges, fine detail, noise).\n- Natural images concentrate energy at low frequencies; magnitude decays roughly as $1/\\sqrt{f_x^2+f_y^2}$. Use $\\log(A+1)$ to visualize.\n\n## Discrete frequency layout\nFor N=7 the raw FFT frequencies are $[0,1/7,2/7,3/7,-3/7,-2/7,-1/7]$. After [[fft-shift]] they are reordered $[-3/7,...,0,...,3/7]$.\n\n## Related\n- [[convolution-theorem]] — multiplication in Fourier = convolution in space.\n- [[fourier-shift-theorem]] — translation in space = phase ramp in Fourier.\n- [[low-pass-filter]], [[high-pass-filter]], [[band-pass-filter]] — applications.\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/fourier-transform-2d.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/fourier-transform-2d.md",
+            "content": "---\nname: 2D Fourier transform\ndescription: Definition and properties of the 2D Fourier transform applied to images\ntype: concept\ntags: [concept, fourier, signal-processing]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# 2D Fourier transform\n\nDecomposes an image $g(x,y)$ into a sum of 2D plane waves $e^{2\\pi i(xf_x+yf_y)}$.\n\n## Definition\n$$\\hat g(f_x,f_y)=\\int_{-\\infty}^{\\infty}\\int_{-\\infty}^{\\infty} g(x,y)\\,e^{-2\\pi i(xf_x+yf_y)}\\,dx\\,dy$$\n$$g(x,y)=\\int\\int \\hat g(f_x,f_y)\\,e^{2\\pi i(xf_x+yf_y)}\\,df_x\\,df_y$$\n\n## Properties\n- One pixel in Fourier space contains information about ALL pixels in real space (and vice versa).\n- Each Fourier-space pixel is one **complex number** — magnitude + phase. Magnitude is what we usually plot.\n- Frequencies with the same $|f|=\\sqrt{f_x^2+f_y^2}$ form **concentric rings**.\n  - Center → low frequencies (overall shape, slow variations).\n  - Outer rings → high frequencies (edges, fine detail, noise).\n- Natural images concentrate energy at low frequencies; magnitude decays roughly as $1/\\sqrt{f_x^2+f_y^2}$. Use $\\log(A+1)$ to visualize.\n\n## Discrete frequency layout\nFor N=7 the raw FFT frequencies are $[0,1/7,2/7,3/7,-3/7,-2/7,-1/7]$. After [[fft-shift]] they are reordered $[-3/7,...,0,...,3/7]$.\n\n## Related\n- [[convolution-theorem]] — multiplication in Fourier = convolution in space.\n- [[fourier-shift-theorem]] — translation in space = phase ramp in Fourier.\n- [[low-pass-filter]], [[high-pass-filter]], [[band-pass-filter]] — applications.\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:29:50.171Z"
+    },
+    {
+      "id": "51c6832a-803d-4298-8d32-2762bc457b0e",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01P9JsgrEkmqGDzEcAfKa2XK",
+          "title": "Write 20-Concepts/fft-shift.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/fft-shift.md",
+              "newText": "---\nname: FFT shift\ndescription: Reorders FFT output so the zero frequency is centered\ntype: concept\ntags: [concept, fourier, dsp]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# FFT shift\n\nAfter a discrete FFT, frequency bins come out as $[0, 1/N, 2/N, ..., -2/N, -1/N]$ — zero at the start, negatives wrapped to the end. `fftshift` reorders them to be monotonically increasing from negative to positive, with zero frequency in the middle.\n\n## Why\nVisualization: low frequencies should appear at the center of the magnitude spectrum so concentric-ring structure is obvious.\n\n## Note on shifting images\nShifting an image in real space (see [[fourier-shift-theorem]]) does **not** require `fftshift` — `fftshift` is purely a display/coordinate convenience.\n\n## Related\n- [[fourier-transform-2d]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/fft-shift.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/fft-shift.md",
+            "content": "---\nname: FFT shift\ndescription: Reorders FFT output so the zero frequency is centered\ntype: concept\ntags: [concept, fourier, dsp]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# FFT shift\n\nAfter a discrete FFT, frequency bins come out as $[0, 1/N, 2/N, ..., -2/N, -1/N]$ — zero at the start, negatives wrapped to the end. `fftshift` reorders them to be monotonically increasing from negative to positive, with zero frequency in the middle.\n\n## Why\nVisualization: low frequencies should appear at the center of the magnitude spectrum so concentric-ring structure is obvious.\n\n## Note on shifting images\nShifting an image in real space (see [[fourier-shift-theorem]]) does **not** require `fftshift` — `fftshift` is purely a display/coordinate convenience.\n\n## Related\n- [[fourier-transform-2d]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:29:59.324Z"
+    },
+    {
+      "id": "5cc45bf0-323f-45fe-9872-babd472bde3c",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01L6gfAkQHsbh8rB2eqDHCVi",
+          "title": "Write 20-Concepts/low-pass-filter.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/low-pass-filter.md",
+              "newText": "---\nname: Low-pass filter\ndescription: Filter that keeps low frequencies, suppresses high frequencies — produces smoothing/blurring\ntype: concept\ntags: [concept, filtering, fourier]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Low-pass filter\n\nKeeps **low** frequencies, removes **high** frequencies.\n\n## How\nMultiply the [[fourier-transform-2d]] of the image by a mask that is 1 in a central disk and 0 outside, then inverse-FFT. This is one application of the [[convolution-theorem]] — multiplication in Fourier is convolution in space.\n\n## Soft vs hard masks\nA binary disk mask creates ringing artifacts after inverse FFT (Gibbs phenomenon). To avoid this, use a **soft** mask:\n- Raised cosine\n- Windowed sinc\n- [[butterworth-filter]] — $H(u,v)=1/(1+(D/D_0)^{2n})$\n\n## Effects\n- Smoothing\n- Blurring\n- Noise removal\n\n## Choosing radius\nTo remove SMALL features (noise, grain) of size $s$, use cutoff radius $\\sim 1/s$ in low-pass mode. See also [[high-pass-filter]] for removing large features.\n\n## Related\n- [[high-pass-filter]], [[band-pass-filter]]\n- [[fourier-transform-2d]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/low-pass-filter.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/low-pass-filter.md",
+            "content": "---\nname: Low-pass filter\ndescription: Filter that keeps low frequencies, suppresses high frequencies — produces smoothing/blurring\ntype: concept\ntags: [concept, filtering, fourier]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Low-pass filter\n\nKeeps **low** frequencies, removes **high** frequencies.\n\n## How\nMultiply the [[fourier-transform-2d]] of the image by a mask that is 1 in a central disk and 0 outside, then inverse-FFT. This is one application of the [[convolution-theorem]] — multiplication in Fourier is convolution in space.\n\n## Soft vs hard masks\nA binary disk mask creates ringing artifacts after inverse FFT (Gibbs phenomenon). To avoid this, use a **soft** mask:\n- Raised cosine\n- Windowed sinc\n- [[butterworth-filter]] — $H(u,v)=1/(1+(D/D_0)^{2n})$\n\n## Effects\n- Smoothing\n- Blurring\n- Noise removal\n\n## Choosing radius\nTo remove SMALL features (noise, grain) of size $s$, use cutoff radius $\\sim 1/s$ in low-pass mode. See also [[high-pass-filter]] for removing large features.\n\n## Related\n- [[high-pass-filter]], [[band-pass-filter]]\n- [[fourier-transform-2d]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:30:04.722Z"
+    },
+    {
+      "id": "a3a278e8-a96f-40b7-832b-86312f68ad21",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01QMgwDTewQoxGLzj3JPfyWh",
+          "title": "Write 20-Concepts/high-pass-filter.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/high-pass-filter.md",
+              "newText": "---\nname: High-pass filter\ndescription: Filter that keeps high frequencies — emphasizes edges and removes slow variations\ntype: concept\ntags: [concept, filtering, fourier]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# High-pass filter\n\nKeeps **high** frequencies, removes **low** frequencies.\n\n## How\nMultiply the [[fourier-transform-2d]] of the image by a mask that is 0 in a central disk and 1 outside.\n\n## Effects\n- Emphasizes edges and fine detail.\n- Removes slow, smooth variations: gradual illumination changes, large uniform regions.\n- Result often looks like an edge map or sharpened image.\n\n## Practical use\n- Edge detection (often combined with other operations).\n- Sharpening filter: `output = original + α · high_pass(original)`.\n\n## Choosing radius\nTo remove LARGE features (background gradients, slow shadows) of size $s$, use mask radius $\\sim 1/s$ in high-pass mode.\n\n## Related\n- [[low-pass-filter]], [[band-pass-filter]], [[butterworth-filter]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/high-pass-filter.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/high-pass-filter.md",
+            "content": "---\nname: High-pass filter\ndescription: Filter that keeps high frequencies — emphasizes edges and removes slow variations\ntype: concept\ntags: [concept, filtering, fourier]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# High-pass filter\n\nKeeps **high** frequencies, removes **low** frequencies.\n\n## How\nMultiply the [[fourier-transform-2d]] of the image by a mask that is 0 in a central disk and 1 outside.\n\n## Effects\n- Emphasizes edges and fine detail.\n- Removes slow, smooth variations: gradual illumination changes, large uniform regions.\n- Result often looks like an edge map or sharpened image.\n\n## Practical use\n- Edge detection (often combined with other operations).\n- Sharpening filter: `output = original + α · high_pass(original)`.\n\n## Choosing radius\nTo remove LARGE features (background gradients, slow shadows) of size $s$, use mask radius $\\sim 1/s$ in high-pass mode.\n\n## Related\n- [[low-pass-filter]], [[band-pass-filter]], [[butterworth-filter]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:30:11.263Z"
+    },
+    {
+      "id": "d0924ede-5768-4149-83a4-d3d3d1e84469",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01VMxxnBgeoiswSTYdLX7ewJ",
+          "title": "Write 20-Concepts/band-pass-filter.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/band-pass-filter.md",
+              "newText": "---\nname: Band-pass filter\ndescription: Filter that keeps a frequency annulus — emphasizes structures at a specific scale\ntype: concept\ntags: [concept, filtering, fourier]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Band-pass filter\n\nKeeps frequencies in a ring: $f_{low} < |k| < f_{high}$.\n\n## How\nMultiply the [[fourier-transform-2d]] of the image by a donut-shaped mask: 0 at center, 1 in the middle annulus, 0 at high frequencies. Soft masks ([[butterworth-filter]] band-pass) reduce ringing.\n\n## Effects\nEmphasizes structures at a particular **scale** — not too coarse, not too fine.\n\n## Practical use\n- Texture analysis\n- Feature detection\n\n## Related\n- [[low-pass-filter]], [[high-pass-filter]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/band-pass-filter.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/band-pass-filter.md",
+            "content": "---\nname: Band-pass filter\ndescription: Filter that keeps a frequency annulus — emphasizes structures at a specific scale\ntype: concept\ntags: [concept, filtering, fourier]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Band-pass filter\n\nKeeps frequencies in a ring: $f_{low} < |k| < f_{high}$.\n\n## How\nMultiply the [[fourier-transform-2d]] of the image by a donut-shaped mask: 0 at center, 1 in the middle annulus, 0 at high frequencies. Soft masks ([[butterworth-filter]] band-pass) reduce ringing.\n\n## Effects\nEmphasizes structures at a particular **scale** — not too coarse, not too fine.\n\n## Practical use\n- Texture analysis\n- Feature detection\n\n## Related\n- [[low-pass-filter]], [[high-pass-filter]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:30:16.261Z"
+    },
+    {
+      "id": "98519bb8-9289-49c8-983a-2ea436ee0b45",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01JK5nvU2vU7FF8SV4BRRRTr",
+          "title": "Write 20-Concepts/butterworth-filter.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/butterworth-filter.md",
+              "newText": "---\nname: Butterworth filter\ndescription: Smooth-rolloff frequency-domain filter; soft alternative to a hard circular mask\ntype: concept\ntags: [concept, filtering, fourier]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Butterworth filter\n\nA smooth, parameterized frequency-domain filter with no sharp cutoff, so it doesn't introduce ringing the way a binary mask does.\n\n## Formula (low-pass form)\n$$H(u,v)=\\frac{1}{1+\\left(\\dfrac{D(u,v)}{D_0}\\right)^{2n}}$$\n\n- $D(u,v)$ = distance from origin in frequency space.\n- $D_0$ = cutoff frequency.\n- $n$ = order; higher $n$ → sharper rolloff (closer to ideal mask, more ringing risk).\n\n## Why\nA hard circular mask in Fourier space corresponds to convolving with a sinc in real space → visible ringing rings. Butterworth replaces the sharp boundary with a smooth rolloff; the rings disappear.\n\n## Variants\n- High-pass: $1-H_{lp}$.\n- Band-pass: combine LP and HP.\n\n## Related\n- [[low-pass-filter]], [[high-pass-filter]], [[band-pass-filter]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/butterworth-filter.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/butterworth-filter.md",
+            "content": "---\nname: Butterworth filter\ndescription: Smooth-rolloff frequency-domain filter; soft alternative to a hard circular mask\ntype: concept\ntags: [concept, filtering, fourier]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Butterworth filter\n\nA smooth, parameterized frequency-domain filter with no sharp cutoff, so it doesn't introduce ringing the way a binary mask does.\n\n## Formula (low-pass form)\n$$H(u,v)=\\frac{1}{1+\\left(\\dfrac{D(u,v)}{D_0}\\right)^{2n}}$$\n\n- $D(u,v)$ = distance from origin in frequency space.\n- $D_0$ = cutoff frequency.\n- $n$ = order; higher $n$ → sharper rolloff (closer to ideal mask, more ringing risk).\n\n## Why\nA hard circular mask in Fourier space corresponds to convolving with a sinc in real space → visible ringing rings. Butterworth replaces the sharp boundary with a smooth rolloff; the rings disappear.\n\n## Variants\n- High-pass: $1-H_{lp}$.\n- Band-pass: combine LP and HP.\n\n## Related\n- [[low-pass-filter]], [[high-pass-filter]], [[band-pass-filter]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:30:20.466Z"
+    },
+    {
+      "id": "c90a4e03-48bb-4e40-8a44-5a3860b2abc2",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01Rthy2bw1YzmaAaEh7t4vD1",
+          "title": "Write 20-Concepts/convolution-theorem.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/convolution-theorem.md",
+              "newText": "---\nname: Convolution theorem\ndescription: Convolution in space equals multiplication in Fourier domain (and vice versa)\ntype: concept\ntags: [concept, fourier, convolution]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Convolution theorem\n\n$$h=f*g \\iff \\hat h=\\hat f\\cdot\\hat g$$\n$$h=f\\cdot g \\iff \\hat h=\\hat f * \\hat g$$\n\nConvolution in one domain is pointwise multiplication in the other.\n\n## Why it's useful\nFrequency-domain convolution is **fast**:\n1. FFT of input — $O(n\\log n)$\n2. FFT of kernel — $O(k\\log k)$, $k\\le n$\n3. Pointwise multiply — $O(n)$\n4. Inverse FFT — $O(n\\log n)$\n\nTotal: **$O(n\\log n)$** vs. spatial convolution's $O(nk)$. Wins for large kernels; loses for tiny kernels.\n\n## Connects\n- Frequency-domain filters ([[low-pass-filter]], [[high-pass-filter]], [[band-pass-filter]]) are valid filters precisely because multiplying in Fourier = convolving in space.\n- Underlies [[deconvolution]] and the [[wiener-filter]].\n\n## Sketch of derivation\nSubstitute $u=x-\\tau$ in $\\hat h(\\zeta)=\\int\\int f(\\tau)g(x-\\tau)e^{-2\\pi i\\zeta x}\\,dx\\,d\\tau$, separate the exponential, and factor:\n$$\\hat h(\\zeta)=\\underbrace{\\int f(\\tau)e^{-2\\pi i\\zeta\\tau}d\\tau}_{\\hat f(\\zeta)}\\cdot \\underbrace{\\int g(u)e^{-2\\pi i\\zeta u}du}_{\\hat g(\\zeta)}$$\n\n## Related\n- [[fourier-transform-2d]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/convolution-theorem.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/convolution-theorem.md",
+            "content": "---\nname: Convolution theorem\ndescription: Convolution in space equals multiplication in Fourier domain (and vice versa)\ntype: concept\ntags: [concept, fourier, convolution]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Convolution theorem\n\n$$h=f*g \\iff \\hat h=\\hat f\\cdot\\hat g$$\n$$h=f\\cdot g \\iff \\hat h=\\hat f * \\hat g$$\n\nConvolution in one domain is pointwise multiplication in the other.\n\n## Why it's useful\nFrequency-domain convolution is **fast**:\n1. FFT of input — $O(n\\log n)$\n2. FFT of kernel — $O(k\\log k)$, $k\\le n$\n3. Pointwise multiply — $O(n)$\n4. Inverse FFT — $O(n\\log n)$\n\nTotal: **$O(n\\log n)$** vs. spatial convolution's $O(nk)$. Wins for large kernels; loses for tiny kernels.\n\n## Connects\n- Frequency-domain filters ([[low-pass-filter]], [[high-pass-filter]], [[band-pass-filter]]) are valid filters precisely because multiplying in Fourier = convolving in space.\n- Underlies [[deconvolution]] and the [[wiener-filter]].\n\n## Sketch of derivation\nSubstitute $u=x-\\tau$ in $\\hat h(\\zeta)=\\int\\int f(\\tau)g(x-\\tau)e^{-2\\pi i\\zeta x}\\,dx\\,d\\tau$, separate the exponential, and factor:\n$$\\hat h(\\zeta)=\\underbrace{\\int f(\\tau)e^{-2\\pi i\\zeta\\tau}d\\tau}_{\\hat f(\\zeta)}\\cdot \\underbrace{\\int g(u)e^{-2\\pi i\\zeta u}du}_{\\hat g(\\zeta)}$$\n\n## Related\n- [[fourier-transform-2d]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:30:26.513Z"
+    },
+    {
+      "id": "716e90fd-67e7-44e0-ab94-0cd693bb4c3a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01LK847bLvibVFKrqYrSnayW",
+          "title": "Write 20-Concepts/fourier-shift-theorem.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/fourier-shift-theorem.md",
+              "newText": "---\nname: Fourier shift theorem\ndescription: Translation in space corresponds to a phase ramp in the Fourier domain\ntype: concept\ntags: [concept, fourier]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Fourier shift theorem\n\n$$I(x-x_0,\\,y-y_0)\\iff \\hat I(u,v)\\,e^{-2\\pi i\\left(\\frac{ux_0}{L}+\\frac{vy_0}{L}\\right)}$$\n\nTranslating an image in space is equivalent to **multiplying its spectrum by a phase ramp**. No magnitude change.\n\n## Why care\n- Already in Fourier space? Shifting becomes a single elementwise multiplication — cheap.\n- Subpixel shifts work natively: $x_0,y_0$ can be floats. No interpolation needed.\n\n## Recipe\n```python\nF = np.fft.fft2(image)\nu = np.fft.fftfreq(N); v = np.fft.fftfreq(M)\nU, V = np.meshgrid(u, v)\nphase = np.exp(-2j*np.pi*(U*shift_x + V*shift_y))\nshifted = np.real(np.fft.ifft2(F * phase))\n```\n`fftshift` is **not** needed for this — it's a coordinate-display convenience, not an operation.\n\n## Related\n- [[fourier-transform-2d]], [[convolution-theorem]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/fourier-shift-theorem.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/fourier-shift-theorem.md",
+            "content": "---\nname: Fourier shift theorem\ndescription: Translation in space corresponds to a phase ramp in the Fourier domain\ntype: concept\ntags: [concept, fourier]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Fourier shift theorem\n\n$$I(x-x_0,\\,y-y_0)\\iff \\hat I(u,v)\\,e^{-2\\pi i\\left(\\frac{ux_0}{L}+\\frac{vy_0}{L}\\right)}$$\n\nTranslating an image in space is equivalent to **multiplying its spectrum by a phase ramp**. No magnitude change.\n\n## Why care\n- Already in Fourier space? Shifting becomes a single elementwise multiplication — cheap.\n- Subpixel shifts work natively: $x_0,y_0$ can be floats. No interpolation needed.\n\n## Recipe\n```python\nF = np.fft.fft2(image)\nu = np.fft.fftfreq(N); v = np.fft.fftfreq(M)\nU, V = np.meshgrid(u, v)\nphase = np.exp(-2j*np.pi*(U*shift_x + V*shift_y))\nshifted = np.real(np.fft.ifft2(F * phase))\n```\n`fftshift` is **not** needed for this — it's a coordinate-display convenience, not an operation.\n\n## Related\n- [[fourier-transform-2d]], [[convolution-theorem]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:30:34.262Z"
+    },
+    {
+      "id": "362bd576-c0b8-4950-8cfa-65dadc079de1",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01QN47B8QhVVvNJriSXGSGL2",
+          "title": "Write 20-Concepts/fourier-resizing.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/fourier-resizing.md",
+              "newText": "---\nname: Image resizing in Fourier space\ndescription: Crop the spectrum to downsample, zero-pad to upsample\ntype: concept\ntags: [concept, fourier, resampling]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Image resizing in Fourier space\n\nResize directly in the frequency domain by **cropping or zero-padding** the spectrum.\n\n## Downsampling ($L\\to L'$, $L'<L$)\nKeep only the central $L'\\times L'$ frequencies:\n$$\\hat I_{new}(u,v)=\\begin{cases}\\hat I(u,v) & |u|,|v|\\le L'/2 \\\\ 0 & \\text{otherwise}\\end{cases}$$\nInverse FFT to size $L'\\times L'$. Removes high frequencies → built-in anti-[[aliasing]].\n\n## Upsampling ($L\\to L'$, $L'>L$)\nZero-pad the spectrum out to size $L'\\times L'$, then inverse FFT. Equivalent to ideal sinc interpolation.\n\n## When to use\n- Already in Fourier space.\n- Frequencies matter (scientific imaging).\n- To avoid aliasing during downsampling.\n- Theoretically better quality than spatial interpolation, especially for upsampling.\n\n## Related\n- [[fourier-transform-2d]], [[nyquist-theorem]], [[aliasing]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/fourier-resizing.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/fourier-resizing.md",
+            "content": "---\nname: Image resizing in Fourier space\ndescription: Crop the spectrum to downsample, zero-pad to upsample\ntype: concept\ntags: [concept, fourier, resampling]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Image resizing in Fourier space\n\nResize directly in the frequency domain by **cropping or zero-padding** the spectrum.\n\n## Downsampling ($L\\to L'$, $L'<L$)\nKeep only the central $L'\\times L'$ frequencies:\n$$\\hat I_{new}(u,v)=\\begin{cases}\\hat I(u,v) & |u|,|v|\\le L'/2 \\\\ 0 & \\text{otherwise}\\end{cases}$$\nInverse FFT to size $L'\\times L'$. Removes high frequencies → built-in anti-[[aliasing]].\n\n## Upsampling ($L\\to L'$, $L'>L$)\nZero-pad the spectrum out to size $L'\\times L'$, then inverse FFT. Equivalent to ideal sinc interpolation.\n\n## When to use\n- Already in Fourier space.\n- Frequencies matter (scientific imaging).\n- To avoid aliasing during downsampling.\n- Theoretically better quality than spatial interpolation, especially for upsampling.\n\n## Related\n- [[fourier-transform-2d]], [[nyquist-theorem]], [[aliasing]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:30:40.022Z"
+    },
+    {
+      "id": "c737a927-9022-4754-965b-1a31d7eb94bd",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01NwKPFfG8ZNBqAcHPQKv9z4",
+          "title": "Write 20-Concepts/deconvolution.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/deconvolution.md",
+              "newText": "---\nname: Deconvolution\ndescription: Inverse of convolution — recovering the true image from a blurred observation\ntype: concept\ntags: [concept, fourier, inverse-problem]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Deconvolution\n\nRecover $f$ from $g=f*h+\\eta$ where $h$ is the [[point-spread-function]] and $\\eta$ is noise.\n\n## Imaging model\n- $f$ — true image\n- $h$ — PSF (blur kernel of the imaging system)\n- $g$ — observed (blurred) image\n- $\\eta$ — additive noise\n\nIn Fourier:\n$$\\hat g=\\hat f\\cdot\\hat h+\\hat\\eta$$\n\n## Naïve inverse\n$$\\hat f=\\hat g/\\hat h$$\nTwo fundamental problems:\n1. **Ignores noise.**\n2. Wherever $\\hat h(u,v)\\approx 0$, the small denominator **massively amplifies noise**.\n\nSo deconvolution is an **ill-posed inverse problem**. Naïve inversion produces ringing and noise blowup.\n\n## Solution\nRegularize — see [[wiener-filter]].\n\n## Why Fourier\nSpatial deconvolution is hard; Fourier turns the convolution into a pointwise division (modulo regularization).\n\n## Related\n- [[convolution-theorem]], [[point-spread-function]], [[wiener-filter]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/deconvolution.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/deconvolution.md",
+            "content": "---\nname: Deconvolution\ndescription: Inverse of convolution — recovering the true image from a blurred observation\ntype: concept\ntags: [concept, fourier, inverse-problem]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Deconvolution\n\nRecover $f$ from $g=f*h+\\eta$ where $h$ is the [[point-spread-function]] and $\\eta$ is noise.\n\n## Imaging model\n- $f$ — true image\n- $h$ — PSF (blur kernel of the imaging system)\n- $g$ — observed (blurred) image\n- $\\eta$ — additive noise\n\nIn Fourier:\n$$\\hat g=\\hat f\\cdot\\hat h+\\hat\\eta$$\n\n## Naïve inverse\n$$\\hat f=\\hat g/\\hat h$$\nTwo fundamental problems:\n1. **Ignores noise.**\n2. Wherever $\\hat h(u,v)\\approx 0$, the small denominator **massively amplifies noise**.\n\nSo deconvolution is an **ill-posed inverse problem**. Naïve inversion produces ringing and noise blowup.\n\n## Solution\nRegularize — see [[wiener-filter]].\n\n## Why Fourier\nSpatial deconvolution is hard; Fourier turns the convolution into a pointwise division (modulo regularization).\n\n## Related\n- [[convolution-theorem]], [[point-spread-function]], [[wiener-filter]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:30:46.211Z"
+    },
+    {
+      "id": "41d06100-c617-4d10-b6d6-561864b90221",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01To5vq9PZsKnCfhMZgdV174",
+          "title": "Write 20-Concepts/wiener-filter.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/wiener-filter.md",
+              "newText": "---\nname: Wiener filter\ndescription: Regularized deconvolution that minimizes mean squared error\ntype: concept\ntags: [concept, fourier, deconvolution]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Wiener filter\n\nRegularized [[deconvolution]] estimate that minimizes mean squared error between $f$ and $\\hat f_{estim}$.\n\n## Formula\n$$\\hat f_{estim}(u,v)=W(u,v)\\,\\hat g(u,v)$$\n$$W(u,v)=\\frac{\\hat h^*(u,v)}{|\\hat h(u,v)|^2+\\lambda(u,v)}$$\n$$\\lambda(u,v)=\\frac{S_\\eta(u,v)}{S_f(u,v)}=\\frac{1}{\\text{SNR}(u,v)}$$\n\n- $\\hat h^*$ — complex conjugate of the PSF spectrum.\n- $S_f, S_\\eta$ — signal and noise power spectra.\n\n## Behavior\n- **High SNR** → $\\lambda$ small → $W\\approx 1/\\hat h$ (naïve inverse).\n- **Low SNR** → $\\lambda$ large → suppresses that frequency.\n\n## In practice\nTrue $S_f, S_\\eta$ are unknown. Common heuristics:\n- **A**: assume white noise ($S_\\eta$ constant).\n- **B**: $S_f$ constant.\n- **C**: $S_f \\propto 1/(u^2+v^2)^\\alpha$ (matches natural-image $1/f$ decay).\n\nCombining A and C reduces $\\lambda$ to a single tunable scalar.\n\n## Related\n- [[deconvolution]], [[point-spread-function]], [[convolution-theorem]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/wiener-filter.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/wiener-filter.md",
+            "content": "---\nname: Wiener filter\ndescription: Regularized deconvolution that minimizes mean squared error\ntype: concept\ntags: [concept, fourier, deconvolution]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Wiener filter\n\nRegularized [[deconvolution]] estimate that minimizes mean squared error between $f$ and $\\hat f_{estim}$.\n\n## Formula\n$$\\hat f_{estim}(u,v)=W(u,v)\\,\\hat g(u,v)$$\n$$W(u,v)=\\frac{\\hat h^*(u,v)}{|\\hat h(u,v)|^2+\\lambda(u,v)}$$\n$$\\lambda(u,v)=\\frac{S_\\eta(u,v)}{S_f(u,v)}=\\frac{1}{\\text{SNR}(u,v)}$$\n\n- $\\hat h^*$ — complex conjugate of the PSF spectrum.\n- $S_f, S_\\eta$ — signal and noise power spectra.\n\n## Behavior\n- **High SNR** → $\\lambda$ small → $W\\approx 1/\\hat h$ (naïve inverse).\n- **Low SNR** → $\\lambda$ large → suppresses that frequency.\n\n## In practice\nTrue $S_f, S_\\eta$ are unknown. Common heuristics:\n- **A**: assume white noise ($S_\\eta$ constant).\n- **B**: $S_f$ constant.\n- **C**: $S_f \\propto 1/(u^2+v^2)^\\alpha$ (matches natural-image $1/f$ decay).\n\nCombining A and C reduces $\\lambda$ to a single tunable scalar.\n\n## Related\n- [[deconvolution]], [[point-spread-function]], [[convolution-theorem]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:30:52.770Z"
+    },
+    {
+      "id": "93c452dc-c2f3-44ce-9c39-ec3e7f8a37c0",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_018ubmVenRyuQ2ViQ2LzNy2R",
+          "title": "Write 20-Concepts/point-spread-function.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/point-spread-function.md",
+              "newText": "---\nname: Point spread function (PSF)\ndescription: Impulse response of an imaging system — the blur kernel that maps a point source to its observed image\ntype: concept\ntags: [concept, imaging, fourier]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Point spread function (PSF)\n\nThe PSF $h$ is the **impulse response** of an imaging system: the image you would observe from an idealized point source.\n\n## Imaging model\n$$g=f*h+\\eta$$\n- $f$ = true scene\n- $h$ = PSF\n- $g$ = observed image\n- $\\eta$ = noise\n\nRecovering $f$ given $g$ and $h$ is [[deconvolution]].\n\n## Examples\n- Gaussian blur (defocus, atmospheric).\n- Motion blur — $h$ is a thin line streak; spectrum has periodic zeros along that direction (visible as parallel dark stripes in $|\\hat h|$).\n\n## Why Fourier matters\n$\\hat h$ governs which frequencies are attenuated by the system. Frequencies where $\\hat h\\approx 0$ are essentially lost — even a perfect [[wiener-filter]] cannot recover them well.\n\n## Related\n- [[deconvolution]], [[wiener-filter]], [[convolution-theorem]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/point-spread-function.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/point-spread-function.md",
+            "content": "---\nname: Point spread function (PSF)\ndescription: Impulse response of an imaging system — the blur kernel that maps a point source to its observed image\ntype: concept\ntags: [concept, imaging, fourier]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Point spread function (PSF)\n\nThe PSF $h$ is the **impulse response** of an imaging system: the image you would observe from an idealized point source.\n\n## Imaging model\n$$g=f*h+\\eta$$\n- $f$ = true scene\n- $h$ = PSF\n- $g$ = observed image\n- $\\eta$ = noise\n\nRecovering $f$ given $g$ and $h$ is [[deconvolution]].\n\n## Examples\n- Gaussian blur (defocus, atmospheric).\n- Motion blur — $h$ is a thin line streak; spectrum has periodic zeros along that direction (visible as parallel dark stripes in $|\\hat h|$).\n\n## Why Fourier matters\n$\\hat h$ governs which frequencies are attenuated by the system. Frequencies where $\\hat h\\approx 0$ are essentially lost — even a perfect [[wiener-filter]] cannot recover them well.\n\n## Related\n- [[deconvolution]], [[wiener-filter]], [[convolution-theorem]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:31:00.832Z"
+    },
+    {
+      "id": "9fa0dfc9-e855-47d9-9a7b-b1cac9648cde",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01RC9ctraJtpbEKreEwXeJuk",
+          "title": "Write 20-Concepts/nyquist-theorem.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/nyquist-theorem.md",
+              "newText": "---\nname: Nyquist theorem\ndescription: Minimum sampling rate to reconstruct a band-limited signal without aliasing\ntype: concept\ntags: [concept, sampling, dsp, fourier]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Nyquist theorem\n\nTo reconstruct a continuous band-limited signal without aliasing, sample at **at least twice** its highest frequency.\n\n## Statement\nIf $u_{max}$ is the highest frequency present, the sampling spacing $x_0$ must satisfy:\n$$u_{max}\\le \\frac{1}{2x_0}$$\nEquivalently, sampling rate $f_s = 1/x_0 \\ge 2u_{max}$ — the **Nyquist rate**.\n\n## Reformulation in features\n- Smallest feature size $s$ → sample with frequency $\\ge 2/s$.\n- \"Smallest feature is 10 nm → sample every 5 nm.\"\n\n## Why\nSampling = convolving with an impulse train of period $x_0$. In Fourier this **replicates the spectrum** at spacing $1/x_0$. If the replicas overlap → [[aliasing]]. Non-overlap requires $1/x_0 \\ge 2u_{max}$.\n\n## Consequences\n- Downsampling without anti-aliasing causes spurious low-frequency patterns.\n- See [[fourier-resizing]] (cropping spectrum gives built-in anti-aliasing).\n\n## Related\n- [[aliasing]], [[fourier-transform-2d]], [[fourier-resizing]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/nyquist-theorem.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/nyquist-theorem.md",
+            "content": "---\nname: Nyquist theorem\ndescription: Minimum sampling rate to reconstruct a band-limited signal without aliasing\ntype: concept\ntags: [concept, sampling, dsp, fourier]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Nyquist theorem\n\nTo reconstruct a continuous band-limited signal without aliasing, sample at **at least twice** its highest frequency.\n\n## Statement\nIf $u_{max}$ is the highest frequency present, the sampling spacing $x_0$ must satisfy:\n$$u_{max}\\le \\frac{1}{2x_0}$$\nEquivalently, sampling rate $f_s = 1/x_0 \\ge 2u_{max}$ — the **Nyquist rate**.\n\n## Reformulation in features\n- Smallest feature size $s$ → sample with frequency $\\ge 2/s$.\n- \"Smallest feature is 10 nm → sample every 5 nm.\"\n\n## Why\nSampling = convolving with an impulse train of period $x_0$. In Fourier this **replicates the spectrum** at spacing $1/x_0$. If the replicas overlap → [[aliasing]]. Non-overlap requires $1/x_0 \\ge 2u_{max}$.\n\n## Consequences\n- Downsampling without anti-aliasing causes spurious low-frequency patterns.\n- See [[fourier-resizing]] (cropping spectrum gives built-in anti-aliasing).\n\n## Related\n- [[aliasing]], [[fourier-transform-2d]], [[fourier-resizing]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:31:07.002Z"
+    },
+    {
+      "id": "3c5f7fdf-277e-4442-960f-4709428e8bf0",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01DEu6HJD3CsrUfogF9bs97a",
+          "title": "Write 20-Concepts/aliasing.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/aliasing.md",
+              "newText": "---\nname: Aliasing\ndescription: Spurious low-frequency patterns introduced when a signal is undersampled\ntype: concept\ntags: [concept, sampling, dsp]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Aliasing\n\nWhen sampling rate is insufficient (violates the [[nyquist-theorem]]), high frequencies \"fold back\" and masquerade as lower frequencies — introducing fake patterns.\n\n## Visual examples\n- Moiré patterns on facades photographed from far away.\n- Wagon-wheel effect.\n- Jagged lines after downsampling without filtering.\n\n## Frequency-domain picture\nSampling replicates the spectrum at spacing $1/x_0$. If $u_{max}>1/(2x_0)$ the replicas **overlap**; high-frequency content from one copy adds into the low-frequency band of the next → corruption.\n\n## Avoidance\n- Sample fast enough (Nyquist).\n- Pre-filter (low-pass) before downsampling — anti-aliasing.\n- Resize via [[fourier-resizing]] (cropping spectrum is built-in anti-aliasing).\n\n## Related\n- [[nyquist-theorem]], [[low-pass-filter]], [[fourier-resizing]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/aliasing.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/aliasing.md",
+            "content": "---\nname: Aliasing\ndescription: Spurious low-frequency patterns introduced when a signal is undersampled\ntype: concept\ntags: [concept, sampling, dsp]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Aliasing\n\nWhen sampling rate is insufficient (violates the [[nyquist-theorem]]), high frequencies \"fold back\" and masquerade as lower frequencies — introducing fake patterns.\n\n## Visual examples\n- Moiré patterns on facades photographed from far away.\n- Wagon-wheel effect.\n- Jagged lines after downsampling without filtering.\n\n## Frequency-domain picture\nSampling replicates the spectrum at spacing $1/x_0$. If $u_{max}>1/(2x_0)$ the replicas **overlap**; high-frequency content from one copy adds into the low-frequency band of the next → corruption.\n\n## Avoidance\n- Sample fast enough (Nyquist).\n- Pre-filter (low-pass) before downsampling — anti-aliasing.\n- Resize via [[fourier-resizing]] (cropping spectrum is built-in anti-aliasing).\n\n## Related\n- [[nyquist-theorem]], [[low-pass-filter]], [[fourier-resizing]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:31:13.932Z"
+    },
+    {
+      "id": "2eab474a-037c-4534-b7cf-b7611665753d",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_019rHESaLAD2cPQYARS8Nk8X",
+          "title": "Write 40-Reviews/Computer-Vision/lecture-10.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/40-Reviews/Computer-Vision/lecture-10.md",
+              "newText": "---\ntags: [flashcards, computer-vision]\ncourse: Computer-Vision\nlecture: 10\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Lecture 10 flashcards — Fourier transform 2\n\nQ:: What does one pixel in 2D Fourier space tell you about the original image?\nA:: It encodes a 2D plane wave that contributes to ALL pixels in real space — Fourier-space pixels are global, not local.\n\nQ:: What numerical type is each pixel of a 2D Fourier transform?\nA:: A complex number (magnitude and phase). Visualizations usually show magnitude only.\n\nQ:: Why do natural-image magnitude spectra look like concentric rings that fade outward?\nA:: Frequencies with the same |f| form rings; natural images have most energy at low frequencies, decaying roughly as 1/√(fx²+fy²).\n\nQ:: Why plot log(A+1) of the magnitude spectrum instead of A?\nA:: Because magnitude decays steeply; log compression makes high-frequency structure visible.\n\nQ:: What does fftshift do?\nA:: Reorders FFT output so frequency 0 is centered, with negative on the left and positive on the right. Display only.\n\nQ:: How do you build a low-pass filter in Fourier space?\nA:: Multiply the spectrum by a soft circular mask (1 in the center, 0 outside) and inverse-FFT.\n\nQ:: Why use a soft mask (raised cosine, Butterworth) instead of a hard binary disk for filtering?\nA:: A hard cutoff causes ringing artifacts (Gibbs phenomenon) after the inverse FFT.\n\nQ:: What is the formula for a low-pass Butterworth filter?\nA:: H(u,v) = 1 / (1 + (D(u,v)/D₀)^(2n)).\n\nQ:: To suppress LARGE features (background gradient) what mask do you use?\nA:: A high-pass mask of radius ~ 1/feature_size, blocking low frequencies at the center.\n\nQ:: To suppress SMALL features (noise) what mask do you use?\nA:: A low-pass mask of radius ~ 1/feature_size, blocking high frequencies at the edges.\n\nQ:: State the convolution theorem.\nA:: Convolution in space equals multiplication in Fourier (and vice versa): h = f*g ⇔ ĥ = f̂·ĝ.\n\nQ:: Time complexity of FFT-based convolution vs. spatial convolution?\nA:: O(n log n) for FFT-based vs. O(n·k) for direct spatial convolution with kernel size k. FFT wins for large kernels.\n\nQ:: What is the Fourier shift theorem?\nA:: Translating an image by (x₀,y₀) multiplies its spectrum by a phase ramp e^(-2πi(ux₀+vy₀)/L). Magnitude is unchanged.\n\nQ:: Why is shifting in Fourier space attractive even though FFT/IFFT cost O(n log n)?\nA:: It's a single elementwise multiplication if you're already in Fourier space, AND it allows subpixel shifts without interpolation.\n\nQ:: How do you DOWNSAMPLE an image directly in Fourier space?\nA:: Crop the central L'×L' frequencies of the spectrum, then inverse FFT — built-in anti-aliasing.\n\nQ:: How do you UPSAMPLE in Fourier space?\nA:: Zero-pad the spectrum to the larger size and inverse FFT — equivalent to ideal sinc interpolation.\n\nQ:: Write the imaging model used to motivate deconvolution.\nA:: g = f * h + η, where f is the true image, h is the PSF, g is observed, η is noise.\n\nQ:: Why is naive deconvolution f̂ = ĝ/ĥ a bad idea?\nA:: It ignores noise, and wherever ĥ ≈ 0 the small denominator amplifies noise enormously — ringing and blowup.\n\nQ:: What problem does the Wiener filter solve and what is it?\nA:: Regularized deconvolution minimizing MSE: W(u,v) = ĥ*(u,v) / (|ĥ(u,v)|² + λ(u,v)), where λ = 1/SNR.\n\nQ:: Behavior of the Wiener filter at high vs. low SNR frequencies?\nA:: High SNR → λ small → behaves like the naive inverse 1/ĥ. Low SNR → λ large → suppresses that frequency.\n\nQ:: What is a point spread function (PSF)?\nA:: The impulse response of an imaging system — the image of a single point source. The blur kernel h in g = f*h + η.\n\nQ:: State the Nyquist theorem.\nA:: Sample at ≥ twice the highest frequency. Equivalently, sample spacing x₀ ≤ 1/(2u_max). Smallest feature s → sampling rate ≥ 2/s.\n\nQ:: What causes aliasing in the frequency-domain picture?\nA:: Sampling replicates the spectrum at spacing 1/x₀; if 1/x₀ < 2u_max the replicas overlap and high-frequency content folds into low-frequency bands.\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/40-Reviews/Computer-Vision/lecture-10.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/40-Reviews/Computer-Vision/lecture-10.md",
+            "content": "---\ntags: [flashcards, computer-vision]\ncourse: Computer-Vision\nlecture: 10\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Lecture 10 flashcards — Fourier transform 2\n\nQ:: What does one pixel in 2D Fourier space tell you about the original image?\nA:: It encodes a 2D plane wave that contributes to ALL pixels in real space — Fourier-space pixels are global, not local.\n\nQ:: What numerical type is each pixel of a 2D Fourier transform?\nA:: A complex number (magnitude and phase). Visualizations usually show magnitude only.\n\nQ:: Why do natural-image magnitude spectra look like concentric rings that fade outward?\nA:: Frequencies with the same |f| form rings; natural images have most energy at low frequencies, decaying roughly as 1/√(fx²+fy²).\n\nQ:: Why plot log(A+1) of the magnitude spectrum instead of A?\nA:: Because magnitude decays steeply; log compression makes high-frequency structure visible.\n\nQ:: What does fftshift do?\nA:: Reorders FFT output so frequency 0 is centered, with negative on the left and positive on the right. Display only.\n\nQ:: How do you build a low-pass filter in Fourier space?\nA:: Multiply the spectrum by a soft circular mask (1 in the center, 0 outside) and inverse-FFT.\n\nQ:: Why use a soft mask (raised cosine, Butterworth) instead of a hard binary disk for filtering?\nA:: A hard cutoff causes ringing artifacts (Gibbs phenomenon) after the inverse FFT.\n\nQ:: What is the formula for a low-pass Butterworth filter?\nA:: H(u,v) = 1 / (1 + (D(u,v)/D₀)^(2n)).\n\nQ:: To suppress LARGE features (background gradient) what mask do you use?\nA:: A high-pass mask of radius ~ 1/feature_size, blocking low frequencies at the center.\n\nQ:: To suppress SMALL features (noise) what mask do you use?\nA:: A low-pass mask of radius ~ 1/feature_size, blocking high frequencies at the edges.\n\nQ:: State the convolution theorem.\nA:: Convolution in space equals multiplication in Fourier (and vice versa): h = f*g ⇔ ĥ = f̂·ĝ.\n\nQ:: Time complexity of FFT-based convolution vs. spatial convolution?\nA:: O(n log n) for FFT-based vs. O(n·k) for direct spatial convolution with kernel size k. FFT wins for large kernels.\n\nQ:: What is the Fourier shift theorem?\nA:: Translating an image by (x₀,y₀) multiplies its spectrum by a phase ramp e^(-2πi(ux₀+vy₀)/L). Magnitude is unchanged.\n\nQ:: Why is shifting in Fourier space attractive even though FFT/IFFT cost O(n log n)?\nA:: It's a single elementwise multiplication if you're already in Fourier space, AND it allows subpixel shifts without interpolation.\n\nQ:: How do you DOWNSAMPLE an image directly in Fourier space?\nA:: Crop the central L'×L' frequencies of the spectrum, then inverse FFT — built-in anti-aliasing.\n\nQ:: How do you UPSAMPLE in Fourier space?\nA:: Zero-pad the spectrum to the larger size and inverse FFT — equivalent to ideal sinc interpolation.\n\nQ:: Write the imaging model used to motivate deconvolution.\nA:: g = f * h + η, where f is the true image, h is the PSF, g is observed, η is noise.\n\nQ:: Why is naive deconvolution f̂ = ĝ/ĥ a bad idea?\nA:: It ignores noise, and wherever ĥ ≈ 0 the small denominator amplifies noise enormously — ringing and blowup.\n\nQ:: What problem does the Wiener filter solve and what is it?\nA:: Regularized deconvolution minimizing MSE: W(u,v) = ĥ*(u,v) / (|ĥ(u,v)|² + λ(u,v)), where λ = 1/SNR.\n\nQ:: Behavior of the Wiener filter at high vs. low SNR frequencies?\nA:: High SNR → λ small → behaves like the naive inverse 1/ĥ. Low SNR → λ large → suppresses that frequency.\n\nQ:: What is a point spread function (PSF)?\nA:: The impulse response of an imaging system — the image of a single point source. The blur kernel h in g = f*h + η.\n\nQ:: State the Nyquist theorem.\nA:: Sample at ≥ twice the highest frequency. Equivalently, sample spacing x₀ ≤ 1/(2u_max). Smallest feature s → sampling rate ≥ 2/s.\n\nQ:: What causes aliasing in the frequency-domain picture?\nA:: Sampling replicates the spectrum at spacing 1/x₀; if 1/x₀ < 2u_max the replicas overlap and high-frequency content folds into low-frequency bands.\n"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "Noted the title-style preference. Saving as feedback and moving to lecture 11."
+        }
+      ],
+      "timestamp": "2026-04-26T09:31:20.012Z"
+    },
+    {
+      "id": "03d9cc87-8984-47ef-9801-18d1d7136674",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01TEHKgb3XxLe1ZsPDHP4fee",
+          "title": "Write /Users/mattporteous/.claude/projects/-Users-mattporteous-Obsidian-School/memory/feedback_lecture_note_title_style.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/.claude/projects/-Users-mattporteous-Obsidian-School/memory/feedback_lecture_note_title_style.md",
+              "newText": "---\nname: Lecture note title style\ndescription: User prefers \"Session N — Topic\" headings rather than \"Lecture N — Topic\" in 10-Courses/{course}/lectures/ files\ntype: feedback\n---\n\nIn `10-Courses/{course}/lectures/lecture-NN-{topic}.md` files, the H1 should read `# Session N — {Topic}`, not `# Lecture N — {Topic}`.\n\n**Why:** User edited the lecture-10 file after I generated it to switch the heading from \"Lecture 10 — Fourier transform 2\" to \"Session 10 — Fourier transformations\". They retained the rest of the structure.\n\n**How to apply:** Use `# Session NN — {Topic}` for the body H1 in every lecture note going forward. The file path / `lecture:` frontmatter still uses \"lecture-NN\" naming as specified in CLAUDE.md.\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/.claude/projects/-Users-mattporteous-Obsidian-School/memory/feedback_lecture_note_title_style.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/.claude/projects/-Users-mattporteous-Obsidian-School/memory/feedback_lecture_note_title_style.md",
+            "content": "---\nname: Lecture note title style\ndescription: User prefers \"Session N — Topic\" headings rather than \"Lecture N — Topic\" in 10-Courses/{course}/lectures/ files\ntype: feedback\n---\n\nIn `10-Courses/{course}/lectures/lecture-NN-{topic}.md` files, the H1 should read `# Session N — {Topic}`, not `# Lecture N — {Topic}`.\n\n**Why:** User edited the lecture-10 file after I generated it to switch the heading from \"Lecture 10 — Fourier transform 2\" to \"Session 10 — Fourier transformations\". They retained the rest of the structure.\n\n**How to apply:** Use `# Session NN — {Topic}` for the body H1 in every lecture note going forward. The file path / `lecture:` frontmatter still uses \"lecture-NN\" naming as specified in CLAUDE.md.\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:31:50.821Z"
+    },
+    {
+      "id": "a70d9ac9-22e8-4611-86d0-9191bb9af15c",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01Kag4KMp1VPAWia8nd5JePG",
+          "title": "Read /Users/mattporteous/.claude/projects/-Users-mattporteous-Obsidian-School/memory/MEMORY.md",
+          "status": "failed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/.claude/projects/-Users-mattporteous-Obsidian-School/memory/MEMORY.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/.claude/projects/-Users-mattporteous-Obsidian-School/memory/MEMORY.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:31:56.261Z"
+    },
+    {
+      "id": "cf5a01f1-d2ee-48a6-89b0-e05eab9fd006",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01LYgTs5YnXLenRXS2GeNXgQ",
+          "title": "Write /Users/mattporteous/.claude/projects/-Users-mattporteous-Obsidian-School/memory/MEMORY.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/.claude/projects/-Users-mattporteous-Obsidian-School/memory/MEMORY.md",
+              "newText": "- [Lecture note title style](feedback_lecture_note_title_style.md) — use \"Session N — Topic\" as the H1 in lecture notes, not \"Lecture N — Topic\"\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/.claude/projects/-Users-mattporteous-Obsidian-School/memory/MEMORY.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/.claude/projects/-Users-mattporteous-Obsidian-School/memory/MEMORY.md",
+            "content": "- [Lecture note title style](feedback_lecture_note_title_style.md) — use \"Session N — Topic\" as the H1 in lecture notes, not \"Lecture N — Topic\"\n"
+          }
+        },
+        {
+          "type": "plan",
+          "entries": [
+            {
+              "content": "Process lecture 10: Fourier transform 2",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Process lecture 11: Feature detectors",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Process lecture 12: Feature detectors 2",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Process lecture 13: Binary object characterization",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Process lecture 14: Intro to PyTorch DL",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Process lecture 15: Intro to DL",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Process lecture 16: CNNs",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Process lecture 17: Advanced architectures",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Process lecture 18: Segmentation and object detection",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Process lecture 19: Self-supervised and contrastive learning",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Process lecture 20: Autoencoders",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Final summary table",
+              "priority": "medium",
+              "status": "pending"
+            }
+          ]
+        }
+      ],
+      "timestamp": "2026-04-26T09:32:00.662Z"
+    },
+    {
+      "id": "94995b57-103f-4c51-8681-88a3a94ab825",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01LVP7z7SicYhikQ1aXqFC16",
+          "title": "mdls -name kMDItemNumberOfPages /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/11_feature_detectors.pdf 2>/dev/null",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "mdls -name kMDItemNumberOfPages /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/11_feature_detectors.pdf 2>/dev/null",
+            "description": "Get page count of lecture 11 PDF"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:32:06.002Z"
+    },
+    {
+      "id": "0e9176de-de2f-43c2-9963-76090770ec14",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01M1sVxb6mNd39hTV4yuMFHX",
+          "title": "Read 30-Sources/Computer-Vision/pdf/11_feature_detectors.pdf",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/11_feature_detectors.pdf"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/11_feature_detectors.pdf",
+            "pages": "1-20"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:32:12.453Z"
+    },
+    {
+      "id": "3672eb62-a4e3-4900-8a39-db3ae3ad4389",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01KhHy7d3KL6VSY91Re9dR6G",
+          "title": "Read 30-Sources/Computer-Vision/pdf/11_feature_detectors.pdf",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/11_feature_detectors.pdf"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/11_feature_detectors.pdf",
+            "pages": "21-40"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:32:20.421Z"
+    },
+    {
+      "id": "f165b6b0-2cf0-416b-88f4-a6d1a68fc748",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01W49fZ5sNUmeMmvimxZ3EcH",
+          "title": "Read 30-Sources/Computer-Vision/pdf/11_feature_detectors.pdf",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/11_feature_detectors.pdf"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/11_feature_detectors.pdf",
+            "pages": "41-57"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "**Lecture 11 plan — Feature detectors**\n- Lecture note: `10-Courses/Computer-Vision/lectures/lecture-11-feature-detectors.md`\n- New concepts:\n  - `image-edges.md`, `image-gradient.md`, `sobel-operator.md` (covers Roberts/Prewitt/Sobel comparison), `laplacian-operator.md`, `laplacian-of-gaussian.md`, `derivative-of-gaussian.md`, `canny-edge-detector.md`, `active-contours.md`, `hough-transform.md`, `non-maximum-suppression.md`\n- Existing concepts to link: [[convolution-theorem]] (DoG/LoG associativity)\n- Flashcards: ~24 cards\n\nWriting."
+        }
+      ],
+      "timestamp": "2026-04-26T09:32:31.901Z"
+    },
+    {
+      "id": "63c0b0b8-ef2a-4b7d-bec2-bdcfb1300287",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01UKqw4ninQ6nno3b7Py2kYh",
+          "title": "Write 10-Courses/Computer-Vision/lectures/lecture-11-feature-detectors.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/10-Courses/Computer-Vision/lectures/lecture-11-feature-detectors.md",
+              "newText": "---\ntags: [lecture]\ncourse: Computer-Vision\nsource: 11_feature_detectors.pdf\nlecture: 11\ncreated: 2026-04-26\n---\n\n# Session 11 — Feature detectors\n\n## Overview\nDetecting low-level structure in images: edges (first- and second-derivative methods), the noise problem and how Gaussian smoothing addresses it (DoG, LoG), the Canny multi-stage edge detector, and boundary-finding via active contours (snakes) and the Hough transform (lines & circles). Closes with non-maximum suppression as a general-purpose detection cleanup.\n\n## Key concepts\n- [[image-edges]] — what an edge is and what physical discontinuities cause one.\n- [[image-gradient]] — first-derivative magnitude + orientation.\n- [[sobel-operator]] — Roberts / Prewitt / Sobel kernels for discrete gradients; size–noise tradeoff.\n- [[laplacian-operator]] — second-derivative scalar; edges = zero crossings.\n- [[derivative-of-gaussian]] — convolve once with $\\nabla G_\\sigma$ instead of smoothing then differentiating; uses associativity from the [[convolution-theorem]].\n- [[laplacian-of-gaussian]] — $\\nabla^2 G_\\sigma * I$; popular for edge detection.\n- [[canny-edge-detector]] — multi-stage: smoothing → gradient → non-max suppression → double threshold → hysteresis.\n- [[active-contours]] (snakes) — energy-minimizing curves attracted to edges.\n- [[hough-transform]] — voting in parameter space to detect parametric shapes.\n- [[non-maximum-suppression]] — drops weaker overlapping detections, keeps the strongest.\n\n## Equations\n- Discrete first derivative: $f'(x)\\approx [f(x+h)-f(x-h)]/(2h)$ → kernel $(-1\\,0\\,1)$.\n- Gradient: $\\nabla I=(\\partial I/\\partial x,\\partial I/\\partial y)$, $\\|\\nabla I\\|=\\sqrt{(\\partial I/\\partial x)^2+(\\partial I/\\partial y)^2}$, $\\theta=\\text{atan2}(I_y,I_x)$.\n- Laplacian: $\\nabla^2 I=\\partial^2 I/\\partial x^2+\\partial^2 I/\\partial y^2$; 5-point kernel $\\frac{1}{\\epsilon^2}\\begin{pmatrix}0&1&0\\\\1&-4&1\\\\0&1&0\\end{pmatrix}$, 9-point with diagonals $\\frac{1}{6\\epsilon^2}\\begin{pmatrix}1&4&1\\\\4&-20&4\\\\1&4&1\\end{pmatrix}$.\n- DoG: $\\nabla(G_\\sigma * I)=(\\nabla G_\\sigma)*I$.\n- LoG edge detector: $\\nabla^2(G_\\sigma)*I$.\n- Hough line (Hessian): $x\\sin\\theta - y\\cos\\theta + \\rho = 0$, with $\\theta\\in(0,\\pi)$, $\\rho_{max}=\\sqrt{x_{max}^2+y_{max}^2}$.\n- Hough circle: $(x-a)^2+(y-b)^2=r^2$.\n- Snake energy: $E=E_{int}(v)+E_{ext}(v)$; $E_{int}=\\alpha E_{elastic}+\\beta E_{smooth}$; $E_{ext}(v)=-\\sum_i\\|\\nabla G_\\sigma * I(v_i)\\|^2$.\n\n## Diagrams (described)\n- Step-edge in 1D → derivative spikes → second derivative crosses zero at the edge.\n- Sobel kernels separable into smoothing + difference; Sobel-5×5 gives more noise robustness but worse localization.\n- Canny non-max suppression: gradient orientations are quantized to 0, π/4, π/2, 3π/4 sectors; the pixel must dominate its two nearest neighbors along its gradient.\n- Hough: a point in image space ↔ a sinusoid in $(\\theta,\\rho)$ space; lines = peaks where many sinusoids intersect; circles use $(a,b)$ accumulator with known $r$.\n\n## Open questions\n- Choosing $\\sigma$ for Canny vs. LoG: how does it interact with double-threshold values?\n- How is generalized Hough transform implemented for arbitrary shapes, and what is its complexity?\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/10-Courses/Computer-Vision/lectures/lecture-11-feature-detectors.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/10-Courses/Computer-Vision/lectures/lecture-11-feature-detectors.md",
+            "content": "---\ntags: [lecture]\ncourse: Computer-Vision\nsource: 11_feature_detectors.pdf\nlecture: 11\ncreated: 2026-04-26\n---\n\n# Session 11 — Feature detectors\n\n## Overview\nDetecting low-level structure in images: edges (first- and second-derivative methods), the noise problem and how Gaussian smoothing addresses it (DoG, LoG), the Canny multi-stage edge detector, and boundary-finding via active contours (snakes) and the Hough transform (lines & circles). Closes with non-maximum suppression as a general-purpose detection cleanup.\n\n## Key concepts\n- [[image-edges]] — what an edge is and what physical discontinuities cause one.\n- [[image-gradient]] — first-derivative magnitude + orientation.\n- [[sobel-operator]] — Roberts / Prewitt / Sobel kernels for discrete gradients; size–noise tradeoff.\n- [[laplacian-operator]] — second-derivative scalar; edges = zero crossings.\n- [[derivative-of-gaussian]] — convolve once with $\\nabla G_\\sigma$ instead of smoothing then differentiating; uses associativity from the [[convolution-theorem]].\n- [[laplacian-of-gaussian]] — $\\nabla^2 G_\\sigma * I$; popular for edge detection.\n- [[canny-edge-detector]] — multi-stage: smoothing → gradient → non-max suppression → double threshold → hysteresis.\n- [[active-contours]] (snakes) — energy-minimizing curves attracted to edges.\n- [[hough-transform]] — voting in parameter space to detect parametric shapes.\n- [[non-maximum-suppression]] — drops weaker overlapping detections, keeps the strongest.\n\n## Equations\n- Discrete first derivative: $f'(x)\\approx [f(x+h)-f(x-h)]/(2h)$ → kernel $(-1\\,0\\,1)$.\n- Gradient: $\\nabla I=(\\partial I/\\partial x,\\partial I/\\partial y)$, $\\|\\nabla I\\|=\\sqrt{(\\partial I/\\partial x)^2+(\\partial I/\\partial y)^2}$, $\\theta=\\text{atan2}(I_y,I_x)$.\n- Laplacian: $\\nabla^2 I=\\partial^2 I/\\partial x^2+\\partial^2 I/\\partial y^2$; 5-point kernel $\\frac{1}{\\epsilon^2}\\begin{pmatrix}0&1&0\\\\1&-4&1\\\\0&1&0\\end{pmatrix}$, 9-point with diagonals $\\frac{1}{6\\epsilon^2}\\begin{pmatrix}1&4&1\\\\4&-20&4\\\\1&4&1\\end{pmatrix}$.\n- DoG: $\\nabla(G_\\sigma * I)=(\\nabla G_\\sigma)*I$.\n- LoG edge detector: $\\nabla^2(G_\\sigma)*I$.\n- Hough line (Hessian): $x\\sin\\theta - y\\cos\\theta + \\rho = 0$, with $\\theta\\in(0,\\pi)$, $\\rho_{max}=\\sqrt{x_{max}^2+y_{max}^2}$.\n- Hough circle: $(x-a)^2+(y-b)^2=r^2$.\n- Snake energy: $E=E_{int}(v)+E_{ext}(v)$; $E_{int}=\\alpha E_{elastic}+\\beta E_{smooth}$; $E_{ext}(v)=-\\sum_i\\|\\nabla G_\\sigma * I(v_i)\\|^2$.\n\n## Diagrams (described)\n- Step-edge in 1D → derivative spikes → second derivative crosses zero at the edge.\n- Sobel kernels separable into smoothing + difference; Sobel-5×5 gives more noise robustness but worse localization.\n- Canny non-max suppression: gradient orientations are quantized to 0, π/4, π/2, 3π/4 sectors; the pixel must dominate its two nearest neighbors along its gradient.\n- Hough: a point in image space ↔ a sinusoid in $(\\theta,\\rho)$ space; lines = peaks where many sinusoids intersect; circles use $(a,b)$ accumulator with known $r$.\n\n## Open questions\n- Choosing $\\sigma$ for Canny vs. LoG: how does it interact with double-threshold values?\n- How is generalized Hough transform implemented for arbitrary shapes, and what is its complexity?\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:32:53.974Z"
+    },
+    {
+      "id": "dbc48529-f145-4edd-b6dd-1e60c35a7c33",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01GjUsehS9wNj2zXRgL3Yo9m",
+          "title": "Write 20-Concepts/image-edges.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/image-edges.md",
+              "newText": "---\nname: Image edges\ndescription: Rapid intensity changes in an image, caused by surface, depth, reflectance, or illumination discontinuities\ntype: concept\ntags: [concept, edges, computer-vision]\ncourses: [Computer-Vision]\nsource: 11_feature_detectors.pdf\ncreated: 2026-04-26\n---\n\n# Image edges\n\nAn **edge** is a region where image intensity changes rapidly. Edges arise from four physical kinds of discontinuity:\n\n1. **Surface-normal discontinuity** — sharp corners of a 3D object.\n2. **Depth discontinuity** — boundary between near object and far background.\n3. **Surface-reflectance discontinuity** — albedo/material change (paint, sticker).\n4. **Illumination discontinuity** — shadows, highlights.\n\n## Goal of edge detection\nEstimate three things at every edge pixel:\n- **Position** — where the edge is.\n- **Magnitude** — how strong (gradient norm).\n- **Orientation** — perpendicular to the edge direction.\n\n## Idealization vs reality\nAn ideal edge is a step function. Real edges are noisy ramps with multiple small fluctuations — detection is non-trivial.\n\n## Related\n- [[image-gradient]], [[laplacian-operator]] — analytic descriptors.\n- [[canny-edge-detector]] — the textbook practical detector.\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/image-edges.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/image-edges.md",
+            "content": "---\nname: Image edges\ndescription: Rapid intensity changes in an image, caused by surface, depth, reflectance, or illumination discontinuities\ntype: concept\ntags: [concept, edges, computer-vision]\ncourses: [Computer-Vision]\nsource: 11_feature_detectors.pdf\ncreated: 2026-04-26\n---\n\n# Image edges\n\nAn **edge** is a region where image intensity changes rapidly. Edges arise from four physical kinds of discontinuity:\n\n1. **Surface-normal discontinuity** — sharp corners of a 3D object.\n2. **Depth discontinuity** — boundary between near object and far background.\n3. **Surface-reflectance discontinuity** — albedo/material change (paint, sticker).\n4. **Illumination discontinuity** — shadows, highlights.\n\n## Goal of edge detection\nEstimate three things at every edge pixel:\n- **Position** — where the edge is.\n- **Magnitude** — how strong (gradient norm).\n- **Orientation** — perpendicular to the edge direction.\n\n## Idealization vs reality\nAn ideal edge is a step function. Real edges are noisy ramps with multiple small fluctuations — detection is non-trivial.\n\n## Related\n- [[image-gradient]], [[laplacian-operator]] — analytic descriptors.\n- [[canny-edge-detector]] — the textbook practical detector.\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:33:16.173Z"
+    },
+    {
+      "id": "45b60478-82fe-4b0b-a033-90ce3208303b",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01QRg3gDwqCQKoge6bq7u8EB",
+          "title": "Write 20-Concepts/image-gradient.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/image-gradient.md",
+              "newText": "---\nname: Image gradient\ndescription: First-derivative vector field of an image — magnitude and orientation locate edges\ntype: concept\ntags: [concept, edges, computer-vision]\ncourses: [Computer-Vision]\nsource: 11_feature_detectors.pdf\ncreated: 2026-04-26\n---\n\n# Image gradient\n\n$$\\nabla I=\\left[\\frac{\\partial I}{\\partial x},\\frac{\\partial I}{\\partial y}\\right]$$\n\nA 2-vector at every pixel pointing in the direction of **steepest intensity increase**.\n\n- **Magnitude**: $\\|\\nabla I\\|=\\sqrt{I_x^2+I_y^2}$ — strength of the edge.\n- **Orientation**: $\\theta=\\text{atan2}(I_y,I_x)$ — perpendicular to the edge tangent.\n\n## Discrete approximation\nCentered difference $f'(x)=[f(x+h)-f(x-h)]/(2h)$ → kernel $(-1\\,0\\,1)$. A 3×1 / 1×3 kernel is too noise-sensitive in practice — use [[sobel-operator]] (or Prewitt/Roberts).\n\n## Property\nA valid edge kernel **sums to 0** (response to a flat region must be zero). Contrast this with a blur kernel (sums to 1).\n\n## Related\n- [[sobel-operator]], [[derivative-of-gaussian]]\n- [[image-edges]], [[canny-edge-detector]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/image-gradient.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/image-gradient.md",
+            "content": "---\nname: Image gradient\ndescription: First-derivative vector field of an image — magnitude and orientation locate edges\ntype: concept\ntags: [concept, edges, computer-vision]\ncourses: [Computer-Vision]\nsource: 11_feature_detectors.pdf\ncreated: 2026-04-26\n---\n\n# Image gradient\n\n$$\\nabla I=\\left[\\frac{\\partial I}{\\partial x},\\frac{\\partial I}{\\partial y}\\right]$$\n\nA 2-vector at every pixel pointing in the direction of **steepest intensity increase**.\n\n- **Magnitude**: $\\|\\nabla I\\|=\\sqrt{I_x^2+I_y^2}$ — strength of the edge.\n- **Orientation**: $\\theta=\\text{atan2}(I_y,I_x)$ — perpendicular to the edge tangent.\n\n## Discrete approximation\nCentered difference $f'(x)=[f(x+h)-f(x-h)]/(2h)$ → kernel $(-1\\,0\\,1)$. A 3×1 / 1×3 kernel is too noise-sensitive in practice — use [[sobel-operator]] (or Prewitt/Roberts).\n\n## Property\nA valid edge kernel **sums to 0** (response to a flat region must be zero). Contrast this with a blur kernel (sums to 1).\n\n## Related\n- [[sobel-operator]], [[derivative-of-gaussian]]\n- [[image-edges]], [[canny-edge-detector]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:33:23.006Z"
+    },
+    {
+      "id": "661b9183-40d4-472f-b89b-f6af5a220e93",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01LiJTLQHppgpBvmDoiqDVjv",
+          "title": "Write 20-Concepts/sobel-operator.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/sobel-operator.md",
+              "newText": "---\nname: Sobel operator (and Roberts / Prewitt)\ndescription: Discrete gradient kernels combining differentiation with mild smoothing; tradeoff between localization and noise robustness\ntype: concept\ntags: [concept, edges, kernels]\ncourses: [Computer-Vision]\nsource: 11_feature_detectors.pdf\ncreated: 2026-04-26\n---\n\n# Sobel operator (and Roberts / Prewitt)\n\nDiscrete kernels that approximate $\\partial I/\\partial x$ and $\\partial I/\\partial y$ while combining differentiation with mild smoothing — making them more noise-robust than a raw $(-1\\,0\\,1)$ kernel.\n\n## Kernels\n**Roberts** (2×2) — diagonal differences; very localized, sensitive to noise.\n$$\\partial_x:\\begin{pmatrix}0&1\\\\-1&0\\end{pmatrix}\\quad \\partial_y:\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}$$\n\n**Prewitt** (3×3) — uniform smoothing along the perpendicular axis.\n$$\\partial_x:\\begin{pmatrix}-1&0&1\\\\-1&0&1\\\\-1&0&1\\end{pmatrix}\\quad \\partial_y:\\begin{pmatrix}1&1&1\\\\0&0&0\\\\-1&-1&-1\\end{pmatrix}$$\n\n**Sobel 3×3** — weighted smoothing (1,2,1) along the perpendicular.\n$$\\partial_x:\\begin{pmatrix}-1&0&1\\\\-2&0&2\\\\-1&0&1\\end{pmatrix}\\quad \\partial_y:\\begin{pmatrix}1&2&1\\\\0&0&0\\\\-1&-2&-1\\end{pmatrix}$$\n\n**Sobel 5×5** — bigger window, even more noise-robust but worse localization.\n\n## Tradeoff\n| Kernel size | Localization | Noise robustness |\n|---|---|---|\n| Small (Roberts, 3×3) | Good | Poor |\n| Large (5×5+) | Bad | Good |\n\n## Sanity check\nAll edge kernels sum to **0** (response on flat regions = 0). Blur kernels sum to 1.\n\n## Related\n- [[image-gradient]], [[derivative-of-gaussian]] (for stronger smoothing)\n- [[canny-edge-detector]] uses Sobel as its gradient stage.\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/sobel-operator.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/sobel-operator.md",
+            "content": "---\nname: Sobel operator (and Roberts / Prewitt)\ndescription: Discrete gradient kernels combining differentiation with mild smoothing; tradeoff between localization and noise robustness\ntype: concept\ntags: [concept, edges, kernels]\ncourses: [Computer-Vision]\nsource: 11_feature_detectors.pdf\ncreated: 2026-04-26\n---\n\n# Sobel operator (and Roberts / Prewitt)\n\nDiscrete kernels that approximate $\\partial I/\\partial x$ and $\\partial I/\\partial y$ while combining differentiation with mild smoothing — making them more noise-robust than a raw $(-1\\,0\\,1)$ kernel.\n\n## Kernels\n**Roberts** (2×2) — diagonal differences; very localized, sensitive to noise.\n$$\\partial_x:\\begin{pmatrix}0&1\\\\-1&0\\end{pmatrix}\\quad \\partial_y:\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}$$\n\n**Prewitt** (3×3) — uniform smoothing along the perpendicular axis.\n$$\\partial_x:\\begin{pmatrix}-1&0&1\\\\-1&0&1\\\\-1&0&1\\end{pmatrix}\\quad \\partial_y:\\begin{pmatrix}1&1&1\\\\0&0&0\\\\-1&-1&-1\\end{pmatrix}$$\n\n**Sobel 3×3** — weighted smoothing (1,2,1) along the perpendicular.\n$$\\partial_x:\\begin{pmatrix}-1&0&1\\\\-2&0&2\\\\-1&0&1\\end{pmatrix}\\quad \\partial_y:\\begin{pmatrix}1&2&1\\\\0&0&0\\\\-1&-2&-1\\end{pmatrix}$$\n\n**Sobel 5×5** — bigger window, even more noise-robust but worse localization.\n\n## Tradeoff\n| Kernel size | Localization | Noise robustness |\n|---|---|---|\n| Small (Roberts, 3×3) | Good | Poor |\n| Large (5×5+) | Bad | Good |\n\n## Sanity check\nAll edge kernels sum to **0** (response on flat regions = 0). Blur kernels sum to 1.\n\n## Related\n- [[image-gradient]], [[derivative-of-gaussian]] (for stronger smoothing)\n- [[canny-edge-detector]] uses Sobel as its gradient stage.\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:33:29.192Z"
+    },
+    {
+      "id": "649df7e3-d79c-4041-8875-7bbd56894dde",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_015pimimEFSTn6ZF9tiEhdqS",
+          "title": "Write 20-Concepts/laplacian-operator.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/laplacian-operator.md",
+              "newText": "---\nname: Laplacian operator\ndescription: Scalar second-derivative operator on images; edges appear as zero crossings\ntype: concept\ntags: [concept, edges, kernels]\ncourses: [Computer-Vision]\nsource: 11_feature_detectors.pdf\ncreated: 2026-04-26\n---\n\n# Laplacian operator\n\n$$\\nabla^2 I=\\frac{\\partial^2 I}{\\partial x^2}+\\frac{\\partial^2 I}{\\partial y^2}$$\n\nA **scalar** (not a vector) — measures the \"difference of differences.\" Tells you about edge **location** only, not orientation.\n\n## Where are the edges?\nAt **zero crossings** of $\\nabla^2 I$ (points of inflection of the intensity profile).\n\n## Discrete kernels\n5-point stencil:\n$$\\nabla^2\\approx\\frac{1}{\\epsilon^2}\\begin{pmatrix}0&1&0\\\\1&-4&1\\\\0&1&0\\end{pmatrix}$$\n\n9-point (includes diagonals — more accurate):\n$$\\nabla^2\\approx\\frac{1}{6\\epsilon^2}\\begin{pmatrix}1&4&1\\\\4&-20&4\\\\1&4&1\\end{pmatrix}$$\n\n## Issue\nLike all derivative operators, the Laplacian massively amplifies noise. In practice combine with smoothing → [[laplacian-of-gaussian]].\n\n## Related\n- [[image-gradient]] (first-derivative alternative)\n- [[laplacian-of-gaussian]], [[canny-edge-detector]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/laplacian-operator.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/laplacian-operator.md",
+            "content": "---\nname: Laplacian operator\ndescription: Scalar second-derivative operator on images; edges appear as zero crossings\ntype: concept\ntags: [concept, edges, kernels]\ncourses: [Computer-Vision]\nsource: 11_feature_detectors.pdf\ncreated: 2026-04-26\n---\n\n# Laplacian operator\n\n$$\\nabla^2 I=\\frac{\\partial^2 I}{\\partial x^2}+\\frac{\\partial^2 I}{\\partial y^2}$$\n\nA **scalar** (not a vector) — measures the \"difference of differences.\" Tells you about edge **location** only, not orientation.\n\n## Where are the edges?\nAt **zero crossings** of $\\nabla^2 I$ (points of inflection of the intensity profile).\n\n## Discrete kernels\n5-point stencil:\n$$\\nabla^2\\approx\\frac{1}{\\epsilon^2}\\begin{pmatrix}0&1&0\\\\1&-4&1\\\\0&1&0\\end{pmatrix}$$\n\n9-point (includes diagonals — more accurate):\n$$\\nabla^2\\approx\\frac{1}{6\\epsilon^2}\\begin{pmatrix}1&4&1\\\\4&-20&4\\\\1&4&1\\end{pmatrix}$$\n\n## Issue\nLike all derivative operators, the Laplacian massively amplifies noise. In practice combine with smoothing → [[laplacian-of-gaussian]].\n\n## Related\n- [[image-gradient]] (first-derivative alternative)\n- [[laplacian-of-gaussian]], [[canny-edge-detector]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:33:38.643Z"
+    },
+    {
+      "id": "9f1c8b57-2998-47e7-a092-e395dae6115c",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01MZyVvZV5o2iCnqMCGpUeQT",
+          "title": "Write 20-Concepts/derivative-of-gaussian.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/derivative-of-gaussian.md",
+              "newText": "---\nname: Derivative of Gaussian (DoG)\ndescription: Pre-computed kernel that smooths and differentiates in one convolution\ntype: concept\ntags: [concept, edges, gaussian, kernels]\ncourses: [Computer-Vision]\nsource: 11_feature_detectors.pdf\ncreated: 2026-04-26\n---\n\n# Derivative of Gaussian (DoG)\n\nConvolution is associative, so:\n$$\\nabla(G_\\sigma * I) = (\\nabla G_\\sigma) * I$$\n\nInstead of smoothing then differentiating (two passes), convolve **once** with the analytical derivative of a Gaussian — much more efficient.\n\n## Why smooth before differentiating?\nDifferentiation amplifies noise. A noisy step looks like flat noise + spike but the gradient is dominated by the noise pattern. After Gaussian blur the step becomes a smooth ramp and its derivative cleanly peaks at the edge.\n\nSee the [[convolution-theorem]] for the underlying associativity (multiplication-convolution duality).\n\n## Variants\n- $\\partial G/\\partial x$ and $\\partial G/\\partial y$ — gradient directions; tell you **location and orientation**.\n- $\\nabla^2 G$ — see [[laplacian-of-gaussian]]; tells you **location only**.\n\n## Tradeoff\n$\\sigma$ controls scale:\n- Larger $\\sigma$ → more noise rejection, weaker localization.\n- Smaller $\\sigma$ → sharp edges, more noise.\n\n## Related\n- [[laplacian-of-gaussian]], [[canny-edge-detector]] (uses DoG-like smoothing + Sobel)\n- [[convolution-theorem]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/derivative-of-gaussian.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/derivative-of-gaussian.md",
+            "content": "---\nname: Derivative of Gaussian (DoG)\ndescription: Pre-computed kernel that smooths and differentiates in one convolution\ntype: concept\ntags: [concept, edges, gaussian, kernels]\ncourses: [Computer-Vision]\nsource: 11_feature_detectors.pdf\ncreated: 2026-04-26\n---\n\n# Derivative of Gaussian (DoG)\n\nConvolution is associative, so:\n$$\\nabla(G_\\sigma * I) = (\\nabla G_\\sigma) * I$$\n\nInstead of smoothing then differentiating (two passes), convolve **once** with the analytical derivative of a Gaussian — much more efficient.\n\n## Why smooth before differentiating?\nDifferentiation amplifies noise. A noisy step looks like flat noise + spike but the gradient is dominated by the noise pattern. After Gaussian blur the step becomes a smooth ramp and its derivative cleanly peaks at the edge.\n\nSee the [[convolution-theorem]] for the underlying associativity (multiplication-convolution duality).\n\n## Variants\n- $\\partial G/\\partial x$ and $\\partial G/\\partial y$ — gradient directions; tell you **location and orientation**.\n- $\\nabla^2 G$ — see [[laplacian-of-gaussian]]; tells you **location only**.\n\n## Tradeoff\n$\\sigma$ controls scale:\n- Larger $\\sigma$ → more noise rejection, weaker localization.\n- Smaller $\\sigma$ → sharp edges, more noise.\n\n## Related\n- [[laplacian-of-gaussian]], [[canny-edge-detector]] (uses DoG-like smoothing + Sobel)\n- [[convolution-theorem]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:33:44.742Z"
+    },
+    {
+      "id": "d65729e1-6a02-44d7-b64b-727357076ed0",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_0125eqoPRCLvRknEshZf66yo",
+          "title": "Write 20-Concepts/laplacian-of-gaussian.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/laplacian-of-gaussian.md",
+              "newText": "---\nname: Laplacian of Gaussian (LoG)\ndescription: Second-derivative-of-Gaussian filter; edges are zero crossings, robust to noise\ntype: concept\ntags: [concept, edges, gaussian, kernels]\ncourses: [Computer-Vision]\nsource: 11_feature_detectors.pdf\ncreated: 2026-04-26\n---\n\n# Laplacian of Gaussian (LoG)\n\n$$\\nabla^2(G_\\sigma) * I$$\n\nCombines the Gaussian blur and the [[laplacian-operator]] into one filter via associativity — see [[convolution-theorem]].\n\n## Why\nPure Laplacian + noise = chaos. Smoothing first then taking the second derivative makes zero-crossings stable and meaningful as edge locations.\n\n## Shape\nA \"Mexican hat\": positive central peak, negative ring.\n\n## Properties\n- **Scalar response** — gives location, not orientation.\n- Very popular for blob/edge detection at multiple scales.\n\n## Related\n- [[laplacian-operator]], [[derivative-of-gaussian]]\n- [[canny-edge-detector]] uses gradient-of-Gaussian instead but follows the same noise-suppression motif.\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/laplacian-of-gaussian.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/laplacian-of-gaussian.md",
+            "content": "---\nname: Laplacian of Gaussian (LoG)\ndescription: Second-derivative-of-Gaussian filter; edges are zero crossings, robust to noise\ntype: concept\ntags: [concept, edges, gaussian, kernels]\ncourses: [Computer-Vision]\nsource: 11_feature_detectors.pdf\ncreated: 2026-04-26\n---\n\n# Laplacian of Gaussian (LoG)\n\n$$\\nabla^2(G_\\sigma) * I$$\n\nCombines the Gaussian blur and the [[laplacian-operator]] into one filter via associativity — see [[convolution-theorem]].\n\n## Why\nPure Laplacian + noise = chaos. Smoothing first then taking the second derivative makes zero-crossings stable and meaningful as edge locations.\n\n## Shape\nA \"Mexican hat\": positive central peak, negative ring.\n\n## Properties\n- **Scalar response** — gives location, not orientation.\n- Very popular for blob/edge detection at multiple scales.\n\n## Related\n- [[laplacian-operator]], [[derivative-of-gaussian]]\n- [[canny-edge-detector]] uses gradient-of-Gaussian instead but follows the same noise-suppression motif.\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:33:52.422Z"
+    },
+    {
+      "id": "39431661-544c-43c9-b5a3-5ac979088946",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_013iTiD1mnjWoJesARpm5FzH",
+          "title": "Write 20-Concepts/canny-edge-detector.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/canny-edge-detector.md",
+              "newText": "---\nname: Canny edge detector\ndescription: Five-stage edge detector — smooth, gradient, non-max suppress, double-threshold, hysteresis\ntype: concept\ntags: [concept, edges, algorithm]\ncourses: [Computer-Vision]\nsource: 11_feature_detectors.pdf\ncreated: 2026-04-26\n---\n\n# Canny edge detector\n\nA multistage pipeline that produces thin, connected, high-confidence edges.\n\n## Steps\n1. **Gaussian smoothing** — pre-blur with $G_\\sigma$ to suppress noise.\n2. **Gradient computation** — apply [[sobel-operator]] (or similar). Get magnitude and orientation $\\theta$.\n3. **Non-maximum suppression along the gradient direction** — for each pixel, look at its two nearest neighbors along $\\theta$ (orientation quantized to 0, π/4, π/2, 3π/4). If the pixel is not greater than both → set to 0. This thins ridges to single-pixel edges.\n4. **Double thresholding**:\n   - Strong edge: pixel > $T_{high}$\n   - Weak edge: $T_{low} <$ pixel $\\le T_{high}$\n   - Non-edge: pixel $\\le T_{low}$\n5. **Hysteresis (edge tracking)** — start from strong edges and recursively keep weak pixels that are connected to them. Discard isolated weak pixels.\n\n## Parameters\n- $\\sigma$ — pre-blur scale.\n- $T_{low}, T_{high}$ — thresholds (usually $T_{high}\\approx 2\\,T_{low}$).\n\n## Code (skimage / OpenCV)\n```python\nfrom skimage.feature import canny\nedges = canny(img_gray, sigma=2.0, low_threshold=0.1, high_threshold=0.2)\n# OpenCV equivalent — thresholds in [0,255] for uint8\nedges_cv = cv2.Canny(cv2.GaussianBlur(img,(5,5),1.4), 50, 150)\n```\n\n## Related\n- [[image-gradient]], [[sobel-operator]], [[non-maximum-suppression]]\n- [[laplacian-of-gaussian]] is an alternative based on second derivatives.\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/canny-edge-detector.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/canny-edge-detector.md",
+            "content": "---\nname: Canny edge detector\ndescription: Five-stage edge detector — smooth, gradient, non-max suppress, double-threshold, hysteresis\ntype: concept\ntags: [concept, edges, algorithm]\ncourses: [Computer-Vision]\nsource: 11_feature_detectors.pdf\ncreated: 2026-04-26\n---\n\n# Canny edge detector\n\nA multistage pipeline that produces thin, connected, high-confidence edges.\n\n## Steps\n1. **Gaussian smoothing** — pre-blur with $G_\\sigma$ to suppress noise.\n2. **Gradient computation** — apply [[sobel-operator]] (or similar). Get magnitude and orientation $\\theta$.\n3. **Non-maximum suppression along the gradient direction** — for each pixel, look at its two nearest neighbors along $\\theta$ (orientation quantized to 0, π/4, π/2, 3π/4). If the pixel is not greater than both → set to 0. This thins ridges to single-pixel edges.\n4. **Double thresholding**:\n   - Strong edge: pixel > $T_{high}$\n   - Weak edge: $T_{low} <$ pixel $\\le T_{high}$\n   - Non-edge: pixel $\\le T_{low}$\n5. **Hysteresis (edge tracking)** — start from strong edges and recursively keep weak pixels that are connected to them. Discard isolated weak pixels.\n\n## Parameters\n- $\\sigma$ — pre-blur scale.\n- $T_{low}, T_{high}$ — thresholds (usually $T_{high}\\approx 2\\,T_{low}$).\n\n## Code (skimage / OpenCV)\n```python\nfrom skimage.feature import canny\nedges = canny(img_gray, sigma=2.0, low_threshold=0.1, high_threshold=0.2)\n# OpenCV equivalent — thresholds in [0,255] for uint8\nedges_cv = cv2.Canny(cv2.GaussianBlur(img,(5,5),1.4), 50, 150)\n```\n\n## Related\n- [[image-gradient]], [[sobel-operator]], [[non-maximum-suppression]]\n- [[laplacian-of-gaussian]] is an alternative based on second derivatives.\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:33:57.832Z"
+    },
+    {
+      "id": "d2a25539-6257-428f-9714-944286effcd7",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_019YepDgmctUkb6UcQfi7r5U",
+          "title": "Write 20-Concepts/active-contours.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/active-contours.md",
+              "newText": "---\nname: Active contours (snakes)\ndescription: Energy-minimizing parametric curves that deform toward image boundaries\ntype: concept\ntags: [concept, segmentation, boundary]\ncourses: [Computer-Vision]\nsource: 11_feature_detectors.pdf\ncreated: 2026-04-26\n---\n\n# Active contours (snakes)\n\nA boundary-finding method: start with an initial closed curve near the object and let it iteratively deform until it sits on the object boundary.\n\n## Representation\n$\\mathbf v=\\{v_i=(x_i,y_i)\\mid i=0,...,n-1\\}$ — a list of control points connected by line segments.\n\n## Energy formulation\nThe contour minimizes a total energy\n$$E=E_{int}(v)+E_{ext}(v)$$\n\n**External energy** (image attraction) — pulls the curve toward edges:\n$$E_{ext}(v)=-\\sum_{i=0}^{n-1}\\|\\nabla G_\\sigma * I(v_i)\\|^2$$\nThe Gaussian blur creates a smooth \"force field\" so edges influence points from far away.\n\n**Internal energy** (smoothness + elasticity):\n$$E_{int}(v)=\\alpha E_{elastic}+\\beta E_{smooth}$$\n- $E_{elastic}=\\sum_i\\|v_{i+1}-v_i\\|^2$ — keeps points spaced uniformly (tension).\n- $E_{smooth}=\\sum_i\\|(v_{i+1}-v_i)-(v_i-v_{i-1})\\|^2$ — penalizes curvature (stiffness).\n\n## Solver — greedy version\nFor each control point $v_i$, move it to the neighboring position with smallest local energy. Repeat until no improvement above a threshold.\n\nMore advanced: dynamic programming, calculus of variations.\n\n## skimage signature\n```python\nfrom skimage.segmentation import active_contour\nsnake = active_contour(img, init,\n    alpha=0.01,   # tension\n    beta=10,      # stiffness\n    gamma=0.001,  # step size\n    w_edge=1)     # edge attraction\n```\n\n## Related\n- [[hough-transform]] — alternative boundary finder (parametric shapes).\n- [[image-edges]], [[derivative-of-gaussian]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/active-contours.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/active-contours.md",
+            "content": "---\nname: Active contours (snakes)\ndescription: Energy-minimizing parametric curves that deform toward image boundaries\ntype: concept\ntags: [concept, segmentation, boundary]\ncourses: [Computer-Vision]\nsource: 11_feature_detectors.pdf\ncreated: 2026-04-26\n---\n\n# Active contours (snakes)\n\nA boundary-finding method: start with an initial closed curve near the object and let it iteratively deform until it sits on the object boundary.\n\n## Representation\n$\\mathbf v=\\{v_i=(x_i,y_i)\\mid i=0,...,n-1\\}$ — a list of control points connected by line segments.\n\n## Energy formulation\nThe contour minimizes a total energy\n$$E=E_{int}(v)+E_{ext}(v)$$\n\n**External energy** (image attraction) — pulls the curve toward edges:\n$$E_{ext}(v)=-\\sum_{i=0}^{n-1}\\|\\nabla G_\\sigma * I(v_i)\\|^2$$\nThe Gaussian blur creates a smooth \"force field\" so edges influence points from far away.\n\n**Internal energy** (smoothness + elasticity):\n$$E_{int}(v)=\\alpha E_{elastic}+\\beta E_{smooth}$$\n- $E_{elastic}=\\sum_i\\|v_{i+1}-v_i\\|^2$ — keeps points spaced uniformly (tension).\n- $E_{smooth}=\\sum_i\\|(v_{i+1}-v_i)-(v_i-v_{i-1})\\|^2$ — penalizes curvature (stiffness).\n\n## Solver — greedy version\nFor each control point $v_i$, move it to the neighboring position with smallest local energy. Repeat until no improvement above a threshold.\n\nMore advanced: dynamic programming, calculus of variations.\n\n## skimage signature\n```python\nfrom skimage.segmentation import active_contour\nsnake = active_contour(img, init,\n    alpha=0.01,   # tension\n    beta=10,      # stiffness\n    gamma=0.001,  # step size\n    w_edge=1)     # edge attraction\n```\n\n## Related\n- [[hough-transform]] — alternative boundary finder (parametric shapes).\n- [[image-edges]], [[derivative-of-gaussian]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:34:07.784Z"
+    },
+    {
+      "id": "dca8cada-dd90-46f0-8ae4-eb1f9d9e64e5",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_016NiScyiuWf9FdQFUsSTnFx",
+          "title": "Write 20-Concepts/hough-transform.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/hough-transform.md",
+              "newText": "---\nname: Hough transform\ndescription: Voting in parameter space to detect parametrized shapes (lines, circles)\ntype: concept\ntags: [concept, boundary, voting]\ncourses: [Computer-Vision]\nsource: 11_feature_detectors.pdf\ncreated: 2026-04-26\n---\n\n# Hough transform\n\nDetect parametric shapes (lines, circles, ...) by **voting** in their parameter space. A point in image space corresponds to a curve in parameter space; many image points on the same shape produce votes that intersect at one point.\n\n## Lines\nSlope-intercept form $y=mx+c$ is bad — $m$ can be infinite. Use **Hessian normal form**:\n$$x\\sin\\theta - y\\cos\\theta + \\rho = 0$$\n- $\\theta\\in(0,\\pi)$ — bounded.\n- $\\rho\\in[0,\\sqrt{x_{max}^2+y_{max}^2}]$ — bounded by image size.\n\nA point $(x_i,y_i)$ traces a **sinusoid** in $(\\theta,\\rho)$ space. Points on the same line all pass through the same $(\\theta,\\rho)$ peak.\n\n### Algorithm\n1. Discretize $(\\theta,\\rho)$ grid → 2D accumulator.\n2. For every edge pixel: increment all $(\\theta,\\rho)$ cells whose sinusoid passes through it.\n3. Find local maxima above a threshold → those are the lines.\n\n## Circles\n$$(x_i-a)^2+(y_i-b)^2=r^2$$\nWith **known $r$**, accumulator is 2D over $(a,b)$. Each image point contributes a circle of radius $r$ in $(a,b)$ space; the true circle center is the intersection of those vote-circles.\n\nIf $r$ unknown → 3D accumulator $(a,b,r)$ — more expensive.\n\n## Caveats\n- Slope-intercept fails because $m\\to\\infty$ for vertical lines.\n- Generalized Hough transform handles arbitrary shapes but is very expensive.\n- After voting, peaks usually need [[non-maximum-suppression]] to deduplicate.\n\n## skimage / OpenCV\n```python\nfrom skimage.transform import hough_line, hough_line_peaks\nhspace, angles, dists = hough_line(edges)\naccums, thetas, rhos = hough_line_peaks(hspace, angles, dists, num_peaks=10)\n```\n\n## Related\n- [[active-contours]] — alternative boundary finder.\n- [[canny-edge-detector]] usually precedes Hough.\n- [[non-maximum-suppression]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/hough-transform.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/hough-transform.md",
+            "content": "---\nname: Hough transform\ndescription: Voting in parameter space to detect parametrized shapes (lines, circles)\ntype: concept\ntags: [concept, boundary, voting]\ncourses: [Computer-Vision]\nsource: 11_feature_detectors.pdf\ncreated: 2026-04-26\n---\n\n# Hough transform\n\nDetect parametric shapes (lines, circles, ...) by **voting** in their parameter space. A point in image space corresponds to a curve in parameter space; many image points on the same shape produce votes that intersect at one point.\n\n## Lines\nSlope-intercept form $y=mx+c$ is bad — $m$ can be infinite. Use **Hessian normal form**:\n$$x\\sin\\theta - y\\cos\\theta + \\rho = 0$$\n- $\\theta\\in(0,\\pi)$ — bounded.\n- $\\rho\\in[0,\\sqrt{x_{max}^2+y_{max}^2}]$ — bounded by image size.\n\nA point $(x_i,y_i)$ traces a **sinusoid** in $(\\theta,\\rho)$ space. Points on the same line all pass through the same $(\\theta,\\rho)$ peak.\n\n### Algorithm\n1. Discretize $(\\theta,\\rho)$ grid → 2D accumulator.\n2. For every edge pixel: increment all $(\\theta,\\rho)$ cells whose sinusoid passes through it.\n3. Find local maxima above a threshold → those are the lines.\n\n## Circles\n$$(x_i-a)^2+(y_i-b)^2=r^2$$\nWith **known $r$**, accumulator is 2D over $(a,b)$. Each image point contributes a circle of radius $r$ in $(a,b)$ space; the true circle center is the intersection of those vote-circles.\n\nIf $r$ unknown → 3D accumulator $(a,b,r)$ — more expensive.\n\n## Caveats\n- Slope-intercept fails because $m\\to\\infty$ for vertical lines.\n- Generalized Hough transform handles arbitrary shapes but is very expensive.\n- After voting, peaks usually need [[non-maximum-suppression]] to deduplicate.\n\n## skimage / OpenCV\n```python\nfrom skimage.transform import hough_line, hough_line_peaks\nhspace, angles, dists = hough_line(edges)\naccums, thetas, rhos = hough_line_peaks(hspace, angles, dists, num_peaks=10)\n```\n\n## Related\n- [[active-contours]] — alternative boundary finder.\n- [[canny-edge-detector]] usually precedes Hough.\n- [[non-maximum-suppression]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:34:17.772Z"
+    },
+    {
+      "id": "251075a6-f920-43c5-b654-2d4b85630564",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_011hF7bVfFU2ZRY14PUwEnfg",
+          "title": "Write 20-Concepts/non-maximum-suppression.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/non-maximum-suppression.md",
+              "newText": "---\nname: Non-maximum suppression (NMS)\ndescription: Greedy algorithm to keep the strongest detection and discard overlapping weaker ones\ntype: concept\ntags: [concept, detection, algorithm]\ncourses: [Computer-Vision]\nsource: 11_feature_detectors.pdf\ncreated: 2026-04-26\n---\n\n# Non-maximum suppression (NMS)\n\nWherever multiple detections describe the same underlying structure, keep only the strongest.\n\n## Where it shows up\n- [[canny-edge-detector]] — thinning ridges to single-pixel edges (along the gradient direction).\n- [[hough-transform]] peak selection.\n- Modern object detectors (YOLO, Faster R-CNN) — pruning duplicate bounding boxes.\n- Corner / blob detection.\n\n## Generic algorithm\n```\nInput: detections D = {d1...dn}, score(d), overlap(d_i, d_j), threshold T\nOutput: selected set S\n\n1. Sort D by score descending\n2. S ← []\n3. For each d in D:\n4.   keep ← True\n5.   For each s in S:\n6.     If overlap(d, s) > T:\n7.       keep ← False; break\n8.   If keep: add d to S\n9. Return S\n```\n\n## Notes\n- \"Overlap\" depends on detection type — IoU for boxes, distance for keypoints, gradient-direction adjacency for edge pixels.\n- Threshold $T$ is task-specific.\n\n## Related\n- [[canny-edge-detector]], [[hough-transform]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/non-maximum-suppression.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/non-maximum-suppression.md",
+            "content": "---\nname: Non-maximum suppression (NMS)\ndescription: Greedy algorithm to keep the strongest detection and discard overlapping weaker ones\ntype: concept\ntags: [concept, detection, algorithm]\ncourses: [Computer-Vision]\nsource: 11_feature_detectors.pdf\ncreated: 2026-04-26\n---\n\n# Non-maximum suppression (NMS)\n\nWherever multiple detections describe the same underlying structure, keep only the strongest.\n\n## Where it shows up\n- [[canny-edge-detector]] — thinning ridges to single-pixel edges (along the gradient direction).\n- [[hough-transform]] peak selection.\n- Modern object detectors (YOLO, Faster R-CNN) — pruning duplicate bounding boxes.\n- Corner / blob detection.\n\n## Generic algorithm\n```\nInput: detections D = {d1...dn}, score(d), overlap(d_i, d_j), threshold T\nOutput: selected set S\n\n1. Sort D by score descending\n2. S ← []\n3. For each d in D:\n4.   keep ← True\n5.   For each s in S:\n6.     If overlap(d, s) > T:\n7.       keep ← False; break\n8.   If keep: add d to S\n9. Return S\n```\n\n## Notes\n- \"Overlap\" depends on detection type — IoU for boxes, distance for keypoints, gradient-direction adjacency for edge pixels.\n- Threshold $T$ is task-specific.\n\n## Related\n- [[canny-edge-detector]], [[hough-transform]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:34:33.032Z"
+    },
+    {
+      "id": "d9c20d31-f265-4cce-9d92-57bc8ecd2a36",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_013k31xMtPJQ8itfnDfvxNSN",
+          "title": "Write",
+          "status": "pending",
+          "kind": "edit",
+          "locations": [],
+          "rawInput": {}
+        }
+      ],
+      "timestamp": "2026-04-26T09:34:36.861Z"
+    },
+    {
+      "id": "e73ea27d-22d6-4042-91b9-68d8b4d25739",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "lets restart i want to update the templates athe the @claude system propmt and do it again"
+        }
+      ],
+      "timestamp": "2026-04-26T09:35:24.040Z"
+    },
+    {
+      "id": "812710bc-b991-416b-80ec-7ee29577e5d7",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "Understood — pausing the ingest. Want to redo the templates and the project CLAUDE.md first, then re-run the slide-ingest workflow from scratch on lectures 10–20?\n\nA few questions before I touch anything:\n\n1. **What changes do you want to the templates / CLAUDE.md?** (E.g. heading style \"Session N — Topic\" vs \"Lecture N — Topic\", different sections, different frontmatter, looser/tighter atomic-concept rules, flashcard format tweaks?)\n2. **Should I delete the lecture-10 and lecture-11 files I already wrote** so the re-run starts from a clean slate? Files written so far:\n   - `10-Courses/Computer-Vision/lectures/lecture-10-fourier-transform-2.md`, `lecture-11-feature-detectors.md`\n   - 25 concept notes in `20-Concepts/`\n   - `40-Reviews/Computer-Vision/lecture-10.md`\n3. **Do you also want me to delete the memory file I saved** (`feedback_lecture_note_title_style.md`) since it'll be superseded by the new CLAUDE.md?\n\nTell me the desired changes and I'll update CLAUDE.md + templates, clean up, then start over from lecture 10."
+        }
+      ],
+      "timestamp": "2026-04-26T09:35:30.173Z"
+    },
+    {
+      "id": "bec43e9d-d1b7-4f66-b085-959672a61e1e",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "mattporteous@Matts-Mac-mini ~ % brew install poppler\n✔︎ JSON API cask.jws.json                                       Downloaded   15.4MB/ 15.4MB\n✔︎ JSON API formula.jws.json                                    Downloaded   32.0MB/ 32.0MB\nWarning: poppler 26.04.0 is already installed and up-to-date.\nTo reinstall 26.04.0, run:\n  brew reinstall poppler\nmattporteous@Matts-Mac-mini ~ % cd \"/Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision\"\nmkdir -p images\nfor pdf in pdf/*.pdf; do\n  base=$(basename \"$pdf\" .pdf)\n  mkdir -p \"images/$base\"\n  pdfimages -png \"$pdf\" \"images/$base/img\"\ndone\n^C%                                                                                       mattporteous@Matts-Mac-mini Computer-Vision % cat > \"/Users/mattporteous/Obsidian/School/bin/ingest-slides.sh\" << 'EOF'\n#!/bin/bash\nset -e\nCOURSE=\"${1:?Usage: $0 <course-folder>}\"\nVAULT=\"/Users/mattporteous/Obsidian/School\"\nSRC=\"$VAULT/30-Sources/$COURSE\"\n\n[ -d \"$SRC\" ] || { echo \"No source folder: $SRC\"; exit 1; }\n\nmkdir -p \"$SRC/pdf\" \"$SRC/images\"\n\nfor f in \"$SRC\"/*.pptx; do\n  [ -e \"$f\" ] || continue\n  base=$(basename \"$f\" .pptx)\n  [ -f \"$SRC/pdf/$base.pdf\" ] || soffice --headless --convert-to pdf --outdir \"$SRC/pdf\" \"$f\"\ndone\n\nfor pdf in \"$SRC\"/pdf/*.pdf; do\n  base=$(basename \"$pdf\" .pdf)\n  outdir=\"$SRC/images/$base\"\n  if [ ! -d \"$outdir\" ]; then\n    mkdir -p \"$outdir\"\n    pdfimages -png \"$pdf\" \"$outdir/img\"\n  fi\ndone\necho \"Done.\"\nEOF\nchmod +x \"/Users/mattporteous/Obsidian/School/bin/ingest-slides.sh\"\n\"/Users/mattporteous/Obsidian/School/bin/ingest-slides.sh\" Computer-Vision\n^C\nmattporteous@Matts-Mac-mini Computer-Vision % brew install poppler\nWarning: poppler 26.04.0 is already installed and up-to-date.\nTo reinstall 26.04.0, run:\n  brew reinstall poppler\nmattporteous@Matts-Mac-mini Computer-Vision % cat >> \"/Users/mattporteous/Obsidian/School/CLAUDE.md\" << 'EOF'\n\n## Image references for diagrams\n\nPer-lecture images are pre-extracted to `30-Sources/{course}/images/{NN_lecture-name}/img-NNN.png`. When you need to embed a diagram you can't Mermaid:\n\n1. Look at the images in the corresponding lecture folder\n2. Pick the one that matches what the slide shows (you'll need to view the PDF to identify which extracted image is which figure)\n3. Reference it with relative path: `![[../../30-Sources/Computer-Vision/images/16_CNNs/img-007.png]]`\n4. Add a one-line caption beneath: `*Figure: [what it shows]*`\n\nIf multiple images would be needed for one concept and Mermaid can capture the structure, prefer Mermaid + a single representative image over embedding 4 images.\nEOF\nmattporteous@Matts-Mac-mini Computer-Vision % brew install poppler\ncd \"/Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision\"\nmkdir -p slides-png\nfor pdf in pdf/*.pdf; do\n  base=$(basename \"$pdf\" .pdf)\n  mkdir -p \"slides-png/$base\"\n  pdftoppm -png -r 150 \"$pdf\" \"slides-png/$base/slide\"\ndone\nWarning: poppler 26.04.0 is already installed and up-to-date.\nTo reinstall 26.04.0, run:\n  brew reinstall poppler\n^C%                                                                                       mattporteous@Matts-Mac-mini Computer-Vision % cat >> \"/Users/mattporteous/Obsidian/School/CLAUDE.md\" << 'EOF'\n\n## When embedding slide images\n\nEach slide is pre-rendered as a PNG at `30-Sources/{course}/slides-png/{lecture-name}/slide-NN.png` (NN is the slide number from the deck). Reference with the relative path and always note the slide number in caption.\nEOF\nmattporteous@Matts-Mac-mini Computer-Vision % \n\n\ni want to add diagrams"
+        }
+      ],
+      "timestamp": "2026-04-26T09:37:16.004Z"
+    },
+    {
+      "id": "feedb686-2c04-4156-8170-86b13f5814c6",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "Got it — you've added two image sources (extracted bitmaps and full slide PNGs) and told CLAUDE.md to use them. Let me check what actually exists before we plan."
+        }
+      ],
+      "timestamp": "2026-04-26T09:37:21.557Z"
+    },
+    {
+      "id": "772c8eb3-2253-4f92-b745-de33c7239194",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01ASkWbG6hzzMjaZzgHYWgWs",
+          "title": "ls /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/ 2>/dev/null",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/ 2>/dev/null",
+            "description": "List Computer-Vision source folder"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:37:33.872Z"
+    },
+    {
+      "id": "68d8d67d-9caa-4a93-b50e-a60315956be0",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01FkMcMurQsyeMasQcM9UXKV",
+          "title": "ls /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/slides-png/ 2>/dev/null | head -20",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/slides-png/ 2>/dev/null | head -20",
+            "description": "List slides-png subdirs"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:37:34.042Z"
+    },
+    {
+      "id": "5360e2d6-20fa-48eb-9fd0-ba0323f8dd5d",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01An5oTQryMvJcVvGu1H6T55",
+          "title": "ls /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/images/ 2>/dev/null | head -20",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/images/ 2>/dev/null | head -20",
+            "description": "List images subdirs"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:37:34.092Z"
+    },
+    {
+      "id": "26a751b7-fe7d-4ca7-b43e-93d884cd7c22",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01MbBJqs8Ns2GZGoUr6gFFYx",
+          "title": "Read CLAUDE.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/CLAUDE.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/CLAUDE.md"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        }
+      ],
+      "timestamp": "2026-04-26T09:37:34.355Z"
+    },
+    {
+      "id": "b674c7a4-87ae-49bd-a7db-1f46e7732b7f",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01WRM569dwSp2aoTxHCfT4M1",
+          "title": "ls /Users/mattporteous/Obsidian/School/99-Templates/ 2>/dev/null",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls /Users/mattporteous/Obsidian/School/99-Templates/ 2>/dev/null",
+            "description": "List templates folder"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:37:50.052Z"
+    },
+    {
+      "id": "9886cd1d-d119-4966-83f3-cb24549aa23a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01HrSGQ4GrfKdnWwYCphF4So",
+          "title": "ls /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/slides-png/10_fourier_transform2/ 2>/dev/null | head -5; echo \"---\"; ls /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/slides-png/10_fourier_transform2/ 2>/dev/null | wc -l",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/slides-png/10_fourier_transform2/ 2>/dev/null | head -5; echo \"---\"; ls /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/slides-png/10_fourier_transform2/ 2>/dev/null | wc -l",
+            "description": "Check slides-png contents"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:37:50.872Z"
+    },
+    {
+      "id": "7d6830c7-ce25-4b11-b654-018a3125bbfc",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01YGMYGFPRBfnPN4SNpbw7nJ",
+          "title": "ls /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/images/10_fourier_transform2/ 2>/dev/null | head -5; echo \"---\"; ls /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/images/10_fourier_transform2/ 2>/dev/null | wc -l",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/images/10_fourier_transform2/ 2>/dev/null | head -5; echo \"---\"; ls /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/images/10_fourier_transform2/ 2>/dev/null | wc -l",
+            "description": "Check images contents"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:37:51.990Z"
+    },
+    {
+      "id": "9aca4d31-2697-4961-bc94-8c94655086ab",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01RMxRA2gpTaLk7DregBYbij",
+          "title": "ls /Users/mattporteous/Obsidian/School/bin/ 2>/dev/null",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls /Users/mattporteous/Obsidian/School/bin/ 2>/dev/null",
+            "description": "Check bin folder"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        }
+      ],
+      "timestamp": "2026-04-26T09:37:53.570Z"
+    },
+    {
+      "id": "69230953-f082-4f64-96ec-a7393a82ae52",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01Nwknc29CN7E831Z4R2UL2t",
+          "title": "Read 99-Templates/lecture.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/99-Templates/lecture.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/99-Templates/lecture.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:38:09.714Z"
+    },
+    {
+      "id": "0b768d26-73fa-407a-8334-d3e838c14ad5",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01QddUc4AdB3w8bAtgXVHXYS",
+          "title": "Read 99-Templates/concept.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/99-Templates/concept.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/99-Templates/concept.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:38:10.212Z"
+    },
+    {
+      "id": "30af134c-4e9d-4dd9-9752-40d610c2a208",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01NBcct9BUTH2Liuf2FdB1UX",
+          "title": "for d in /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/slides-png/*/; do printf \"%s  %d\\n\" \"$(basename \"$d\")\" \"$(ls \"$d\" 2>/dev/null | wc -l)\"; done",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "for d in /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/slides-png/*/; do printf \"%s  %d\\n\" \"$(basename \"$d\")\" \"$(ls \"$d\" 2>/dev/null | wc -l)\"; done",
+            "description": "Count slides-png per lecture"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:38:10.533Z"
+    },
+    {
+      "id": "3316858c-27a8-41dc-bea4-0b4a1e9ef930",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01PTV4P61eCQ7Mra1RHuqvLx",
+          "title": "for d in /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/images/*/; do printf \"%s  %d\\n\" \"$(basename \"$d\")\" \"$(ls \"$d\" 2>/dev/null | wc -l)\"; done",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "for d in /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/images/*/; do printf \"%s  %d\\n\" \"$(basename \"$d\")\" \"$(ls \"$d\" 2>/dev/null | wc -l)\"; done",
+            "description": "Count images per lecture"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "Here's the actual state — and a few decisions I need from you before restarting:\n\n**Image generation didn't finish (Ctrl+C'd):**\n- `slides-png/`: only `10_fourier_transform2` exists, with 42/49 slides\n- `images/` (extracted bitmaps): lectures 10–13 only, lectures 14–20 missing\n- Your `bin/ingest-slides.sh` is in place and would generate the rest. Do you want me to run it (takes a few minutes — soffice + pdftoppm for 11 decks), or will you run it?\n\n**The two templates in `99-Templates/` don't match the ingest workflow:**\n- `lecture.md` is a sparse live-capture stub (Key points / Questions raised / To process)\n- `concept.md` is also minimal (Definition / Why it matters / Related / Examples)\n\nThe slide-ingest workflow in CLAUDE.md specifies different sections (Overview / Key concepts / Equations / Diagrams / Open questions). Three options:\n- (a) Leave templates alone — they're for live capture, ingest is a separate flow\n- (b) Update them to match the ingest output exactly\n- (c) Make ingest output match the live-capture templates (less rich)\n\n**The two CLAUDE.md image sections overlap.** My read:\n- `slides-png/slide-NN.png` — full slide screenshots. Easy to pick (slide N = page N), but include logo/page-number framing.\n- `images/img-NNN.png` — extracted figures. Clean standalone, but matching `img-007.png` to \"slide 14's tiger photo\" requires opening the PDF.\n\nRecommendation: default to **slides-png** for diagrams; use extracted bitmaps only when a single clean figure better serves the concept. Should I codify that in CLAUDE.md?\n\n**Where do images go?** Lecture notes only, or also concept notes? (Concepts are atomic — one diagram per concept feels right; lecture notes can have several.)\n\n**Cleanup of prior work?** Already-written and probably to delete:\n- `10-Courses/Computer-Vision/lectures/lecture-10-fourier-transform-2.md`\n- `10-Courses/Computer-Vision/lectures/lecture-11-feature-detectors.md`\n- 25 concept files in `20-Concepts/`\n- `40-Reviews/Computer-Vision/lecture-10.md`\n- The memory file `feedback_lecture_note_title_style.md` (would be superseded by updated CLAUDE.md)\n\nTell me your answers (or say \"you decide on all of it\") and I'll proceed."
+        }
+      ],
+      "timestamp": "2026-04-26T09:38:11.792Z"
+    },
+    {
+      "id": "c7d07e15-145c-4c0c-bf89-b55cc1b7ac14",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "I thihnk what we should for the remainder of this chat is to delete what we done and prepare a new agent to restart"
+        }
+      ],
+      "timestamp": "2026-04-26T09:39:22.197Z"
+    },
+    {
+      "id": "b775a85f-126d-467c-97a6-e2faa8da280f",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "agent_thought",
+          "text": ""
+        }
+      ],
+      "timestamp": "2026-04-26T09:39:27.813Z"
+    },
+    {
+      "id": "4ce8c224-85ef-456d-871b-331ceba6c312",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_015NghbFUgH1agyL5ZL6HJ22",
+          "title": "git status --short 2>&1 | head -60",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "git status --short 2>&1 | head -60",
+            "description": "Show git status of vault"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        }
+      ],
+      "timestamp": "2026-04-26T09:39:41.843Z"
+    },
+    {
+      "id": "900173eb-91f7-46a2-b254-bbee14e6b0a1",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01XKgNFSWNH9HsTDhJFankpU",
+          "title": "ls /Users/mattporteous/Obsidian/School/10-Courses/Computer-Vision/lectures/ /Users/mattporteous/Obsidian/School/20-Concepts/ /Users/mattporteous/Obsidian/School/40-Reviews/Computer-Vision/ 2>/dev/null",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls /Users/mattporteous/Obsidian/School/10-Courses/Computer-Vision/lectures/ /Users/mattporteous/Obsidian/School/20-Concepts/ /Users/mattporteous/Obsidian/School/40-Reviews/Computer-Vision/ 2>/dev/null",
+            "description": "Verify what notes exist in vault"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "Found them — 24 concepts + 2 lectures + 1 flashcards. Deleting now, plus the memory file."
+        }
+      ],
+      "timestamp": "2026-04-26T09:39:48.112Z"
+    },
+    {
+      "id": "6c3a0634-c62f-4f94-9ede-7aad2ab111f4",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_016AERnepmcxboL5osggjWbb",
+          "title": "rm -f \\\n  10-Courses/Computer-Vision/lectures/lecture-10-fourier-transform-2.md \\\n  10-Courses/Computer-Vision/lectures/lecture-11-feature-detectors.md \\\n  20-Concepts/active-contours.md \\\n  20-Concepts/aliasing.md \\\n  20-Concepts/band-pass-filter.md \\\n  20-Concepts/butterworth-filter.md \\\n  20-Concepts/canny-edge-detector.md \\\n  20-Concepts/convolution-theorem.md \\\n  20-Concepts/deconvolution.md \\\n  20-Concepts/derivative-of-gaussian.md \\\n  20-Concepts/fft-shift.md \\\n  20-Concepts/fourier-resizing.md \\\n  20-Concepts/fourier-shift-theorem.md \\\n  20-Concepts/fourier-transform-2d.md \\\n  20-Concepts/high-pass-filter.md \\\n  20-Concepts/hough-transform.md \\\n  20-Concepts/image-edges.md \\\n  20-Concepts/image-gradient.md \\\n  20-Concepts/laplacian-of-gaussian.md \\\n  20-Concepts/laplacian-operator.md \\\n  20-Concepts/low-pass-filter.md \\\n  20-Concepts/non-maximum-suppression.md \\\n  20-Concepts/nyquist-theorem.md \\\n  20-Concepts/point-spread-function.md \\\n  20-Concepts/sobel-operator.md \\\n  20-Concepts/wiener-filter.md \\\n  40-Reviews/Computer-Vision/lecture-10.md && \\\n  rm -f /Users/mattporteous/.claude/projects/-Users-mattporteous-Obsidian-School/memory/feedback_lecture_note_title_style.md \\\n        /Users/mattporteous/.claude/projects/-Users-mattporteous-Obsidian-School/memory/MEMORY.md && \\\n  echo \"Deleted.\" && \\\n  echo \"--- Remaining in 20-Concepts:\" && ls 20-Concepts/ && \\\n  echo \"--- Remaining in 10-Courses/Computer-Vision/lectures:\" && ls 10-Courses/Computer-Vision/lectures/ && \\\n  echo \"--- Remaining in 40-Reviews/Computer-Vision:\" && ls 40-Reviews/Computer-Vision/",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "rm -f \\\n  10-Courses/Computer-Vision/lectures/lecture-10-fourier-transform-2.md \\\n  10-Courses/Computer-Vision/lectures/lecture-11-feature-detectors.md \\\n  20-Concepts/active-contours.md \\\n  20-Concepts/aliasing.md \\\n  20-Concepts/band-pass-filter.md \\\n  20-Concepts/butterworth-filter.md \\\n  20-Concepts/canny-edge-detector.md \\\n  20-Concepts/convolution-theorem.md \\\n  20-Concepts/deconvolution.md \\\n  20-Concepts/derivative-of-gaussian.md \\\n  20-Concepts/fft-shift.md \\\n  20-Concepts/fourier-resizing.md \\\n  20-Concepts/fourier-shift-theorem.md \\\n  20-Concepts/fourier-transform-2d.md \\\n  20-Concepts/high-pass-filter.md \\\n  20-Concepts/hough-transform.md \\\n  20-Concepts/image-edges.md \\\n  20-Concepts/image-gradient.md \\\n  20-Concepts/laplacian-of-gaussian.md \\\n  20-Concepts/laplacian-operator.md \\\n  20-Concepts/low-pass-filter.md \\\n  20-Concepts/non-maximum-suppression.md \\\n  20-Concepts/nyquist-theorem.md \\\n  20-Concepts/point-spread-function.md \\\n  20-Concepts/sobel-operator.md \\\n  20-Concepts/wiener-filter.md \\\n  40-Reviews/Computer-Vision/lecture-10.md && \\\n  rm -f /Users/mattporteous/.claude/projects/-Users-mattporteous-Obsidian-School/memory/feedback_lecture_note_title_style.md \\\n        /Users/mattporteous/.claude/projects/-Users-mattporteous-Obsidian-School/memory/MEMORY.md && \\\n  echo \"Deleted.\" && \\\n  echo \"--- Remaining in 20-Concepts:\" && ls 20-Concepts/ && \\\n  echo \"--- Remaining in 10-Courses/Computer-Vision/lectures:\" && ls 10-Courses/Computer-Vision/lectures/ && \\\n  echo \"--- Remaining in 40-Reviews/Computer-Vision:\" && ls 40-Reviews/Computer-Vision/",
+            "description": "Delete generated notes, flashcards, and memory files"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Vault is clean. Now here's a self-contained kickoff prompt you can paste into a fresh Claude session.\n\n---\n\n**Paste this into a new agent:**\n\n```\nI want you to ingest 11 Computer Vision lecture decks (10–20) into my Obsidian vault, embedding diagrams from the slides.\n\nVault: /Users/mattporteous/Obsidian/School\nRead CLAUDE.md first — it defines the slide-ingest workflow plus two image-source conventions\n(slides-png/ for full-slide screenshots, images/ for extracted bitmaps).\n\nBefore processing anything, please:\n\n1. Verify the image pre-extraction is complete by running:\n     for d in 30-Sources/Computer-Vision/slides-png/*/; do\n       printf \"%s  %d slides\\n\" \"$(basename \"$d\")\" \"$(ls \"$d\" | wc -l)\"\n     done\n   The previous attempt was Ctrl+C'd; only lecture 10 has ~42 slides and the rest are missing.\n   If incomplete, run bin/ingest-slides.sh Computer-Vision to finish (asks no input; takes ~5 min).\n\n2. Confirm with me on these open decisions before writing any notes:\n   a. The two templates in 99-Templates/ (lecture.md, concept.md) are minimal live-capture stubs\n      and don't match the rich Overview/Key concepts/Equations/Diagrams/Open questions structure\n      the slide-ingest workflow uses. Should they be updated, or stay separate?\n   b. Default image source: slides-png/ (easy, includes branding) vs images/ (clean figures, but\n      need PDF inspection to identify which extracted file = which slide figure). I'd default to\n      slides-png/.\n   c. Where do diagrams go: lecture notes only, or also in concept notes? (Atomic concepts feel\n      like at most one diagram each.)\n\n3. Then for each lecture 10 → 20 in numeric order:\n   - Read the PDF in 30-Sources/Computer-Vision/pdf/{NN}_{name}.pdf\n   - Search 20-Concepts/ first; extend existing notes instead of duplicating\n   - Show a brief plan (lecture path + concept names + flashcard count + diagrams to embed)\n     then proceed; no need to wait for \"go\" between lectures\n   - Add [[wikilinks]] back to earlier-lecture concepts wherever this lecture builds on them\n   - Embed slide images using `![[../../30-Sources/Computer-Vision/slides-png/{lecture-name}/slide-NN.png]]`\n     with a one-line *Figure: ... (slide N)* caption underneath\n\n4. At the end, summary table: lecture | concepts created | concepts extended | flashcards | total links\n\nThe vault is currently empty for this batch — no prior CV notes exist, so concepts you create\nin early lectures will become the link targets for later ones.\n\nStart by reading CLAUDE.md and the first PDF after answering the questions above.\n```\n\n---\n\nWhen you start the new session, paste that and the agent will pick up cleanly with no prior context. Anything you want to change in the kickoff prompt before you copy it?"
+        }
+      ],
+      "timestamp": "2026-04-26T09:39:58.332Z"
+    },
+    {
+      "id": "a396318d-4382-4fb7-9d52-eb1ca44cc3f4",
+      "role": "user",
+      "content": [
+        {
+          "type": "text_with_context",
+          "text": "(a) Templates — Keep them separate. 99-Templates/lecture.md is a live-capture stub (during-class engagement), while the slide-ingest output is a structured post-hoc reference artifact. Different purposes, different audiences (future-you vs in-class-you). Updating the template to match would lose the lightweight in-class form.\n\n(b) Default image source — Default to slides-png/ (full slide screenshots). Reasons: (1) trivially identifiable by slide number, (2) preserves caption + slide context, (3) images/ extraction order doesn't correspond to slide order so identifying the right one requires opening the PDF for every embed. Use images/ only when a specific clean diagram is materially better (e.g., a textbook figure I want isolated).\n\n(c) Diagrams in concept notes — At most one representative slide per concept note, only when it adds something the prose can't. Most atomic concepts won't need one. The lecture note carries the visual narrative; concept notes carry the idea.",
+          "autoMentionContext": {
+            "noteName": "CLAUDE",
+            "notePath": "CLAUDE.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:45:49.880Z"
+    },
+    {
+      "id": "de1b05d8-7e86-4243-8197-da057a3f0f31",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "plan",
+          "entries": []
+        },
+        {
+          "type": "text",
+          "text": "Auto-mode says push it through — baking the decisions into CLAUDE.md so the next agent doesn't re-ask, and tightening the kickoff prompt."
+        }
+      ],
+      "timestamp": "2026-04-26T09:45:57.651Z"
+    },
+    {
+      "id": "9daa458b-9bdb-4724-bbb3-9f890747909f",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_017XHicq4wwcA8noThhEiebc",
+          "title": "Edit CLAUDE.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/CLAUDE.md",
+              "newText": "\nShow me a summary of what you'll create BEFORE writing any files. Wait for \"go\".\n\n## Embedding diagrams\n\nTwo pre-extracted image sources exist per lecture:\n\n- **`30-Sources/{course}/slides-png/{lecture-name}/slide-NN.png`** — full slide screenshots. `NN` = slide number in the deck. **This is the default.**\n- **`30-Sources/{course}/images/{lecture-name}/img-NNN.png`** — individual bitmaps extracted from the PDF. Use only when an isolated clean figure is materially better than the full slide (e.g. a textbook figure you want without the slide branding). Indices do **not** correspond to slide order — identifying the right one requires opening the PDF.\n\n### Where to embed\n- **Lecture notes** carry the visual narrative — embed slides liberally where they help.\n- **Concept notes** are atomic — at most one representative image per concept, and only when it adds something the prose alone can't. Most concepts won't need one.\n\n### Format\n```markdown\n![[../../30-Sources/Computer-Vision/slides-png/16_CNNs/slide-07.png]]\n*Figure: receptive field stack-up across conv layers (slide 7).*\n```\nAlways include a one-line caption with the slide number.\n\nIf a diagram would need many images and Mermaid can capture the structure, prefer Mermaid + one anchoring image.\n\n## Templates vs. ingest output\n\n`99-Templates/lecture.md` and `99-Templates/concept.md` are **live-capture stubs** for in-class use — intentionally lightweight. They are NOT the structure for slide-ingest output. The slide-ingest workflow above produces a richer post-hoc reference artifact (Overview / Key concepts / Equations / Diagrams / Open questions). Don't reshape ingest output to match the live-capture templates; they serve different audiences (future-you reviewing vs. in-class-you taking notes).",
+              "oldText": "\nShow me a summary of what you'll create BEFORE writing any files. Wait for \"go\".\n\n## Image references for diagrams\n\nPer-lecture images are pre-extracted to `30-Sources/{course}/images/{NN_lecture-name}/img-NNN.png`. When you need to embed a diagram you can't Mermaid:\n\n1. Look at the images in the corresponding lecture folder\n2. Pick the one that matches what the slide shows (you'll need to view the PDF to identify which extracted image is which figure)\n3. Reference it with relative path: `![[../../30-Sources/Computer-Vision/images/16_CNNs/img-007.png]]`\n4. Add a one-line caption beneath: `*Figure: [what it shows]*`\n\nIf multiple images would be needed for one concept and Mermaid can capture the structure, prefer Mermaid + a single representative image over embedding 4 images.\n\n## When embedding slide images\n\nEach slide is pre-rendered as a PNG at `30-Sources/{course}/slides-png/{lecture-name}/slide-NN.png` (NN is the slide number from the deck). Reference with the relative path and always note the slide number in caption."
+            }
+          ],
+          "locations": [
+            {
+              "line": 50,
+              "path": "/Users/mattporteous/Obsidian/School/CLAUDE.md"
+            }
+          ],
+          "rawInput": {
+            "replace_all": false,
+            "file_path": "/Users/mattporteous/Obsidian/School/CLAUDE.md",
+            "old_string": "## Image references for diagrams\n\nPer-lecture images are pre-extracted to `30-Sources/{course}/images/{NN_lecture-name}/img-NNN.png`. When you need to embed a diagram you can't Mermaid:\n\n1. Look at the images in the corresponding lecture folder\n2. Pick the one that matches what the slide shows (you'll need to view the PDF to identify which extracted image is which figure)\n3. Reference it with relative path: `![[../../30-Sources/Computer-Vision/images/16_CNNs/img-007.png]]`\n4. Add a one-line caption beneath: `*Figure: [what it shows]*`\n\nIf multiple images would be needed for one concept and Mermaid can capture the structure, prefer Mermaid + a single representative image over embedding 4 images.\n\n## When embedding slide images\n\nEach slide is pre-rendered as a PNG at `30-Sources/{course}/slides-png/{lecture-name}/slide-NN.png` (NN is the slide number from the deck). Reference with the relative path and always note the slide number in caption.",
+            "new_string": "## Embedding diagrams\n\nTwo pre-extracted image sources exist per lecture:\n\n- **`30-Sources/{course}/slides-png/{lecture-name}/slide-NN.png`** — full slide screenshots. `NN` = slide number in the deck. **This is the default.**\n- **`30-Sources/{course}/images/{lecture-name}/img-NNN.png`** — individual bitmaps extracted from the PDF. Use only when an isolated clean figure is materially better than the full slide (e.g. a textbook figure you want without the slide branding). Indices do **not** correspond to slide order — identifying the right one requires opening the PDF.\n\n### Where to embed\n- **Lecture notes** carry the visual narrative — embed slides liberally where they help.\n- **Concept notes** are atomic — at most one representative image per concept, and only when it adds something the prose alone can't. Most concepts won't need one.\n\n### Format\n```markdown\n![[../../30-Sources/Computer-Vision/slides-png/16_CNNs/slide-07.png]]\n*Figure: receptive field stack-up across conv layers (slide 7).*\n```\nAlways include a one-line caption with the slide number.\n\nIf a diagram would need many images and Mermaid can capture the structure, prefer Mermaid + one anchoring image.\n\n## Templates vs. ingest output\n\n`99-Templates/lecture.md` and `99-Templates/concept.md` are **live-capture stubs** for in-class use — intentionally lightweight. They are NOT the structure for slide-ingest output. The slide-ingest workflow above produces a richer post-hoc reference artifact (Overview / Key concepts / Equations / Diagrams / Open questions). Don't reshape ingest output to match the live-capture templates; they serve different audiences (future-you reviewing vs. in-class-you taking notes)."
+          }
+        },
+        {
+          "type": "text",
+          "text": "CLAUDE.md updated. Here's the revised kickoff prompt — shorter now since the decisions are codified.\n\n---\n\n**Paste this into the new agent:**\n\n```\nIngest 11 Computer Vision lecture decks (10 → 20) into my Obsidian vault, embedding diagrams from the slides.\n\nVault: /Users/mattporteous/Obsidian/School\nPDFs:  30-Sources/Computer-Vision/pdf/{NN}_{name}.pdf\n\nRead CLAUDE.md first — it defines the slide-ingest workflow, image-embedding rules\n(default to slides-png/, lecture notes carry diagrams, concept notes get at most one),\nand the convention that ingest output is distinct from the live-capture templates.\n\nBefore writing notes:\n\n1. Verify image pre-extraction is complete. The previous run was Ctrl+C'd:\n   only lecture 10 has slides-png/ (and only ~42/49 slides), and images/ exists\n   for lectures 10–13 only. Run:\n       for d in 30-Sources/Computer-Vision/slides-png/*/; do\n         printf \"%s  %d slides\\n\" \"$(basename \"$d\")\" \"$(ls \"$d\" | wc -l)\"\n       done\n   If incomplete, run bin/ingest-slides.sh Computer-Vision (no input needed; ~5 min).\n\nFor each lecture 10 → 20 in numeric order:\n- Read the PDF\n- Search 20-Concepts/ first; extend existing notes instead of duplicating\n- Show a brief plan (lecture path + concept names + flashcard count + diagrams to embed)\n  then proceed; no need to wait for \"go\" between lectures\n- [[wikilink]] back to earlier-lecture concepts wherever this lecture builds on them\n- Embed slide images per CLAUDE.md (slides-png/ default, *Figure: ... (slide N).* caption)\n\nEnd with a summary table: lecture | concepts created | concepts extended | flashcards | total links.\n\nThe vault is empty for this batch — concepts created in early lectures become link\ntargets for later ones.\n```\n\nCLAUDE.md and kickoff are ready; clean session is yours to start whenever."
+        }
+      ],
+      "timestamp": "2026-04-26T09:46:12.424Z"
+    }
+  ],
+  "savedAt": "2026-04-26T09:46:46.250Z"
+}

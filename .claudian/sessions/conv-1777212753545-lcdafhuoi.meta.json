@@ -1,0 +1,23 @@
+{
+  "id": "conv-1777212753545-lcdafhuoi",
+  "providerId": "claude",
+  "title": "Explain Fourier analysis and sampling",
+  "titleGenerationStatus": "success",
+  "createdAt": 1777212753546,
+  "updatedAt": 1777298261426,
+  "lastResponseAt": 1777212797333,
+  "sessionId": "c65e2b3b-fa97-4563-aa2b-d4731b06e48c",
+  "providerState": {
+    "providerSessionId": "c65e2b3b-fa97-4563-aa2b-d4731b06e48c"
+  },
+  "usage": {
+    "model": "haiku",
+    "inputTokens": 8,
+    "cacheCreationInputTokens": 1990,
+    "cacheReadInputTokens": 51344,
+    "contextWindow": 200000,
+    "contextTokens": 53342,
+    "percentage": 27,
+    "contextWindowIsAuthoritative": true
+  }
+}

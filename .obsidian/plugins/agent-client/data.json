@@ -1,0 +1,328 @@
+{
+  "claude": {
+    "id": "claude-code-acp",
+    "displayName": "Claude Code",
+    "apiKey": "",
+    "command": "/opt/homebrew/bin/claude-agent-acp",
+    "args": [],
+    "env": []
+  },
+  "codex": {
+    "id": "codex-acp",
+    "displayName": "Codex",
+    "apiKey": "",
+    "command": "codex-acp",
+    "args": [],
+    "env": []
+  },
+  "gemini": {
+    "id": "gemini-cli",
+    "displayName": "Gemini CLI",
+    "apiKey": "",
+    "command": "gemini",
+    "args": [
+      "--experimental-acp"
+    ],
+    "env": []
+  },
+  "customAgents": [],
+  "defaultAgentId": "claude-code-acp",
+  "autoAllowPermissions": false,
+  "autoMentionActiveNote": false,
+  "enableSystemNotifications": true,
+  "debugMode": false,
+  "nodePath": "/opt/homebrew/bin/node",
+  "exportSettings": {
+    "defaultFolder": "Agent Client",
+    "filenameTemplate": "agent_client_{date}_{time}",
+    "autoExportOnNewChat": false,
+    "autoExportOnCloseChat": false,
+    "openFileAfterExport": true,
+    "includeImages": true,
+    "imageLocation": "obsidian",
+    "imageCustomFolder": "Agent Client",
+    "frontmatterTag": "agent-client"
+  },
+  "windowsWslMode": false,
+  "sendMessageShortcut": "enter",
+  "chatViewLocation": "editor-tab",
+  "displaySettings": {
+    "autoCollapseDiffs": false,
+    "diffCollapseThreshold": 10,
+    "maxNoteLength": 10000,
+    "maxSelectionLength": 10000,
+    "showEmojis": true,
+    "fontSize": null
+  },
+  "savedSessions": [
+    {
+      "sessionId": "4031c973-e3fc-43fd-827f-0a61e3fe5643",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "# Generate Statistical Learning study guide\n\nYou a...",
+      "createdAt": "2026-05-03T14:56:09.300Z",
+      "updatedAt": "2026-05-03T14:56:09.300Z"
+    },
+    {
+      "sessionId": "d873b814-3afa-44fa-a902-fa8f25d60122",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "# Resume Statistical-Learning ingest — batch 5 (fi...",
+      "createdAt": "2026-05-03T14:23:10.295Z",
+      "updatedAt": "2026-05-03T14:23:10.295Z"
+    },
+    {
+      "sessionId": "e2abbaa3-d512-4f0c-af40-39cd83c7d8a8",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "# Resume Statistical-Learning ingest — batch 4 (L1...",
+      "createdAt": "2026-05-03T13:56:04.465Z",
+      "updatedAt": "2026-05-03T13:56:04.465Z"
+    },
+    {
+      "sessionId": "40b2d7a6-2cdc-4136-820a-f88e15df19b0",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "# Resume Statistical-Learning ingest — batch 3 (L1...",
+      "createdAt": "2026-05-03T12:35:27.285Z",
+      "updatedAt": "2026-05-03T12:35:27.285Z"
+    },
+    {
+      "sessionId": "c04166ed-7411-4c61-b7e3-4dd6c53780aa",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "# Resume Statistical-Learning ingest — batch 2 (L0...",
+      "createdAt": "2026-05-03T11:37:01.229Z",
+      "updatedAt": "2026-05-03T11:37:01.229Z"
+    },
+    {
+      "sessionId": "0b17c1db-2046-408c-b5ac-ab48caf8d93c",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "# Resume Statistical-Learning ingest — v2\n\nThe pre...",
+      "createdAt": "2026-05-03T11:27:34.685Z",
+      "updatedAt": "2026-05-03T11:27:34.685Z"
+    },
+    {
+      "sessionId": "1345c2b2-e114-48d0-8f74-ecbc037987ec",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "# Resume Statistical-Learning ingest\n\nThe previous...",
+      "createdAt": "2026-05-03T10:40:46.750Z",
+      "updatedAt": "2026-05-03T10:40:46.750Z"
+    },
+    {
+      "sessionId": "fdad3fb6-1da7-4c63-86f3-547feb8bbbd9",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "# Ingest Statistical-Learning course\n\nYou are inge...",
+      "createdAt": "2026-05-03T10:34:51.260Z",
+      "updatedAt": "2026-05-03T10:34:51.260Z"
+    },
+    {
+      "sessionId": "fc8c238b-4c75-4bda-a747-40139bd95a32",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "# Generate NLP Study Guide\n\nYou are generating a s...",
+      "createdAt": "2026-05-03T09:23:51.373Z",
+      "updatedAt": "2026-05-03T09:23:51.373Z"
+    },
+    {
+      "sessionId": "a0208a9a-5637-4abe-a922-7113f3256eed",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "Here's an audit prompt designed to be self-contain...",
+      "createdAt": "2026-05-02T13:41:04.719Z",
+      "updatedAt": "2026-05-02T13:41:04.719Z"
+    },
+    {
+      "sessionId": "9733219e-a7c8-4f44-b042-2179f31b812b",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "You are picking up an in-progress ingestion of the...",
+      "createdAt": "2026-05-02T13:19:41.581Z",
+      "updatedAt": "2026-05-02T13:19:41.581Z"
+    },
+    {
+      "sessionId": "f1cb9041-16b5-45e7-9fc3-6dbaea0f2a37",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "Ingest NLP course\nVault root: /Users/mattporteous/...",
+      "createdAt": "2026-05-02T11:39:55.611Z",
+      "updatedAt": "2026-05-02T11:39:55.611Z"
+    },
+    {
+      "sessionId": "32402cd6-c760-4740-91a6-6ab692eed26c",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "The content in this obsidian vault has now passed,...",
+      "createdAt": "2026-05-02T10:36:45.687Z",
+      "updatedAt": "2026-05-02T10:36:45.687Z"
+    },
+    {
+      "sessionId": "591631f0-5f5e-479a-b4a2-34185b91a1a9",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "Conduct a forensic analysis of the prof's MCQ desi...",
+      "createdAt": "2026-04-28T15:20:17.181Z",
+      "updatedAt": "2026-04-28T15:20:17.181Z"
+    },
+    {
+      "sessionId": "57befb3d-51e6-411b-9ffe-b6eb2bcc8fc0",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "bring back my mock exams in /Users/mattporteous/Ob...",
+      "createdAt": "2026-04-28T15:16:00.538Z",
+      "updatedAt": "2026-04-28T15:16:00.538Z"
+    },
+    {
+      "sessionId": "bb9e6235-d7d6-4736-a19b-d33d2bbd0061",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "bring back all my templates and my ingest script v...",
+      "createdAt": "2026-04-27T20:10:05.761Z",
+      "updatedAt": "2026-04-27T20:10:05.761Z"
+    },
+    {
+      "sessionId": "1833cd74-816a-4852-b446-f1a36f237159",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "Conduct a forensic analysis of 30-Sources/Computer...",
+      "createdAt": "2026-04-27T13:33:17.558Z",
+      "updatedAt": "2026-04-27T13:33:17.558Z"
+    },
+    {
+      "sessionId": "da34603d-0efe-48a7-9d0c-6c8540b5d103",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "explain reco ranking metrics",
+      "createdAt": "2026-04-27T08:11:05.165Z",
+      "updatedAt": "2026-04-27T08:11:05.166Z"
+    },
+    {
+      "sessionId": "d908b470-651c-4e69-baa1-1d73a3c75aab",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "i need to make the ingestion generalizable to diff...",
+      "createdAt": "2026-04-26T15:01:15.313Z",
+      "updatedAt": "2026-04-26T15:01:15.313Z"
+    },
+    {
+      "sessionId": "931bf0eb-ce89-42a9-85c7-877c9d3cfcae",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "Build cluster-based study artifacts in 40-Reviews/...",
+      "createdAt": "2026-04-26T14:22:53.395Z",
+      "updatedAt": "2026-04-26T14:22:53.395Z"
+    },
+    {
+      "sessionId": "8fe6b23a-acaa-421f-881e-0ef4a3f31467",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "Read both 30-Sources/Computer-Vision/mock-exams/mo...",
+      "createdAt": "2026-04-26T13:07:50.055Z",
+      "updatedAt": "2026-04-26T13:07:50.055Z"
+    },
+    {
+      "sessionId": "c3140676-ef12-4cdd-816f-39d4089a58d6",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "explain: The 2D Fourier transform",
+      "createdAt": "2026-04-26T12:48:47.558Z",
+      "updatedAt": "2026-04-26T12:48:47.558Z"
+    },
+    {
+      "sessionId": "858c4273-197b-402b-931e-1985b71a7431",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "@[[CLAUDE]] \n\nGrounded explanation: **Fourier & sa...",
+      "createdAt": "2026-04-26T12:28:51.374Z",
+      "updatedAt": "2026-04-26T12:28:51.374Z"
+    },
+    {
+      "sessionId": "66662b58-3c45-431b-a10a-7effde90eb82",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "@[[CLAUDE]] \nexplain this to me:\n\n\nFourier & sampl...",
+      "createdAt": "2026-04-26T12:19:29.048Z",
+      "updatedAt": "2026-04-26T12:19:29.048Z"
+    },
+    {
+      "sessionId": "d26d8668-c2f5-4a7b-af7b-37bef1acd56d",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "Honest answer first: you've built a beautiful stud...",
+      "createdAt": "2026-04-26T11:25:09.080Z",
+      "updatedAt": "2026-04-26T11:25:09.080Z"
+    },
+    {
+      "sessionId": "200de727-5e72-4366-bcf8-d9d29d024a95",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "@CLAUDE.md\nAudit every Mermaid diagram across the ...",
+      "createdAt": "2026-04-26T10:52:39.096Z",
+      "updatedAt": "2026-04-26T10:52:39.096Z"
+    },
+    {
+      "sessionId": "4e284549-8f6f-4ef6-83c0-30859dd6edf3",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "@CLAUDE.md\nResuming a long-running Computer Vision...",
+      "createdAt": "2026-04-26T10:46:21.273Z",
+      "updatedAt": "2026-04-26T10:46:21.273Z"
+    },
+    {
+      "sessionId": "751a482c-2e1c-41fd-bb6c-3c7f3c6bd017",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "@CLAUDE.md\nIngest all 11 Computer Vision lectures ...",
+      "createdAt": "2026-04-26T10:27:35.758Z",
+      "updatedAt": "2026-04-26T10:27:35.758Z"
+    },
+    {
+      "sessionId": "820b790b-9b47-4580-819b-f8befee09f45",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "Ingest 11 Computer Vision lecture decks (10 → 20) ...",
+      "createdAt": "2026-04-26T09:51:39.602Z",
+      "updatedAt": "2026-04-26T09:51:39.602Z"
+    },
+    {
+      "sessionId": "0f299b76-8ece-494c-9f32-b0587e3b7e89",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "I want you to ingest 11 Computer Vision lecture de...",
+      "createdAt": "2026-04-26T09:42:14.286Z",
+      "updatedAt": "2026-04-26T09:42:14.286Z"
+    },
+    {
+      "sessionId": "624b9c90-35a6-4642-90fc-fa72d5fd1fa8",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "@CLAUDE.md follow the slide ingest workflow on eve...",
+      "createdAt": "2026-04-26T09:34:44.977Z",
+      "updatedAt": "2026-04-26T09:34:44.977Z"
+    },
+    {
+      "sessionId": "df24675d-3ee0-415f-baba-07e16f082d49",
+      "agentId": "claude-code-acp",
+      "cwd": "/Users/mattporteous/Obsidian/School",
+      "title": "helo",
+      "createdAt": "2026-04-26T09:25:30.605Z",
+      "updatedAt": "2026-04-26T09:25:30.605Z"
+    }
+  ],
+  "lastUsedModels": {},
+  "lastUsedModes": {},
+  "enableFloatingChat": false,
+  "floatingButtonImage": "",
+  "floatingWindowSize": {
+    "width": 400,
+    "height": 500
+  },
+  "floatingWindowPosition": {
+    "x": 1470,
+    "y": 499
+  },
+  "floatingButtonPosition": null
+}

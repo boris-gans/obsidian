@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "sessionId": "57befb3d-51e6-411b-9ffe-b6eb2bcc8fc0",
+  "agentId": "claude-code-acp",
+  "messages": [
+    {
+      "id": "2b17c5a1-8fe1-4666-8837-00f3a5275b3e",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "bring back my mock exams in /Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/mock-exams\n\n\nvia git they were accidentally removed"
+        }
+      ],
+      "timestamp": "2026-04-28T15:15:45.780Z"
+    },
+    {
+      "id": "0022c994-c9a9-4dbe-96f7-573226c0a236",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "agent_thought",
+          "text": ""
+        }
+      ],
+      "timestamp": "2026-04-28T15:15:48.949Z"
+    },
+    {
+      "id": "fc1e8934-915e-44b7-9e07-27cdf542f133",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01WLXKFdwD6j4XTwV1AUiNzQ",
+          "title": "git status --short 30-Sources/Computer-Vision/mock-exams/",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "git status --short 30-Sources/Computer-Vision/mock-exams/",
+            "description": "Check status of mock-exams directory"
+          }
+        }
+      ],
+      "timestamp": "2026-04-28T15:15:48.949Z"
+    },
+    {
+      "id": "b57f73db-c9a7-4ead-801b-6dc88e4c4e3a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_013gFor7QGerr2AWWg94LjdR",
+          "title": "git restore 30-Sources/Computer-Vision/mock-exams/mock-exam-graded.pdf 30-Sources/Computer-Vision/mock-exams/mock-exam.pdf",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "git restore 30-Sources/Computer-Vision/mock-exams/mock-exam-graded.pdf 30-Sources/Computer-Vision/mock-exams/mock-exam.pdf",
+            "description": "Restore deleted mock exam PDFs"
+          }
+        }
+      ],
+      "timestamp": "2026-04-28T15:15:52.381Z"
+    },
+    {
+      "id": "62580ab1-a752-479a-a7c5-eac74e9b7926",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01L3QDtNNyhrmgAFkuzD5owC",
+          "title": "ls -la 30-Sources/Computer-Vision/mock-exams/",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls -la 30-Sources/Computer-Vision/mock-exams/",
+            "description": "Verify restored files"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Restored both PDFs from git:\n- `30-Sources/Computer-Vision/mock-exams/mock-exam.pdf`\n- `30-Sources/Computer-Vision/mock-exams/mock-exam-graded.pdf`"
+        }
+      ],
+      "timestamp": "2026-04-28T15:15:57.179Z"
+    }
+  ],
+  "savedAt": "2026-04-28T15:16:00.539Z"
+}

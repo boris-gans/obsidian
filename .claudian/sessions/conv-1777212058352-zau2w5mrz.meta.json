@@ -1,0 +1,23 @@
+{
+  "id": "conv-1777212058352-zau2w5mrz",
+  "providerId": "claude",
+  "title": "Explain Fourier transforms and sampling",
+  "titleGenerationStatus": "success",
+  "createdAt": 1777212058352,
+  "updatedAt": 1777212262991,
+  "lastResponseAt": 1777212219049,
+  "sessionId": "c371cb5b-8902-495d-975a-9f5ef7dc8dac",
+  "providerState": {
+    "providerSessionId": "c371cb5b-8902-495d-975a-9f5ef7dc8dac"
+  },
+  "usage": {
+    "model": "haiku",
+    "inputTokens": 10,
+    "cacheCreationInputTokens": 2451,
+    "cacheReadInputTokens": 84913,
+    "contextWindow": 200000,
+    "contextTokens": 87374,
+    "percentage": 44,
+    "contextWindowIsAuthoritative": true
+  }
+}

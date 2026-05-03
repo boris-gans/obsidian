@@ -1,0 +1,1669 @@
+{
+  "version": 1,
+  "sessionId": "1345c2b2-e114-48d0-8f74-ecbc037987ec",
+  "agentId": "claude-code-acp",
+  "messages": [
+    {
+      "id": "2f2ee558-c892-45c7-92c3-6189a85c8e80",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "# Resume Statistical-Learning ingest\n\nThe previous agent session crashed mid-Phase-0 with an image-dimension error (it was reading multiple PDFs in parallel and the cumulative page-image size exceeded the 2000px many-image limit). You are taking over. **Do not restart from scratch** — most of Phase 0 is complete and on disk.\n\n## Read first\n\n1. `School/CLAUDE.md` — full workflow rulebook. Read end to end.\n2. The original ingest spec lives in your conversation history above (the long prompt titled \"Ingest Statistical-Learning course\"). Read it once for context, then use **this** prompt as the operating instructions — it overrides where it differs.\n\n## State on disk (confirmed before this session)\n\n- ✅ All 20 PDFs rasterized to `School/30-Sources/Statistical-Learning/slides-png/{deck-name}/slide-NN.png`. Verify with `ls School/30-Sources/Statistical-Learning/slides-png/ | wc -l` — should be 20. **Do not regenerate.**\n- ✅ Syllabus already read by the previous agent. Key facts extracted below — do not re-read the syllabus PDF unless something specific is missing.\n- ❌ `30-Sources/Statistical-Learning/_course.md` — **not yet written**. This is your first action.\n- ❌ `40-Reviews/Statistical-Learning/exam-blueprint.md` — not yet written.\n- ❌ Mock exam not yet read.\n- ❌ No lecture notes, no concepts, no flashcards yet.\n\n## Key facts already extracted from the syllabus (do not re-read it)\n\n- **Course code:** AISLP-CSAI.3.M.B\n- **Display name:** Statistical Learning (titled \"AI: Statistical Learning & Prediction\" in syllabus)\n- **Cohort:** BCSAI, 3rd year, semester 2\n- **Semester:** Spring 2026\n- **Exam date:** TBD (final is Session 30; specific date not given in syllabus)\n- **Instructor:** Luciano Dyballa\n- **Decks credit:** J. Johnson (UMich) and Li/Johnson/Yeung (Stanford) — heavily inspired by EECS 498 / CS231n. Useful context for the conceptual lineage.\n- **Grading:** Midterm 25%, Final 40%, must score ≥3.5/10 on final to pass regardless of other grades.\n- **AI policy:** AI tools forbidden in quizzes/exams.\n- **Quizzes:** Given throughout semester (separate artifact, not yet provided).\n\n## Lecture mapping (already derived — use verbatim)\n\nThe previous agent derived this from the syllabus and partial PDF inspection. Lectures 1–7 had explicit numbers in their title slides; 8–19 are inferred consecutive ordering in syllabus topic order.\n\n| Lecture # | Topic | PDF filename |\n| --- | --- | --- |\n| 01 | k-NN, curse of dimensionality | SLP-Lec1-knn(1).pdf |\n| 02 | Linear classifiers, the perceptron | SLP-lec2(1).pdf |\n| 03 | Intro to neural nets | SLP-lec3(1).pdf |\n| 04 | Multi-layer perceptrons | SLP-04(1).pdf |\n| 05 | Backpropagation | Lec-05-backprop(1).pdf |\n| 06 | Improving MLPs (vanishing/exploding gradients, activations) | Lec-06-improving-MLPs(1).pdf |\n| 07 | Learning-rate schedules / training deep nets | Lec7-slides.pdf |\n| 08 | Decision trees | dtrees_slides_SLP.pdf |\n| 09 | Linear SVMs | SLP-SVMs-I.pdf |\n| 10 | Loss functions & regularizers | SLP-Loss-functions-regs.pdf |\n| 11 | Bias–variance decomposition | SLP-Bias-variance(1).pdf |\n| 12 | Ensemble methods I: Bagging | SLP-Bagging.pdf |\n| 13 | Ensemble methods II: Boosting | SLP-Boosting.pdf |\n| 14 | AdaBoost | SLP-Adaboost(1).pdf |\n| 15 | Kernel methods I | SLP-Kernels(1).pdf |\n| 16 | Kernel methods II | SLP-Kernels-II(1).pdf |\n| 17 | Clustering (k-means) | kmeans_slides.pdf |\n| 18 | PCA (dimensionality reduction I) | SLP-PCA.pdf |\n| 19 | Dimensionality reduction II | SLP-DimRed-II(1).pdf |\n\n`example-dtree.pdf` is a worked example, not a lecture — link from lecture 08 under `## Worked examples`.\n\n**The user already approved this mapping (\"go\" was given).** Do not re-confirm it. Use it as-is.\n\n## CRITICAL: Avoid the crash that killed the previous session\n\nThe previous session died because the agent had ~9 PDFs and the syllabus all loaded into context simultaneously — page images stacked up past the 2000px limit. Rules to prevent recurrence:\n\n1. **Read PDFs serially, never in parallel.** Finish processing (extract → write notes → write flashcards) for one lecture before opening the next PDF.\n2. **For each lecture's PDF, read it once, extract everything you need, then move on.** Don't re-open it later.\n3. **Use slide PNGs for verification, not full PDF re-reads.** When you need to verify a slide number for a citation, view the specific `slide-NN.png`, not the whole PDF again.\n4. **Don't load multiple slide PNGs at once.** One slide image at a time when verifying.\n5. **The mock exam PDF is read once at the start of Phase 1, processed completely, then closed.** Do not re-open it during Phase 2.\n\nIf you find yourself wanting to \"compare two lectures side by side\" or \"double-check that earlier lecture\", resist — your concept notes and flashcards from the earlier lecture are already on disk. Use those instead of re-opening the PDF.\n\n## Action plan\n\n### Step 1 — Write the manifest (no approval needed; previously approved)\n\nCreate `School/30-Sources/Statistical-Learning/_course.md` with this content (copy verbatim, adjusting only if `99-Templates/_course.md` has frontmatter fields you need to match):\n\n```yaml\n---\ncourse-code: Statistical-Learning\ndisplay-name: Statistical Learning\nsemester: Spring 2026\nexam-date: TBD\nexam-format: |\n  TBD — preliminary: course has midterm (25%) + final (40%).\n  Pass requires ≥3.5/10 on final exam regardless of other grades.\n  Will be refined after mock-exam ingest.\ndiagram-categories:\n  linear-models: \"#5b8def\"\n  neural: \"#e36f6f\"\n  trees-ensembles: \"#6fb86f\"\n  kernels: \"#c98ae0\"\n  clustering: \"#e6a85c\"\n  dim-reduction: \"#5fb6b6\"\n---\n\n# Statistical Learning\n\n## Course quirks\n- Course code AISLP-CSAI.3.M.B; titled \"AI: Statistical Learning & Prediction\" (BCSAI, 3rd year, semester 2).\n- Instructor: **Luciano Dyballa** (Yale PhD, ML/vision/comp-neuro). Decks credit J. Johnson (UMich) and Li/Johnson/Yeung (Stanford) — heavily inspired by EECS 498/CS231n.\n- Quizzes given throughout the semester; midterm is Session 8, final is Session 30.\n- AI tools forbidden in quizzes/exams.\n- Pass requires ≥3.5/10 on the final exam regardless of other grades.\n\n## Sources at hand\n- [x] Slides (`pdf/`, `slides-png/` — 20 decks rasterized)\n- [ ] Notebooks\n- [x] Mock exams (`mock-exams/mock_exam_spring26_BCSAI_SLP.pdf`)\n- [ ] Quizzes\n- [x] Syllabus (`syllabus/SyllabusPDF.pdf`)\n\n## Lecture mapping\n\n| Lecture # | Topic | PDF filename |\n| --- | --- | --- |\n| 01 | k-NN, curse of dimensionality | SLP-Lec1-knn(1).pdf |\n| 02 | Linear classifiers, the perceptron | SLP-lec2(1).pdf |\n| 03 | Intro to neural nets | SLP-lec3(1).pdf |\n| 04 | Multi-layer perceptrons | SLP-04(1).pdf |\n| 05 | Backpropagation | Lec-05-backprop(1).pdf |\n| 06 | Improving MLPs (vanishing/exploding gradients, activations) | Lec-06-improving-MLPs(1).pdf |\n| 07 | Learning-rate schedules / training deep nets | Lec7-slides.pdf |\n| 08 | Decision trees | dtrees_slides_SLP.pdf |\n| 09 | Linear SVMs | SLP-SVMs-I.pdf |\n| 10 | Loss functions & regularizers | SLP-Loss-functions-regs.pdf |\n| 11 | Bias–variance decomposition | SLP-Bias-variance(1).pdf |\n| 12 | Ensemble methods I: Bagging | SLP-Bagging.pdf |\n| 13 | Ensemble methods II: Boosting | SLP-Boosting.pdf |\n| 14 | AdaBoost | SLP-Adaboost(1).pdf |\n| 15 | Kernel methods I | SLP-Kernels(1).pdf |\n| 16 | Kernel methods II | SLP-Kernels-II(1).pdf |\n| 17 | Clustering (k-means) | kmeans_slides.pdf |\n| 18 | PCA (dimensionality reduction I) | SLP-PCA.pdf |\n| 19 | Dimensionality reduction II | SLP-DimRed-II(1).pdf |\n\n`example-dtree.pdf` is a worked example, not a lecture — link from lecture 08 under `## Worked examples`.\n```\n\nAfter writing, confirm to chat: \"Manifest written.\" Then move to Step 2.\n\n### Step 2 — Phase 1: mock exam → blueprint\n\nPer the mock-exam workflow in CLAUDE.md.\n\n1. Read `School/30-Sources/Statistical-Learning/mock-exams/mock_exam_spring26_BCSAI_SLP.pdf` **once, fully**. Don't re-open it later.\n2. Draft the blueprint outline + topic coverage map skeleton + recurring patterns. Show it to the user.\n3. Wait for \"go\".\n4. Write `School/40-Reviews/Statistical-Learning/exam-blueprint.md`.\n\n### Step 3 — Phase 2 plan (approval gate)\n\nShow the full lecture-by-lecture ingest plan as a table: lecture number, lecture-note slug, concepts to extract (split into NEW vs. EXTEND-existing). Use the search-before-create flag table from the original prompt — but **glob `20-Concepts/` first** and verify which concepts actually exist in the vault rather than guessing from the original spec's table. The original table was guidance, not ground truth.\n\nWait for \"go\".\n\n### Step 4 — Phase 2 execution\n\nProcess lectures one at a time, in numeric order (01 → 19). For each:\n\n1. Read the PDF. Once. Fully.\n2. Write the lecture note at `10-Courses/Statistical-Learning/lectures/lecture-NN-{slug}.md`.\n3. For each concept:\n   - Search `20-Concepts/` for existing slug + obvious synonyms.\n   - If exists: extend (add `Statistical-Learning` to `courses:`, append `sources:` entry, extend body with this course's framing if it differs).\n   - If new: create per `99-Templates/concept.md`.\n4. Write flashcards at `40-Reviews/Statistical-Learning/flashcards/lecture-NN.md`.\n5. Move to next lecture. **Do not re-open the previous lecture's PDF.**\n\nBetween lectures, briefly confirm progress to chat (e.g. \"Lecture 03 done — 2 new concepts, 1 extended\"). This gives the user resumption points if anything else crashes.\n\n### Step 5 — Phase 3: reconcile\n\nAfter lecture 19, run the reconcile steps from the original prompt: close gaps from the blueprint, cross-link the topic-coverage map to lecture notes, print the summary.\n\n## If you crash mid-Phase-2\n\nIf a future tool error truncates the session during Phase 2, the next agent should:\n- Glob `10-Courses/Statistical-Learning/lectures/` to see which lectures are done.\n- Resume at the next un-ingested lecture number.\n- Do not re-process completed lectures.\n\nThat's the structural reason Step 4 says to write notes lecture-by-lecture rather than batching: each completed lecture is a durable resumption point.\n\nBegin with Step 1."
+        }
+      ],
+      "timestamp": "2026-05-03T10:38:49.350Z"
+    },
+    {
+      "id": "a231ce26-ef4c-440e-9f55-165c421fb3b7",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "agent_thought",
+          "text": ""
+        }
+      ],
+      "timestamp": "2026-05-03T10:38:51.650Z"
+    },
+    {
+      "id": "8d0e3f80-847a-4bcd-8688-cbb1c8dae17c",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01SM9mpbyUH2RnFbzDCMCJ9a",
+          "title": "ls /Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/slides-png/ | wc -l && ls /Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls /Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/slides-png/ | wc -l && ls /Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/",
+            "description": "Verify slide PNG state and source folder"
+          }
+        }
+      ],
+      "timestamp": "2026-05-03T10:38:52.364Z"
+    },
+    {
+      "id": "638d2bf0-ab67-42df-ae60-2e7ea331d5ec",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01CdcLsDrEmyiRKQSxVZhn1j",
+          "title": "Read 99-Templates/_course.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/99-Templates/_course.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/99-Templates/_course.md"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Slides confirmed (20 decks). Writing the manifest now."
+        }
+      ],
+      "timestamp": "2026-05-03T10:38:54.268Z"
+    },
+    {
+      "id": "26dbecb6-c486-40fe-97c1-0d76c1126a71",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01DiaJDtNy6DyA7FKh3qB77A",
+          "title": "Write 30-Sources/Statistical-Learning/_course.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/_course.md",
+              "newText": "---\ncourse-code: Statistical-Learning\ndisplay-name: Statistical Learning\nsemester: Spring 2026\nexam-date: TBD\nexam-format: |\n  TBD — preliminary: course has midterm (25%) + final (40%).\n  Pass requires ≥3.5/10 on final exam regardless of other grades.\n  Will be refined after mock-exam ingest.\ndiagram-categories:\n  linear-models: \"#5b8def\"\n  neural: \"#e36f6f\"\n  trees-ensembles: \"#6fb86f\"\n  kernels: \"#c98ae0\"\n  clustering: \"#e6a85c\"\n  dim-reduction: \"#5fb6b6\"\n---\n\n# Statistical Learning\n\n## Course quirks\n- Course code AISLP-CSAI.3.M.B; titled \"AI: Statistical Learning & Prediction\" (BCSAI, 3rd year, semester 2).\n- Instructor: **Luciano Dyballa** (Yale PhD, ML/vision/comp-neuro). Decks credit J. Johnson (UMich) and Li/Johnson/Yeung (Stanford) — heavily inspired by EECS 498/CS231n.\n- Quizzes given throughout the semester; midterm is Session 8, final is Session 30.\n- AI tools forbidden in quizzes/exams.\n- Pass requires ≥3.5/10 on the final exam regardless of other grades.\n\n## Sources at hand\n- [x] Slides (`pdf/`, `slides-png/` — 20 decks rasterized)\n- [ ] Notebooks\n- [x] Mock exams (`mock-exams/mock_exam_spring26_BCSAI_SLP.pdf`)\n- [ ] Quizzes\n- [x] Syllabus (`syllabus/SyllabusPDF.pdf`)\n\n## Lecture mapping\n\n| Lecture # | Topic | PDF filename |\n| --- | --- | --- |\n| 01 | k-NN, curse of dimensionality | SLP-Lec1-knn(1).pdf |\n| 02 | Linear classifiers, the perceptron | SLP-lec2(1).pdf |\n| 03 | Intro to neural nets | SLP-lec3(1).pdf |\n| 04 | Multi-layer perceptrons | SLP-04(1).pdf |\n| 05 | Backpropagation | Lec-05-backprop(1).pdf |\n| 06 | Improving MLPs (vanishing/exploding gradients, activations) | Lec-06-improving-MLPs(1).pdf |\n| 07 | Learning-rate schedules / training deep nets | Lec7-slides.pdf |\n| 08 | Decision trees | dtrees_slides_SLP.pdf |\n| 09 | Linear SVMs | SLP-SVMs-I.pdf |\n| 10 | Loss functions & regularizers | SLP-Loss-functions-regs.pdf |\n| 11 | Bias–variance decomposition | SLP-Bias-variance(1).pdf |\n| 12 | Ensemble methods I: Bagging | SLP-Bagging.pdf |\n| 13 | Ensemble methods II: Boosting | SLP-Boosting.pdf |\n| 14 | AdaBoost | SLP-Adaboost(1).pdf |\n| 15 | Kernel methods I | SLP-Kernels(1).pdf |\n| 16 | Kernel methods II | SLP-Kernels-II(1).pdf |\n| 17 | Clustering (k-means) | kmeans_slides.pdf |\n| 18 | PCA (dimensionality reduction I) | SLP-PCA.pdf |\n| 19 | Dimensionality reduction II | SLP-DimRed-II(1).pdf |\n\n`example-dtree.pdf` is a worked example, not a lecture — link from lecture 08 under `## Worked examples`.\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/_course.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/_course.md",
+            "content": "---\ncourse-code: Statistical-Learning\ndisplay-name: Statistical Learning\nsemester: Spring 2026\nexam-date: TBD\nexam-format: |\n  TBD — preliminary: course has midterm (25%) + final (40%).\n  Pass requires ≥3.5/10 on final exam regardless of other grades.\n  Will be refined after mock-exam ingest.\ndiagram-categories:\n  linear-models: \"#5b8def\"\n  neural: \"#e36f6f\"\n  trees-ensembles: \"#6fb86f\"\n  kernels: \"#c98ae0\"\n  clustering: \"#e6a85c\"\n  dim-reduction: \"#5fb6b6\"\n---\n\n# Statistical Learning\n\n## Course quirks\n- Course code AISLP-CSAI.3.M.B; titled \"AI: Statistical Learning & Prediction\" (BCSAI, 3rd year, semester 2).\n- Instructor: **Luciano Dyballa** (Yale PhD, ML/vision/comp-neuro). Decks credit J. Johnson (UMich) and Li/Johnson/Yeung (Stanford) — heavily inspired by EECS 498/CS231n.\n- Quizzes given throughout the semester; midterm is Session 8, final is Session 30.\n- AI tools forbidden in quizzes/exams.\n- Pass requires ≥3.5/10 on the final exam regardless of other grades.\n\n## Sources at hand\n- [x] Slides (`pdf/`, `slides-png/` — 20 decks rasterized)\n- [ ] Notebooks\n- [x] Mock exams (`mock-exams/mock_exam_spring26_BCSAI_SLP.pdf`)\n- [ ] Quizzes\n- [x] Syllabus (`syllabus/SyllabusPDF.pdf`)\n\n## Lecture mapping\n\n| Lecture # | Topic | PDF filename |\n| --- | --- | --- |\n| 01 | k-NN, curse of dimensionality | SLP-Lec1-knn(1).pdf |\n| 02 | Linear classifiers, the perceptron | SLP-lec2(1).pdf |\n| 03 | Intro to neural nets | SLP-lec3(1).pdf |\n| 04 | Multi-layer perceptrons | SLP-04(1).pdf |\n| 05 | Backpropagation | Lec-05-backprop(1).pdf |\n| 06 | Improving MLPs (vanishing/exploding gradients, activations) | Lec-06-improving-MLPs(1).pdf |\n| 07 | Learning-rate schedules / training deep nets | Lec7-slides.pdf |\n| 08 | Decision trees | dtrees_slides_SLP.pdf |\n| 09 | Linear SVMs | SLP-SVMs-I.pdf |\n| 10 | Loss functions & regularizers | SLP-Loss-functions-regs.pdf |\n| 11 | Bias–variance decomposition | SLP-Bias-variance(1).pdf |\n| 12 | Ensemble methods I: Bagging | SLP-Bagging.pdf |\n| 13 | Ensemble methods II: Boosting | SLP-Boosting.pdf |\n| 14 | AdaBoost | SLP-Adaboost(1).pdf |\n| 15 | Kernel methods I | SLP-Kernels(1).pdf |\n| 16 | Kernel methods II | SLP-Kernels-II(1).pdf |\n| 17 | Clustering (k-means) | kmeans_slides.pdf |\n| 18 | PCA (dimensionality reduction I) | SLP-PCA.pdf |\n| 19 | Dimensionality reduction II | SLP-DimRed-II(1).pdf |\n\n`example-dtree.pdf` is a worked example, not a lecture — link from lecture 08 under `## Worked examples`.\n"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Manifest written. Moving to Step 2 — reading the mock exam."
+        }
+      ],
+      "timestamp": "2026-05-03T10:38:56.905Z"
+    },
+    {
+      "id": "8d7627be-4ee8-4981-be54-e389d74218dc",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_016DdvfgF2tts8eHMsEmHWZ1",
+          "title": "ls /Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/mock-exams/ && ls /Users/mattporteous/Obsidian/School/40-Reviews/Statistical-Learning/ 2>/dev/null || echo \"40-Reviews/Statistical-Learning/ does not exist yet\"",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls /Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/mock-exams/ && ls /Users/mattporteous/Obsidian/School/40-Reviews/Statistical-Learning/ 2>/dev/null || echo \"40-Reviews/Statistical-Learning/ does not exist yet\"",
+            "description": "Check mock-exam dir and Review dir"
+          }
+        }
+      ],
+      "timestamp": "2026-05-03T10:39:19.725Z"
+    },
+    {
+      "id": "e270783f-c4ff-4e57-a0dd-fbd825d43297",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_015CamdyUGADEcGjmKJnYhg1",
+          "title": "/usr/bin/mdimport -d2 /Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/mock-exams/mock_exam_spring26_BCSAI_SLP.pdf 2>/dev/null | grep -i \"kMDItemNumberOfPages\" | head -1",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "/usr/bin/mdimport -d2 /Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/mock-exams/mock_exam_spring26_BCSAI_SLP.pdf 2>/dev/null | grep -i \"kMDItemNumberOfPages\" | head -1",
+            "description": "Check PDF page count via mdimport"
+          }
+        }
+      ],
+      "timestamp": "2026-05-03T10:39:22.665Z"
+    },
+    {
+      "id": "1abf9c77-d4c1-4e64-af7c-712040aa67f5",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_015ng6rs1qxMcNVU6NuxGLdh",
+          "title": "mdls -name kMDItemNumberOfPages /Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/mock-exams/mock_exam_spring26_BCSAI_SLP.pdf",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "mdls -name kMDItemNumberOfPages /Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/mock-exams/mock_exam_spring26_BCSAI_SLP.pdf",
+            "description": "Get mock exam page count"
+          }
+        }
+      ],
+      "timestamp": "2026-05-03T10:39:29.638Z"
+    },
+    {
+      "id": "a428d4d5-af6a-4b82-975c-dfae501d553a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01WoK87XT8UjqexBL154d2SH",
+          "title": "Read 30-Sources/Statistical-Learning/mock-exams/mock_exam_spring26_BCSAI_SLP.pdf",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/mock-exams/mock_exam_spring26_BCSAI_SLP.pdf"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/mock-exams/mock_exam_spring26_BCSAI_SLP.pdf",
+            "pages": "1-8"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "Mock exam read fully (8 pages, 7 sections). Drafting the blueprint outline below for review before writing.\n\n---\n\n## Draft outline — `40-Reviews/Statistical-Learning/exam-blueprint.md`\n\n### Frontmatter\n```yaml\ntags: [exam-blueprint, Statistical-Learning]\ncourse: Statistical-Learning\ncreated: 2026-05-03\nsources:\n  - mock-exams/mock_exam_spring26_BCSAI_SLP.pdf\n```\n\n### Sections (in CLAUDE.md-mandated order)\n\n**Format**\n- 8 pages; 7 numbered sections.\n- Mix of T/F + fill-blank short questions, drawing/graphing exercises, and from-scratch algorithmic computation.\n- Closed book (per syllabus AI policy).\n- No formula sheet appears to be provided. SVM slack formulation is given inline on the SVM problem (so the soft-margin objective itself isn't pure recall — but everything else is).\n\n**Marks distribution** (only partial values are explicit in the mock)\n\n| Section | Topic | Subparts | Points |\n| --- | --- | --- | --- |\n| 1 | Short questions | a–l (12) | 2 each = 24 |\n| 2 | Training & CV error curves | a, b, c | 3 + 3 + 5 = 11 |\n| 3 | Decision trees (mushroom dataset) | a–e | not stated |\n| 4 | PCA | a, b, c | not stated |\n| 5 | Boosting (AdaBoost) | a, b | not stated |\n| 6 | SVMs (quadratic kernel, slack) | a, b, c | not stated |\n| 7 | Clustering (k-means + hierarchical) | a | not stated |\n\n**Recurring patterns** (per section)\n\n- **§1 short questions** — overwhelmingly True/False with one fill-in-the-blank (one-word from a list) and one critique-the-statement (statement is wrong, student must spot it). Topics rotate across the syllabus.\n- **§2** — sketch error curves (vs. training-set size, vs. regularization λ) + \"circle all classifiers that achieve zero training error on this XOR-like layout\".\n- **§3** — full decision-tree algorithmic compute: entropy or Gini at root, conditional entropy on a split, choose root attribute, draw full unpruned tree, training error fraction.\n- **§4** — by-hand PCA arithmetic: sample mean, covariance-matrix shape, first PC vector.\n- **§5** — by-hand AdaBoost: pick stumps from a fixed set, run 3 rounds, give per-round weighted error and final ensemble. Tie-break rule: prefer low-numbered stumps.\n- **§6** — SVM with quadratic kernel under slack formulation: draw decision boundary for very large vs. very small C, justify, reason about generalization.\n- **§7** — by-hand clustering: k-means trajectory (1st iter, final) + single-linkage hierarchical (1st iter, final).\n\n**Topic coverage map** (how each lecture is tested)\n\n| Topic / Lecture | Where it appears in mock |\n| --- | --- |\n| L01 k-NN | §1d (1-NN training error), §2c (3-NN on XOR data) |\n| L02 Linear classifiers / perceptron | §2c (linear SVM on XOR) |\n| L03–04 Neural nets / MLP | §1b (depth → hierarchical reps), §1j (loss surface depends on data), §2c (MLP single hidden layer on XOR) |\n| L05 Backprop | §1j (loss surface as fn of training data) |\n| L06–07 Improving / training MLPs | §1k (SGD update semantics) |\n| L08 Decision trees | §1a (pruning vs. overfit), §1i (missing attributes), §1h, §1l, §2c, §3 (full compute) |\n| L09 Linear SVMs | §1c (decision boundary determined by SVs), §2c, §6 (full quadratic-kernel SVM) |\n| L10 Loss & regularization | §1e (L2 → sparsity? false), §1f (elastic net & convexity), §2b (curves vs. λ) |\n| L11 Bias–variance | §2a (curves vs. N) |\n| L12 Bagging | not tested in this mock |\n| L13 Boosting | §1g (iterations as complexity control), §1h (gradient-boosted = linear combo of stumps) |\n| L14 AdaBoost | §1l (no pruning), §5 (full 3-round run) |\n| L15–16 Kernels | §6 (quadratic kernel) |\n| L17 k-means | §7 (1st & final iteration) + hierarchical single-linkage |\n| L18 PCA | §4 (mean, cov shape, first PC) |\n| L19 Dim reduction II | not tested in this mock |\n\n**Prof tells**\n- Tie-break rule on AdaBoost: \"prefer low-numbered stumps\".\n- \"or Gini\" written next to entropy questions — both impurity measures accepted.\n- \"Justify your answer here\" appears on figure-drawing questions → partial credit hinges on the written justification, not just the drawing.\n- Section 1 mixes T/F with one critique-the-statement (1e) — student must read carefully; some statements look plausible but contain a wrong claim.\n- AI tools forbidden in all quizzes/exams (from syllabus).\n\n**What the formula sheet provides**\n- SVM slack-formulation primal is restated inline on §6: $\\arg\\min \\frac{1}{2}\\|w\\|^2 + C\\sum \\xi_i$ s.t. $y^i(\\langle w, \\phi(x^i)\\rangle + b) \\ge 1 - \\xi_i$, $\\xi_i \\ge 0$, with $\\phi$ giving $(\\phi(x)\\cdot\\phi(x')) = (x\\cdot x' + 1)^2$.\n- Nothing else.\n\n**What the formula sheet does NOT provide** (memorize cold)\n- Entropy $H = -\\sum p_i \\log_2 p_i$ and Gini $G = 1 - \\sum p_i^2$.\n- AdaBoost: weighted error $\\epsilon_t$, $\\alpha_t = \\frac{1}{2}\\ln\\frac{1-\\epsilon_t}{\\epsilon_t}$, weight update, final $H(x) = \\mathrm{sign}(\\sum \\alpha_t h_t(x))$.\n- PCA pipeline: center, build covariance, eigendecompose, first PC = top eigenvector.\n- K-means update rules (assign-then-recompute) and convergence stop condition.\n- Single-linkage hierarchical: cluster distance = min pairwise distance.\n- L1, L2, Elastic Net penalty forms and their respective effects (L1 → sparse, L2 → shrinkage, Elastic Net → both).\n- Bias-variance shape of training/test error vs. N and vs. λ.\n- Sufficient kernel conditions / kernel trick mechanics.\n- 1-NN training error = 0; k-NN behavior at small/large k.\n\n---\n\nSay **go** to write this to `40-Reviews/Statistical-Learning/exam-blueprint.md`."
+        }
+      ],
+      "timestamp": "2026-05-03T10:39:34.190Z"
+    },
+    {
+      "id": "186435ce-9b82-4ce1-931e-f98c922dc0b3",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "go"
+        }
+      ],
+      "timestamp": "2026-05-03T10:41:01.058Z"
+    },
+    {
+      "id": "10045075-4d61-40df-a1f3-f9a6b6d3e5bd",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "agent_thought",
+          "text": ""
+        }
+      ],
+      "timestamp": "2026-05-03T10:41:04.285Z"
+    },
+    {
+      "id": "237f6eaa-2ee1-456d-8c73-734184fb684a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_011MWwLMP3zximXcDMfcYBpa",
+          "title": "ToolSearch",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "query": "select:TodoWrite",
+            "max_results": 1
+          }
+        },
+        {
+          "type": "plan",
+          "entries": [
+            {
+              "content": "Write course manifest",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Read mock exam fully",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Draft & confirm exam blueprint outline",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Write exam-blueprint.md",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Phase 2 plan: glob 20-Concepts/, draft lecture-by-lecture ingest table, get approval",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L01 k-NN",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L02 linear classifiers / perceptron",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L03 intro to neural nets",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L04 MLPs",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L05 backprop",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L06 improving MLPs",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L07 LR schedules / training deep nets",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L08 decision trees",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L09 linear SVMs",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L10 loss functions & regularizers",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L11 bias-variance",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L12 bagging",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L13 boosting",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L14 AdaBoost",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L15 kernels I",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L16 kernels II",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L17 k-means",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L18 PCA",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L19 dim-reduction II",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Phase 3 reconcile: cross-link blueprint, fill gaps, summary",
+              "priority": "medium",
+              "status": "pending"
+            }
+          ]
+        }
+      ],
+      "timestamp": "2026-05-03T10:41:04.659Z"
+    },
+    {
+      "id": "9e51943c-3b18-4c4f-83b7-702a48f9732c",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01CXvyPwWqmHG8DauoqJxn1V",
+          "title": "Write",
+          "status": "pending",
+          "kind": "edit",
+          "locations": [],
+          "rawInput": {}
+        }
+      ],
+      "timestamp": "2026-05-03T10:41:24.739Z"
+    },
+    {
+      "id": "f74bdd48-fa0e-46d2-b584-fc437cdc74c2",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "quick note on the exam blue print:\n\n\nmy prof said this when he released the mock:\n\n'Hi everyone,\n\n\nTo help you study for your (real) exam, I just posted an past exam for you to practice.\n\nPlease note the I can't promise the format will be identical since this year there might be a higher number of multiple choice questions.\n\nWe can discuss this in more detail on Friday in the beginning of class.\n\n\nHope to see you all there for our final show!\n\n\nLuciano"
+        }
+      ],
+      "timestamp": "2026-05-03T10:41:51.108Z"
+    },
+    {
+      "id": "11fee5ae-a578-4033-8020-dd00cbb2ea34",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "Noted — I'll add this caveat prominently in the blueprint (top-of-doc note + a row in **Prof tells**) so future-me/the user doesn't over-anchor on this mock's structure. Writing now."
+        }
+      ],
+      "timestamp": "2026-05-03T10:41:54.387Z"
+    },
+    {
+      "id": "f78354d4-1843-40ee-8097-778be0a52059",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01FqEtjANhku9QgNa6Pnaqe7",
+          "title": "mkdir -p /Users/mattporteous/Obsidian/School/40-Reviews/Statistical-Learning",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "mkdir -p /Users/mattporteous/Obsidian/School/40-Reviews/Statistical-Learning",
+            "description": "Create Reviews dir for Statistical-Learning"
+          }
+        }
+      ],
+      "timestamp": "2026-05-03T10:41:58.526Z"
+    },
+    {
+      "id": "787df9ec-04df-4a87-bc1e-b06271a65376",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01WZwQE4Kar6AbHshCJJKStj",
+          "title": "Write 40-Reviews/Statistical-Learning/exam-blueprint.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/40-Reviews/Statistical-Learning/exam-blueprint.md",
+              "newText": "---\ntags: [exam-blueprint, Statistical-Learning]\ncourse: Statistical-Learning\ncreated: 2026-05-03\nsources:\n  - mock-exams/mock_exam_spring26_BCSAI_SLP.pdf\n---\n\n# Statistical Learning — Exam Blueprint\n\n> **Caveat from the prof (release email, Spring 2026):** *\"Please note that I can't promise the format will be identical since this year there might be a higher number of multiple choice questions.\"* — Luciano Dyballa.\n> **Implication:** treat this past-exam structure as a directional signal about *which topics* he tests and *how he frames* questions, not as a fixed template. Expect more MCQs and possibly fewer / shorter algorithmic-compute exercises. Memorize the underlying mechanics regardless — MCQs on AdaBoost / decision-tree splits / PCA still need the same recall.\n\n## Format\n\n- 8 pages, 7 numbered sections (this past exam).\n- Closed book. AI tools forbidden in all quizzes/exams (per syllabus).\n- Mix in this past exam: T/F + fill-blank short questions, sketch-the-curve graphs, by-hand algorithmic compute (decision trees, AdaBoost, PCA, k-means), figure annotation with written justification.\n- **For the actual Spring 2026 final:** higher MCQ count likely (per prof's release note). Final format details TBD — to be discussed in class.\n- No formula sheet provided in the past exam. The SVM slack-formulation primal *is* restated inline on the SVM problem; nothing else is.\n\n## Marks distribution\n\nOnly some questions in the past exam show explicit point values. Inferred where possible.\n\n| Section | Topic | Subparts | Points (where stated) |\n| --- | --- | --- | --- |\n| 1 | Short questions (T/F + fill-blank + critique) | a–l (12) | 2 each = 24 |\n| 2 | Training & cross-validation error | a, b, c | 3 + 3 + 5 = 11 |\n| 3 | Decision trees (mushroom dataset, by-hand) | a–e | not stated |\n| 4 | PCA (3 points in 2-D, by-hand) | a, b, c | not stated |\n| 5 | Boosting — full AdaBoost run | a, b | not stated |\n| 6 | SVMs with quadratic kernel + slack | a, b, c | not stated |\n| 7 | Clustering — k-means + hierarchical (by-hand) | a | not stated |\n\n## Recurring patterns\n\n**§1 — short questions (12 × 2 pts).** Overwhelmingly **True/False**, with one **fill-blank-from-list** (1b: \"the model learns ___ representations\" → simpler / **hierarchical** / linear / shallow) and one **critique-the-statement** (1e: a true-sounding L2-regularization claim that ends with the wrong conclusion \"leads to sparse models\" — student must spot it). Topics rotate across the syllabus; many test conceptual nuance, not formulas.\n\n**§2 — qualitative curves + classifier-fits-data.** Sketch (a) train/test error vs. number of training examples, (b) train/test error vs. regularization λ, then (c) circle which classifiers in a list can achieve zero training error on a small XOR-like point cloud.\n\n**§3 — decision-tree algorithmic compute.** Initial entropy or Gini, conditional entropy / Gini on a single split, choose the root attribute by information gain, draw the full unpruned tree, compute training-error fraction.\n\n**§4 — by-hand PCA.** Sample mean, shape of covariance matrix, first principal-component vector — on a 3-point 2-D toy set.\n\n**§5 — AdaBoost full execution.** From a fixed list of decision stumps, draw each stump and circle its misclassified points, then run **3 rounds** starting from uniform weights $1/n$, give the chosen stump and weighted error per round, plus the final ensemble $H$ and its error rate. **Tie-break: prefer low-numbered stumps.**\n\n**§6 — SVM with quadratic kernel under slack.** Slack primal restated inline; $\\phi$ defined so that $\\phi(x)\\cdot\\phi(x') = (x\\cdot x' + 1)^2$. Draw decision boundary for very large $C$ (low-tolerance margin) vs. very small $C$ (high-tolerance margin). Reason about generalization. **\"Justify your answer here\"** prompt → partial credit hangs on the written justification.\n\n**§7 — clustering by hand.** K-means (K=2) starting from given centroid initialization — draw clusters after 1st iteration and at convergence. Hierarchical clustering with **single-linkage** — analogous 1st iter and final state. Ignore label distinction (squares vs. dots) for hierarchical.\n\n## Topic coverage map\n\nHow each lecture/topic is tested in the past exam.\n\n| Topic / Lecture | Where it appears | Lecture-note anchor (TBD after Phase 2) |\n| --- | --- | --- |\n| **L01** k-NN, curse of dim. | §1d (1-NN training error = 0?), §2c (3-NN classifier on XOR) | `[[lecture-01-knn]]` |\n| **L02** Linear classifiers / perceptron | §2c (linear SVM on XOR) | `[[lecture-02-linear-classifiers-perceptron]]` |\n| **L03** Intro neural nets | §1b (depth → hierarchical reps), §2c (single-hidden-layer MLP on XOR) | `[[lecture-03-intro-neural-nets]]` |\n| **L04** MLPs | §1b, §2c | `[[lecture-04-mlps]]` |\n| **L05** Backprop | §1j (loss surface depends on training data) | `[[lecture-05-backprop]]` |\n| **L06** Improving MLPs (vanishing/exploding, activations) | not directly tested in this mock | `[[lecture-06-improving-mlps]]` |\n| **L07** LR schedules / training deep nets | §1k (SGD update semantics — random order, but per-example not per-epoch) | `[[lecture-07-training-deep-nets]]` |\n| **L08** Decision trees | §1a (pruning vs. overfit), §1i (missing attributes), §1h (gradient-boosted = linear combo of stumps), §1l (boosted trees grown fully?), §2c, §3 (full compute) | `[[lecture-08-decision-trees]]` |\n| **L09** Linear SVMs | §1c (decision boundary determined by SVs), §2c, §6 (quadratic-kernel SVM) | `[[lecture-09-linear-svms]]` |\n| **L10** Loss & regularization | §1e (L2 → sparsity? **false**), §1f (Elastic Net & convexity), §2b (curves vs. λ) | `[[lecture-10-loss-functions-regularization]]` |\n| **L11** Bias–variance | §2a (curves vs. N) | `[[lecture-11-bias-variance]]` |\n| **L12** Bagging | not tested in this mock | `[[lecture-12-bagging]]` |\n| **L13** Boosting | §1g (iterations as complexity control), §1h (gradient-boosted = linear combo of stumps) | `[[lecture-13-boosting]]` |\n| **L14** AdaBoost | §1l (no pruning of stumps), §5 (full 3-round run) | `[[lecture-14-adaboost]]` |\n| **L15** Kernels I | §6 (quadratic kernel mechanics) | `[[lecture-15-kernels-i]]` |\n| **L16** Kernels II | §6 | `[[lecture-16-kernels-ii]]` |\n| **L17** Clustering (k-means) | §7 (k-means + single-linkage hierarchical) | `[[lecture-17-clustering-kmeans]]` |\n| **L18** PCA | §4 (mean, covariance shape, first PC) | `[[lecture-18-pca]]` |\n| **L19** Dim reduction II | not tested in this mock | `[[lecture-19-dim-reduction-ii]]` |\n\nTopics **not tested** in this past exam but still on the syllabus, so still fair game (especially under a more-MCQ format): L06 (vanishing/exploding gradients, activation choice), L12 (bagging), L19 (dim-reduction beyond PCA). Don't deprioritize them.\n\n## Prof tells\n\n- **Format may shift toward more MCQs this year** (per release email). Don't assume 12 T/F + 6 algorithmic compute is fixed.\n- **AdaBoost tie-break rule:** \"Break ties by preferring low-numbered stumps.\" When two stumps yield equal weighted error, pick the one with the smaller index.\n- **Entropy or Gini interchangeably:** \"(or Gini)\" parenthetical means either impurity measure earns full credit on §3.\n- **\"Justify your answer here\"** appears on figure-annotation questions (§6a, §6b). The drawing alone is not enough — the written reason is where partial credit lives.\n- **§1 short questions mix T/F with critique-the-statement** disguised as \"innocent\" assertion (e.g. 1e). Read each sentence to its end before answering — wrong claims are often planted at the tail.\n- **AI tools forbidden in quizzes/exams** (syllabus AI policy).\n- **Pass requires ≥ 3.5 / 10 on the final** regardless of midterm/quiz performance.\n\n## What the formula sheet provides\n\nIn this past exam: **only** the SVM slack-formulation primal, restated inline on §6:\n\n$$\n\\arg\\min_{w \\in \\mathbb{R}^p,\\, b \\in \\mathbb{R}} \\tfrac{1}{2}\\|w\\|^2 + C\\sum_{i=1}^{n} \\xi_i \\quad \\text{s.t.} \\quad y^i\\big(\\langle w,\\, \\phi(x^i)\\rangle + b\\big) \\ge 1 - \\xi_i,\\ \\ \\xi_i \\ge 0\n$$\n\nwith $\\phi$ such that $\\phi(x)\\cdot\\phi(x') = (x\\cdot x' + 1)^2$ for the quadratic kernel.\n\nNothing else is given. Treat *every* formula below as memorize-cold.\n\n## What the formula sheet does NOT provide\n\nThe high-leverage memorize list. None of these were given in the past exam — assume same for the final unless the prof says otherwise.\n\n**Decision trees (L08)**\n- Entropy: $H(Y) = -\\sum_c p_c \\log_2 p_c$.\n- Gini impurity: $G(Y) = 1 - \\sum_c p_c^2$.\n- Conditional entropy on split: $H(Y \\mid X) = \\sum_v \\frac{|S_v|}{|S|} H(Y \\mid X = v)$.\n- Information gain: $\\mathrm{IG}(X) = H(Y) - H(Y \\mid X)$.\n- Stopping criteria + handling missing attributes (surrogate splits, fractional instances).\n\n**AdaBoost (L14)**\n- Per-round weighted error: $\\epsilon_t = \\sum_i w_t^{(i)} \\mathbb{1}[h_t(x^i) \\ne y^i]$.\n- Stump weight: $\\alpha_t = \\tfrac{1}{2} \\ln\\!\\frac{1 - \\epsilon_t}{\\epsilon_t}$.\n- Weight update: $w_{t+1}^{(i)} \\propto w_t^{(i)} \\exp(-\\alpha_t y^i h_t(x^i))$, then renormalize.\n- Final classifier: $H(x) = \\mathrm{sign}\\!\\big(\\sum_t \\alpha_t h_t(x)\\big)$.\n- Initial weights uniform: $w_1^{(i)} = 1/n$.\n\n**PCA (L18)**\n- Center: $\\tilde{x}_i = x_i - \\bar{x}$.\n- Covariance: $\\Sigma = \\tfrac{1}{n}\\sum_i \\tilde{x}_i \\tilde{x}_i^\\top$ (shape $d \\times d$ for $d$-dim data).\n- First PC = unit eigenvector of $\\Sigma$ with the largest eigenvalue.\n- Pipeline mechanics for the by-hand case: mean, covariance, eigendecompose, project.\n\n**K-means + hierarchical (L17)**\n- K-means: assign each point to nearest centroid (Euclidean), recompute centroids as cluster means, iterate to convergence.\n- Single-linkage cluster distance: $d(A, B) = \\min_{a \\in A,\\, b \\in B} \\|a - b\\|$.\n- Each point starts as its own cluster at iteration 0; merge the two closest at each step.\n\n**Loss & regularization (L10)**\n- L1: $\\Omega(w) = \\|w\\|_1$ → induces sparsity (corner solutions).\n- L2: $\\Omega(w) = \\tfrac{1}{2}\\|w\\|_2^2$ → shrinks coefficients toward zero, **does not zero them out** (the §1e trap).\n- Elastic Net: $\\Omega(w) = \\alpha\\|w\\|_1 + (1-\\alpha)\\tfrac{1}{2}\\|w\\|_2^2$ → both effects; **strictly convex** even with correlated features (L1 alone is only convex, not strictly).\n- Hinge, logistic, squared loss canonical shapes.\n\n**Bias–variance (L11)**\n- Train error decreases with $N$; test error decreases and converges to (bias² + irreducible) — generalization gap closes.\n- Vs. λ: very small λ → low train error, high test error (overfit). Very large λ → both errors rise (underfit). Test error has a U-shape in λ.\n\n**SVM (L09 + L15/16)**\n- Hard-margin: maximize $2/\\|w\\|$ s.t. $y^i(\\langle w, x^i\\rangle + b) \\ge 1$.\n- Soft-margin slack form (given inline on the past exam, but worth memorizing).\n- Support vectors = points with $\\xi_i > 0$ or on the margin; **the decision boundary depends only on these.**\n- Large $C$ → small margin, fewer / no slack; small $C$ → wide margin, more slack tolerated.\n- Kernel trick: replace $\\langle x, x'\\rangle$ with $K(x, x')$ wherever inner products appear in the dual.\n- Polynomial kernel: $K(x, x') = (x\\cdot x' + c)^d$. Quadratic = $(x\\cdot x' + 1)^2$.\n\n**k-NN (L01)**\n- 1-NN training error is **0** (each point is its own nearest neighbor on the training set).\n- Curse of dimensionality: in high $d$, all points become roughly equidistant — neighborhoods stop being informative.\n\n**Neural nets (L03–07)**\n- \"Hierarchical representations\" is the canonical depth-justification phrase (matches §1b answer).\n- SGD = update parameters after **each** training example (in random order), not after the full epoch (the §1k trap).\n- Loss surface shape depends on the training data — change the data, change the surface (§1j is **true**).\n- Boosting iterations control model complexity analogously to early stopping (§1g is **true**).\n- Gradient-boosted trees = additive (linear) combination of weak learners (often stumps) → boundary can be far more complex than any single stump (§1h is **true**).\n- Boosted trees are typically grown **fully** without pruning when they're stumps; for deeper boosted trees the answer can flip — read the question carefully (§1l).\n\n## Phase 2 anchor list (lecture-note slugs to create)\n\nFor cross-reference once Phase 2 ingest begins:\n\n`lecture-01-knn`, `lecture-02-linear-classifiers-perceptron`, `lecture-03-intro-neural-nets`, `lecture-04-mlps`, `lecture-05-backprop`, `lecture-06-improving-mlps`, `lecture-07-training-deep-nets`, `lecture-08-decision-trees`, `lecture-09-linear-svms`, `lecture-10-loss-functions-regularization`, `lecture-11-bias-variance`, `lecture-12-bagging`, `lecture-13-boosting`, `lecture-14-adaboost`, `lecture-15-kernels-i`, `lecture-16-kernels-ii`, `lecture-17-clustering-kmeans`, `lecture-18-pca`, `lecture-19-dim-reduction-ii`.\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/40-Reviews/Statistical-Learning/exam-blueprint.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/40-Reviews/Statistical-Learning/exam-blueprint.md",
+            "content": "---\ntags: [exam-blueprint, Statistical-Learning]\ncourse: Statistical-Learning\ncreated: 2026-05-03\nsources:\n  - mock-exams/mock_exam_spring26_BCSAI_SLP.pdf\n---\n\n# Statistical Learning — Exam Blueprint\n\n> **Caveat from the prof (release email, Spring 2026):** *\"Please note that I can't promise the format will be identical since this year there might be a higher number of multiple choice questions.\"* — Luciano Dyballa.\n> **Implication:** treat this past-exam structure as a directional signal about *which topics* he tests and *how he frames* questions, not as a fixed template. Expect more MCQs and possibly fewer / shorter algorithmic-compute exercises. Memorize the underlying mechanics regardless — MCQs on AdaBoost / decision-tree splits / PCA still need the same recall.\n\n## Format\n\n- 8 pages, 7 numbered sections (this past exam).\n- Closed book. AI tools forbidden in all quizzes/exams (per syllabus).\n- Mix in this past exam: T/F + fill-blank short questions, sketch-the-curve graphs, by-hand algorithmic compute (decision trees, AdaBoost, PCA, k-means), figure annotation with written justification.\n- **For the actual Spring 2026 final:** higher MCQ count likely (per prof's release note). Final format details TBD — to be discussed in class.\n- No formula sheet provided in the past exam. The SVM slack-formulation primal *is* restated inline on the SVM problem; nothing else is.\n\n## Marks distribution\n\nOnly some questions in the past exam show explicit point values. Inferred where possible.\n\n| Section | Topic | Subparts | Points (where stated) |\n| --- | --- | --- | --- |\n| 1 | Short questions (T/F + fill-blank + critique) | a–l (12) | 2 each = 24 |\n| 2 | Training & cross-validation error | a, b, c | 3 + 3 + 5 = 11 |\n| 3 | Decision trees (mushroom dataset, by-hand) | a–e | not stated |\n| 4 | PCA (3 points in 2-D, by-hand) | a, b, c | not stated |\n| 5 | Boosting — full AdaBoost run | a, b | not stated |\n| 6 | SVMs with quadratic kernel + slack | a, b, c | not stated |\n| 7 | Clustering — k-means + hierarchical (by-hand) | a | not stated |\n\n## Recurring patterns\n\n**§1 — short questions (12 × 2 pts).** Overwhelmingly **True/False**, with one **fill-blank-from-list** (1b: \"the model learns ___ representations\" → simpler / **hierarchical** / linear / shallow) and one **critique-the-statement** (1e: a true-sounding L2-regularization claim that ends with the wrong conclusion \"leads to sparse models\" — student must spot it). Topics rotate across the syllabus; many test conceptual nuance, not formulas.\n\n**§2 — qualitative curves + classifier-fits-data.** Sketch (a) train/test error vs. number of training examples, (b) train/test error vs. regularization λ, then (c) circle which classifiers in a list can achieve zero training error on a small XOR-like point cloud.\n\n**§3 — decision-tree algorithmic compute.** Initial entropy or Gini, conditional entropy / Gini on a single split, choose the root attribute by information gain, draw the full unpruned tree, compute training-error fraction.\n\n**§4 — by-hand PCA.** Sample mean, shape of covariance matrix, first principal-component vector — on a 3-point 2-D toy set.\n\n**§5 — AdaBoost full execution.** From a fixed list of decision stumps, draw each stump and circle its misclassified points, then run **3 rounds** starting from uniform weights $1/n$, give the chosen stump and weighted error per round, plus the final ensemble $H$ and its error rate. **Tie-break: prefer low-numbered stumps.**\n\n**§6 — SVM with quadratic kernel under slack.** Slack primal restated inline; $\\phi$ defined so that $\\phi(x)\\cdot\\phi(x') = (x\\cdot x' + 1)^2$. Draw decision boundary for very large $C$ (low-tolerance margin) vs. very small $C$ (high-tolerance margin). Reason about generalization. **\"Justify your answer here\"** prompt → partial credit hangs on the written justification.\n\n**§7 — clustering by hand.** K-means (K=2) starting from given centroid initialization — draw clusters after 1st iteration and at convergence. Hierarchical clustering with **single-linkage** — analogous 1st iter and final state. Ignore label distinction (squares vs. dots) for hierarchical.\n\n## Topic coverage map\n\nHow each lecture/topic is tested in the past exam.\n\n| Topic / Lecture | Where it appears | Lecture-note anchor (TBD after Phase 2) |\n| --- | --- | --- |\n| **L01** k-NN, curse of dim. | §1d (1-NN training error = 0?), §2c (3-NN classifier on XOR) | `[[lecture-01-knn]]` |\n| **L02** Linear classifiers / perceptron | §2c (linear SVM on XOR) | `[[lecture-02-linear-classifiers-perceptron]]` |\n| **L03** Intro neural nets | §1b (depth → hierarchical reps), §2c (single-hidden-layer MLP on XOR) | `[[lecture-03-intro-neural-nets]]` |\n| **L04** MLPs | §1b, §2c | `[[lecture-04-mlps]]` |\n| **L05** Backprop | §1j (loss surface depends on training data) | `[[lecture-05-backprop]]` |\n| **L06** Improving MLPs (vanishing/exploding, activations) | not directly tested in this mock | `[[lecture-06-improving-mlps]]` |\n| **L07** LR schedules / training deep nets | §1k (SGD update semantics — random order, but per-example not per-epoch) | `[[lecture-07-training-deep-nets]]` |\n| **L08** Decision trees | §1a (pruning vs. overfit), §1i (missing attributes), §1h (gradient-boosted = linear combo of stumps), §1l (boosted trees grown fully?), §2c, §3 (full compute) | `[[lecture-08-decision-trees]]` |\n| **L09** Linear SVMs | §1c (decision boundary determined by SVs), §2c, §6 (quadratic-kernel SVM) | `[[lecture-09-linear-svms]]` |\n| **L10** Loss & regularization | §1e (L2 → sparsity? **false**), §1f (Elastic Net & convexity), §2b (curves vs. λ) | `[[lecture-10-loss-functions-regularization]]` |\n| **L11** Bias–variance | §2a (curves vs. N) | `[[lecture-11-bias-variance]]` |\n| **L12** Bagging | not tested in this mock | `[[lecture-12-bagging]]` |\n| **L13** Boosting | §1g (iterations as complexity control), §1h (gradient-boosted = linear combo of stumps) | `[[lecture-13-boosting]]` |\n| **L14** AdaBoost | §1l (no pruning of stumps), §5 (full 3-round run) | `[[lecture-14-adaboost]]` |\n| **L15** Kernels I | §6 (quadratic kernel mechanics) | `[[lecture-15-kernels-i]]` |\n| **L16** Kernels II | §6 | `[[lecture-16-kernels-ii]]` |\n| **L17** Clustering (k-means) | §7 (k-means + single-linkage hierarchical) | `[[lecture-17-clustering-kmeans]]` |\n| **L18** PCA | §4 (mean, covariance shape, first PC) | `[[lecture-18-pca]]` |\n| **L19** Dim reduction II | not tested in this mock | `[[lecture-19-dim-reduction-ii]]` |\n\nTopics **not tested** in this past exam but still on the syllabus, so still fair game (especially under a more-MCQ format): L06 (vanishing/exploding gradients, activation choice), L12 (bagging), L19 (dim-reduction beyond PCA). Don't deprioritize them.\n\n## Prof tells\n\n- **Format may shift toward more MCQs this year** (per release email). Don't assume 12 T/F + 6 algorithmic compute is fixed.\n- **AdaBoost tie-break rule:** \"Break ties by preferring low-numbered stumps.\" When two stumps yield equal weighted error, pick the one with the smaller index.\n- **Entropy or Gini interchangeably:** \"(or Gini)\" parenthetical means either impurity measure earns full credit on §3.\n- **\"Justify your answer here\"** appears on figure-annotation questions (§6a, §6b). The drawing alone is not enough — the written reason is where partial credit lives.\n- **§1 short questions mix T/F with critique-the-statement** disguised as \"innocent\" assertion (e.g. 1e). Read each sentence to its end before answering — wrong claims are often planted at the tail.\n- **AI tools forbidden in quizzes/exams** (syllabus AI policy).\n- **Pass requires ≥ 3.5 / 10 on the final** regardless of midterm/quiz performance.\n\n## What the formula sheet provides\n\nIn this past exam: **only** the SVM slack-formulation primal, restated inline on §6:\n\n$$\n\\arg\\min_{w \\in \\mathbb{R}^p,\\, b \\in \\mathbb{R}} \\tfrac{1}{2}\\|w\\|^2 + C\\sum_{i=1}^{n} \\xi_i \\quad \\text{s.t.} \\quad y^i\\big(\\langle w,\\, \\phi(x^i)\\rangle + b\\big) \\ge 1 - \\xi_i,\\ \\ \\xi_i \\ge 0\n$$\n\nwith $\\phi$ such that $\\phi(x)\\cdot\\phi(x') = (x\\cdot x' + 1)^2$ for the quadratic kernel.\n\nNothing else is given. Treat *every* formula below as memorize-cold.\n\n## What the formula sheet does NOT provide\n\nThe high-leverage memorize list. None of these were given in the past exam — assume same for the final unless the prof says otherwise.\n\n**Decision trees (L08)**\n- Entropy: $H(Y) = -\\sum_c p_c \\log_2 p_c$.\n- Gini impurity: $G(Y) = 1 - \\sum_c p_c^2$.\n- Conditional entropy on split: $H(Y \\mid X) = \\sum_v \\frac{|S_v|}{|S|} H(Y \\mid X = v)$.\n- Information gain: $\\mathrm{IG}(X) = H(Y) - H(Y \\mid X)$.\n- Stopping criteria + handling missing attributes (surrogate splits, fractional instances).\n\n**AdaBoost (L14)**\n- Per-round weighted error: $\\epsilon_t = \\sum_i w_t^{(i)} \\mathbb{1}[h_t(x^i) \\ne y^i]$.\n- Stump weight: $\\alpha_t = \\tfrac{1}{2} \\ln\\!\\frac{1 - \\epsilon_t}{\\epsilon_t}$.\n- Weight update: $w_{t+1}^{(i)} \\propto w_t^{(i)} \\exp(-\\alpha_t y^i h_t(x^i))$, then renormalize.\n- Final classifier: $H(x) = \\mathrm{sign}\\!\\big(\\sum_t \\alpha_t h_t(x)\\big)$.\n- Initial weights uniform: $w_1^{(i)} = 1/n$.\n\n**PCA (L18)**\n- Center: $\\tilde{x}_i = x_i - \\bar{x}$.\n- Covariance: $\\Sigma = \\tfrac{1}{n}\\sum_i \\tilde{x}_i \\tilde{x}_i^\\top$ (shape $d \\times d$ for $d$-dim data).\n- First PC = unit eigenvector of $\\Sigma$ with the largest eigenvalue.\n- Pipeline mechanics for the by-hand case: mean, covariance, eigendecompose, project.\n\n**K-means + hierarchical (L17)**\n- K-means: assign each point to nearest centroid (Euclidean), recompute centroids as cluster means, iterate to convergence.\n- Single-linkage cluster distance: $d(A, B) = \\min_{a \\in A,\\, b \\in B} \\|a - b\\|$.\n- Each point starts as its own cluster at iteration 0; merge the two closest at each step.\n\n**Loss & regularization (L10)**\n- L1: $\\Omega(w) = \\|w\\|_1$ → induces sparsity (corner solutions).\n- L2: $\\Omega(w) = \\tfrac{1}{2}\\|w\\|_2^2$ → shrinks coefficients toward zero, **does not zero them out** (the §1e trap).\n- Elastic Net: $\\Omega(w) = \\alpha\\|w\\|_1 + (1-\\alpha)\\tfrac{1}{2}\\|w\\|_2^2$ → both effects; **strictly convex** even with correlated features (L1 alone is only convex, not strictly).\n- Hinge, logistic, squared loss canonical shapes.\n\n**Bias–variance (L11)**\n- Train error decreases with $N$; test error decreases and converges to (bias² + irreducible) — generalization gap closes.\n- Vs. λ: very small λ → low train error, high test error (overfit). Very large λ → both errors rise (underfit). Test error has a U-shape in λ.\n\n**SVM (L09 + L15/16)**\n- Hard-margin: maximize $2/\\|w\\|$ s.t. $y^i(\\langle w, x^i\\rangle + b) \\ge 1$.\n- Soft-margin slack form (given inline on the past exam, but worth memorizing).\n- Support vectors = points with $\\xi_i > 0$ or on the margin; **the decision boundary depends only on these.**\n- Large $C$ → small margin, fewer / no slack; small $C$ → wide margin, more slack tolerated.\n- Kernel trick: replace $\\langle x, x'\\rangle$ with $K(x, x')$ wherever inner products appear in the dual.\n- Polynomial kernel: $K(x, x') = (x\\cdot x' + c)^d$. Quadratic = $(x\\cdot x' + 1)^2$.\n\n**k-NN (L01)**\n- 1-NN training error is **0** (each point is its own nearest neighbor on the training set).\n- Curse of dimensionality: in high $d$, all points become roughly equidistant — neighborhoods stop being informative.\n\n**Neural nets (L03–07)**\n- \"Hierarchical representations\" is the canonical depth-justification phrase (matches §1b answer).\n- SGD = update parameters after **each** training example (in random order), not after the full epoch (the §1k trap).\n- Loss surface shape depends on the training data — change the data, change the surface (§1j is **true**).\n- Boosting iterations control model complexity analogously to early stopping (§1g is **true**).\n- Gradient-boosted trees = additive (linear) combination of weak learners (often stumps) → boundary can be far more complex than any single stump (§1h is **true**).\n- Boosted trees are typically grown **fully** without pruning when they're stumps; for deeper boosted trees the answer can flip — read the question carefully (§1l).\n\n## Phase 2 anchor list (lecture-note slugs to create)\n\nFor cross-reference once Phase 2 ingest begins:\n\n`lecture-01-knn`, `lecture-02-linear-classifiers-perceptron`, `lecture-03-intro-neural-nets`, `lecture-04-mlps`, `lecture-05-backprop`, `lecture-06-improving-mlps`, `lecture-07-training-deep-nets`, `lecture-08-decision-trees`, `lecture-09-linear-svms`, `lecture-10-loss-functions-regularization`, `lecture-11-bias-variance`, `lecture-12-bagging`, `lecture-13-boosting`, `lecture-14-adaboost`, `lecture-15-kernels-i`, `lecture-16-kernels-ii`, `lecture-17-clustering-kmeans`, `lecture-18-pca`, `lecture-19-dim-reduction-ii`.\n"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Blueprint written with the prof's \"more MCQs likely\" caveat baked in at the top, in the format section, and in **Prof tells**. Moving to Step 3 — Phase 2 plan. Need to glob `20-Concepts/` first to know what already exists."
+        },
+        {
+          "type": "plan",
+          "entries": [
+            {
+              "content": "Write course manifest",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Read mock exam fully",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Draft & confirm exam blueprint outline",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Write exam-blueprint.md",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Phase 2 plan: glob 20-Concepts/, draft lecture-by-lecture ingest table, get approval",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Ingest L01 k-NN",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L02 linear classifiers / perceptron",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L03 intro to neural nets",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L04 MLPs",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L05 backprop",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L06 improving MLPs",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L07 LR schedules / training deep nets",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L08 decision trees",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L09 linear SVMs",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L10 loss functions & regularizers",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L11 bias-variance",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L12 bagging",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L13 boosting",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L14 AdaBoost",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L15 kernels I",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L16 kernels II",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L17 k-means",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L18 PCA",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L19 dim-reduction II",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Phase 3 reconcile: cross-link blueprint, fill gaps, summary",
+              "priority": "medium",
+              "status": "pending"
+            }
+          ]
+        }
+      ],
+      "timestamp": "2026-05-03T10:42:02.517Z"
+    },
+    {
+      "id": "bf357cf1-d153-47d6-9acb-2e484924fea6",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01967XA3vjC6FEvziy6iVibJ",
+          "title": "Find `20-Concepts/*.md`",
+          "status": "completed",
+          "kind": "search",
+          "content": [],
+          "locations": [],
+          "rawInput": {
+            "pattern": "20-Concepts/*.md"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "Got the ground truth on existing concepts. Below is the Phase 2 plan.\n\n---\n\n## Phase 2 plan — lecture-by-lecture ingest\n\n**Process per lecture:** read the PDF once → write `10-Courses/Statistical-Learning/lectures/lecture-NN-{slug}.md` → extract concepts to `20-Concepts/` (search-before-create) → write flashcards to `40-Reviews/Statistical-Learning/flashcards/lecture-NN.md`.\n\n**EXTEND candidates already in the vault** (from glob of `20-Concepts/`): `perceptron`, `support-vector-machine`, `multilayer-perceptron`, `backpropagation`, `vanishing-exploding-gradients`, `activation-function`, `sigmoid`, `softmax`, `cross-entropy`, `logistic-regression`. These will pick up `Statistical-Learning` in their `courses:` arrays and a new `sources:` entry, with body extension only where this course's framing differs.\n\nThe NEW-vs-EXTEND assignment below is a *best guess from the syllabus* — actual extracted concepts may shift after I read each PDF. The exact concept list per lecture will be settled when the PDF is read; the plan below is the directional shape so you can flag anything you'd want me to skip or split differently.\n\n| L# | Slug | Likely concepts (NEW unless flagged ✱EXTEND) |\n| --- | --- | --- |\n| 01 | `lecture-01-knn` | `k-nearest-neighbors`, `curse-of-dimensionality`, `distance-metrics` (NEW) |\n| 02 | `lecture-02-linear-classifiers-perceptron` | `linear-classifier` (NEW), ✱EXTEND `perceptron`, possibly ✱EXTEND `logistic-regression` if covered |\n| 03 | `lecture-03-intro-neural-nets` | `feedforward-neural-network` (NEW), ✱EXTEND `activation-function`, ✱EXTEND `sigmoid`, ✱EXTEND `softmax` |\n| 04 | `lecture-04-mlps` | ✱EXTEND `multilayer-perceptron`, `universal-approximation-theorem` (NEW) |\n| 05 | `lecture-05-backprop` | ✱EXTEND `backpropagation`, `chain-rule-computational-graph` (NEW) |\n| 06 | `lecture-06-improving-mlps` | ✱EXTEND `vanishing-exploding-gradients`, `relu`, `weight-initialization`, possibly `batch-normalization`, `dropout` (NEW) |\n| 07 | `lecture-07-training-deep-nets` | `stochastic-gradient-descent`, `learning-rate-schedule`, `momentum`, `adam-optimizer` (NEW; subset depending on slides) |\n| 08 | `lecture-08-decision-trees` | `decision-tree`, `entropy`, `gini-impurity`, `information-gain`, `tree-pruning` (NEW). Worked example linked from lecture note. |\n| 09 | `lecture-09-linear-svms` | ✱EXTEND `support-vector-machine` (add hard/soft margin and slack from this course), `hinge-loss` (NEW) |\n| 10 | `lecture-10-loss-functions-regularization` | `loss-function`, `l1-regularization`, `l2-regularization`, `elastic-net` (NEW). ✱EXTEND `cross-entropy` if it appears as a classification loss. |\n| 11 | `lecture-11-bias-variance` | `bias-variance-decomposition`, `generalization-error` (NEW) |\n| 12 | `lecture-12-bagging` | `bagging`, `bootstrap-sampling`, `random-forest` (NEW) |\n| 13 | `lecture-13-boosting` | `boosting`, `gradient-boosting` (NEW) |\n| 14 | `lecture-14-adaboost` | `adaboost` (NEW) |\n| 15 | `lecture-15-kernels-i` | `kernel-trick`, `polynomial-kernel`, `gaussian-kernel`, `mercer-condition` (NEW). ✱EXTEND `support-vector-machine` with kernel SVM framing if not already covered there. |\n| 16 | `lecture-16-kernels-ii` | likely extends L15 concepts; new ones depend on slides (e.g. `kernel-construction-rules`, `representer-theorem`) |\n| 17 | `lecture-17-clustering-kmeans` | `k-means`, `hierarchical-clustering`, `single-linkage` (NEW) |\n| 18 | `lecture-18-pca` | `principal-component-analysis`, `covariance-matrix`, `eigendecomposition` (NEW) |\n| 19 | `lecture-19-dim-reduction-ii` | depends entirely on what L19 covers — likely `t-sne`, `umap`, possibly `autoencoder-dimensionality-reduction` (NEW) |\n\n**Frontmatter conventions:**\n- Lecture notes: `tags: [lecture]`, `course: Statistical-Learning`, `lecture: NN`, `source: {pdf-filename}`, `slides: \"[[30-Sources/Statistical-Learning/pdf/{pdf-filename}|Open slides ↗]]\"`, `created: 2026-05-03`.\n- Concept notes (new): `tags: [concept]`, `courses: [Statistical-Learning]`, `sources: [{course: Statistical-Learning, file: {pdf-filename}}]`, `created: 2026-05-03`.\n- Concept notes (extended): add `Statistical-Learning` to `courses:`, append a new entry to `sources:`, leave `created:` untouched.\n\n**Flashcards:** 15–25 multi-line `?` cards per lecture, atomic recall. Tagged `[flashcards, Statistical-Learning]`. Skipped on lectures with very thin slide content (e.g. if a deck is mostly visual derivations); otherwise filled.\n\n**Resumption-safe:** I'll commit each lecture's three artifacts (lecture note + new/extended concepts + flashcards) before moving to the next — so a crash mid-Phase 2 leaves a clean halt point. Brief progress note to chat between lectures.\n\n**Worked-example handling:** `example-dtree.pdf` will be read after L08's main deck and linked from the L08 lecture note under `## Worked examples`, not given its own lecture entry.\n\n---\n\nSay **go** to start with L01 (`SLP-Lec1-knn(1).pdf`), or flag adjustments to the plan first."
+        }
+      ],
+      "timestamp": "2026-05-03T10:43:48.057Z"
+    },
+    {
+      "id": "8eadab18-deeb-42b1-8ed8-402d3e0f92ca",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "go"
+        }
+      ],
+      "timestamp": "2026-05-03T10:48:20.167Z"
+    },
+    {
+      "id": "47328d59-ad68-45d9-92e0-3d4cd68be6fc",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "plan",
+          "entries": [
+            {
+              "content": "Write course manifest",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Read mock exam fully",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Draft & confirm exam blueprint outline",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Write exam-blueprint.md",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Phase 2 plan: glob 20-Concepts/, draft lecture-by-lecture ingest table, get approval",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Ingest L01 k-NN",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Ingest L02 linear classifiers / perceptron",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L03 intro to neural nets",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L04 MLPs",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L05 backprop",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L06 improving MLPs",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L07 LR schedules / training deep nets",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L08 decision trees",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L09 linear SVMs",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L10 loss functions & regularizers",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L11 bias-variance",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L12 bagging",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L13 boosting",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L14 AdaBoost",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L15 kernels I",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L16 kernels II",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L17 k-means",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L18 PCA",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L19 dim-reduction II",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Phase 3 reconcile: cross-link blueprint, fill gaps, summary",
+              "priority": "medium",
+              "status": "pending"
+            }
+          ]
+        }
+      ],
+      "timestamp": "2026-05-03T10:48:23.767Z"
+    },
+    {
+      "id": "5fcac1c3-70c7-4e02-95b8-7d60bccaf73e",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_011n33zLuPonwszeAu8FdiNm",
+          "title": "mdls -name kMDItemNumberOfPages \"/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf\"",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "mdls -name kMDItemNumberOfPages \"/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf\"",
+            "description": "L01 page count"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "L01 is a big 106-page deck — reading in ~15-page chunks and noting the slide content textually after each chunk so I don't blow image-dimension limits."
+        }
+      ],
+      "timestamp": "2026-05-03T10:48:37.129Z"
+    },
+    {
+      "id": "04549845-4ced-439b-bda0-3e02fb0c0f3c",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01NafnL7k5N74hg8ZWPw2GTn",
+          "title": "Read 30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf",
+            "pages": "1-15"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "**Chunk 1 notes (pp 1-15):** Course intro. Slides 7-8 introduce levels of measurement (Nominal/Ordinal/Interval/Ratio → Categorical vs Numerical). Slide 9 nails terminology: features = attributes = variables = dimensions (columns); data points = instances = examples = samples (rows). Slides 10-15 set up supervised learning: training example $(x_1, ..., x_d) \\to y$, \"data\" = $n \\times d$ matrix with $n$ labels."
+        }
+      ],
+      "timestamp": "2026-05-03T10:48:52.997Z"
+    },
+    {
+      "id": "1eafd3c3-b584-484e-99b5-eadedf759482",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_011p1UrWXRe7Ny76uXvS3eHx",
+          "title": "Read 30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf",
+            "pages": "16-30"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "**Chunk 2 notes (pp 16-30):** Regression intro (4-point dataset → fit a line). Slide 21 introduces **Occam's razor** explicitly. Slide 22 introduces **test set / generalization**. Slides 23-26 walk through underfitting / optimal / overfitting as 3 decision boundaries on 2D classification. **Slide 26 names them: \"Underfitting / Optimal / Overfitting\"** — exam-relevant framing. Slides 27-31 introduce nearest neighbors with **Winston's blocks example** + the **consistency heuristic** (slide 30, key quote): *\"find the most similar case, as measured by known properties... guess that the unknown property is the same.\"*"
+        }
+      ],
+      "timestamp": "2026-05-03T10:49:15.439Z"
+    },
+    {
+      "id": "29f12574-fabb-4ab8-b034-4e30d969d716",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01DskWnaCGEE73hbuL1CZnqW",
+          "title": "Read 30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf",
+            "pages": "31-45"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "**Chunk 3 notes (pp 31-45):** Winston blocks resolved (?-block predicted Purple — its nearest neighbor by width/height). Lemons vs oranges scatter (slides 35-36) introduces classification as **induction** (slide 37): formalize the heuristic as $f: \\vec{x} \\to y$. Algorithm in 3 panels (slides 40-43): **(1) calculate distances** to all training points, **(2) rank by distance** to find k-NNs, **(3) vote** — slide 43 uses k=3 example, classifies grey point as lime green by 2-1-1 vote. **Slide 44 key claim: \"Learning amounts to simply storing training data\"** — kNN as lazy/instance-based learning. Training example $x \\in \\mathbb{R}^d$."
+        }
+      ],
+      "timestamp": "2026-05-03T10:49:43.068Z"
+    },
+    {
+      "id": "50a84a1a-e955-450a-888e-f3da9e284c4f",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_018h6Mr9KiRUW74oycF5Lq5J",
+          "title": "Read 30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf",
+            "pages": "46-60"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "**Chunk 4 notes (pp 46-60):** Distance metrics: **Minkowski** $\\text{dist}(x,z) = (\\sum_r |x_r - z_r|^p)^{1/p}$ — p=1 Manhattan, p=2 Euclidean. **1-NN algorithm** (slide 49): $x^* = \\arg\\min_{x^{(i)} \\in \\text{train}} \\text{dist}(x^{(i)}, x)$, output $y = t^*$. **Skip the square root** — argmin invariant under monotonic transform (slide 50). **Decision boundary inferred** as the perpendicular bisector(s) — splits feature space into per-class regions (slides 51-55). **Voronoi diagram** (slide 57) is the canonical visualization — each cell is the region closest to one training point; cell borders are equidistant lines between opposite-class points. Quiz on slide 58-60 shows a real 2D zigzag boundary for an 8-point training set."
+        }
+      ],
+      "timestamp": "2026-05-03T10:50:11.098Z"
+    },
+    {
+      "id": "b914b0ba-e4f9-43ad-980f-f81de12270f7",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01GNJptZhWfgs71m75Rj2edy",
+          "title": "Read 30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf",
+            "pages": "61-75"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "**Chunk 5 notes (pp 61-75):** Slide 64 explicit answer to noise: **\"Smooth by having k nearest neighbors vote\"** — k-NN extends 1-NN by majority vote among k. Slide 65-66 contrast: k=1 wiggly boundary, k=20 smooth. Slide 67-72: choosing k is a hyperparameter problem; **larger k smoother but risks pulling in non-neighbors; use cross-validation**. Slide 73 names \"hyperparameters\" formally. **Slide 75 is the canonical exam point: \"BAD: K=1 always works perfectly on training data\"** — this is the §1d True/False trap. Slide 64 also notes the §1l/§1g framing for \"controlling complexity by k\": larger k → smoother, less overfitting."
+        }
+      ],
+      "timestamp": "2026-05-03T10:50:39.238Z"
+    },
+    {
+      "id": "0fdb0940-9c28-4cd7-b55b-d4d9d1e31062",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01BmbuebxTBstDvQU5sm2od9",
+          "title": "Read 30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf",
+            "pages": "76-90"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "**Chunk 6 notes (pp 76-90):** Slide 78 introduces **train/val/test split** (Idea #3) — choose hyperparams on val, evaluate on test. Slide 79: **Cross-Validation** (Idea #4) — split into folds, rotate validation, average. Slides 80-85 walk through training/test error vs k: training error monotonically increases with k (k=1 → 0); test error is **U-shaped**, **pick k = minimizer of validation error** (explicit answer slide 85). **Slides 86-89 list 4 kNN failure modes**: (1) scale of variables — normalize via [0,1] scaling or z-score $(x_j - \\mu)/\\sigma$; (2) irrelevant attributes add noise — eliminate or reweight; (3) redundant/correlated attributes; (4) **Slide 90: computational cost** — kNN expensive at test time, must compute distance to all N training examples."
+        }
+      ],
+      "timestamp": "2026-05-03T10:51:13.940Z"
+    },
+    {
+      "id": "fec6bb30-365a-4ef8-8971-767c4d7e0cb0",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01BisWMPYqj2kdcwN5VS9k7s",
+          "title": "Read 30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf",
+            "pages": "91-106"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "PDF complete (all 106 pages read). Final chunk gives **kNN test-time complexity O(kdN)** (slide 91), formal **Curse of Dimensionality** on slide 94 + extra-slide derivation (ℓ ≈ (k/n)^(1/d) → as d→∞ almost entire space needed for k-NN), and the Cover-Hart 1967 result: **as n→∞, 1-NN error ≤ 2× Bayes-optimal error**.\n\nNow glob for any existing concepts I might have missed before writing."
+        }
+      ],
+      "timestamp": "2026-05-03T10:51:47.058Z"
+    },
+    {
+      "id": "b8495496-bc1e-4386-862f-b9070d3b7859",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01HGmyFpYjME3ajhK8xcnaHT",
+          "title": "mkdir -p /Users/mattporteous/Obsidian/School/10-Courses/Statistical-Learning/lectures /Users/mattporteous/Obsidian/School/40-Reviews/Statistical-Learning/flashcards",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "mkdir -p /Users/mattporteous/Obsidian/School/10-Courses/Statistical-Learning/lectures /Users/mattporteous/Obsidian/School/40-Reviews/Statistical-Learning/flashcards",
+            "description": "Create L01 dest dirs"
+          }
+        }
+      ],
+      "timestamp": "2026-05-03T10:52:43.787Z"
+    },
+    {
+      "id": "1b87abf5-fae2-41cb-a972-08cf76b03ee9",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01QUV3w6CSNvSZtYNZ6LBArJ",
+          "title": "Read 99-Templates/concept.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/99-Templates/concept.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/99-Templates/concept.md"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "Writing L01 artifacts now: lecture note → 8 concept notes → flashcards."
+        }
+      ],
+      "timestamp": "2026-05-03T10:52:45.907Z"
+    },
+    {
+      "id": "e92ab4b3-4648-48ba-90cc-29e1d6f855bb",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01Eot1jj4PKFbmPjkheuZ6TR",
+          "title": "Write 10-Courses/Statistical-Learning/lectures/lecture-01-knn.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/10-Courses/Statistical-Learning/lectures/lecture-01-knn.md",
+              "newText": "---\ntags: [lecture]\ncourse: Statistical-Learning\nsource: SLP-Lec1-knn(1).pdf\nlecture: 01\nslides: \"[[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf|Open slides ↗]]\"\ncreated: 2026-05-03\n---\n\n# Lecture 01 — Introduction & k-NN\n\n## Overview\n\nTwo-part introduction. Part 1 sets up the **vocabulary of supervised learning** — features/attributes (columns), data points/instances (rows), the levels-of-measurement hierarchy (nominal/ordinal/interval/ratio → categorical vs. numerical), and the supervised-learning task as estimating $f: \\mathbf{x} \\to y$ from a labelled dataset $\\{(\\mathbf{x}^{(i)}, y^{(i)})\\}_{i=1}^n$. It also previews **regression vs. classification**, **Occam's razor** as the bias for simpler models, and the **underfitting / optimal / overfitting** trichotomy on a 2D classification example.\n\nPart 2 introduces **k-Nearest Neighbours** as the simplest possible learning algorithm and uses it to ground every conceptual hook the rest of the course will use: **distance metrics**, **decision boundaries** (Voronoi cells in the limit), **hyperparameter selection** via train/val/test splits and cross-validation, the bias-variance behaviour of $k$, and the **curse of dimensionality** (formalised in the extra slides).\n\nThe lecture's core slogan: *\"Learning amounts to simply storing training data\"* ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=44|slide 44]]) — kNN is **lazy** / **instance-based**: training is free, all the work happens at query time.\n\n## Key concepts\n\n- [[k-nearest-neighbors]] — predict by majority vote over the $k$ closest training points.\n- [[minkowski-distance]] — generic family $\\bigl(\\sum_r |x_r - z_r|^p\\bigr)^{1/p}$; $p=1$ Manhattan, $p=2$ Euclidean.\n- [[voronoi-diagram]] — visualises the 1-NN decision regions; each cell is the locus of points closest to one training example.\n- [[curse-of-dimensionality]] — distances stop being informative as $d \\to \\infty$; the kNN assumption that \"similar points share labels\" breaks down.\n- [[overfitting-underfitting]] — $k$ controls the trade-off; small $k$ overfits, large $k$ underfits.\n- [[hyperparameter]] — $k$ and the distance metric are *set* not *learned*.\n- [[train-validation-test-split]] — three-way split: train fits the model, val selects hyperparameters, test gives an unbiased generalization estimate.\n- [[cross-validation]] — rotate the validation fold; average across folds for a more robust estimate.\n- [[feature-normalization]] — kNN is scale-sensitive; normalize features before computing distances.\n\n## Equations\n\n**Minkowski distance** with parameter $p$:\n\n$$\n\\mathrm{dist}(\\mathbf{x}, \\mathbf{z}) = \\left( \\sum_{r=1}^{d} |x_r - z_r|^p \\right)^{1/p}\n$$\n\n- $p=1$: **Manhattan** $\\sum_r |x_r - z_r|$.\n- $p=2$: **Euclidean** $\\sqrt{\\sum_r (x_r - z_r)^2}$.\n\n**1-NN classifier** ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=49|slide 49]]):\n\n$$\n\\mathbf{x}^{*} = \\arg\\min_{\\mathbf{x}^{(i)} \\in \\text{train}} \\mathrm{dist}\\!\\bigl(\\mathbf{x}^{(i)}, \\mathbf{x}\\bigr), \\qquad \\hat{y} = t^{*}.\n$$\n\nFor *ranking* nearest neighbours the $\\sqrt{\\cdot}$ in Euclidean distance can be skipped — argmin is invariant under monotonic transforms ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=50|slide 50]]).\n\n**z-score normalization** for feature scaling: $\\tilde{x}_j = (x_j - \\mu_j) / \\sigma_j$ ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=86|slide 86]]).\n\n**Test-time complexity:** $O(kdN)$ for kNN — distance to all $N$ training points, each in $\\mathbb{R}^d$, plus $k$ retrieval ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=91|slide 91]]).\n\n**Curse of dimensionality formalisation** (extra slides, [[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=104|slide 104]]). Smallest hypercube in $[0,1]^d$ containing the $k$ nearest neighbours of a test point has edge length\n\n$$\n\\ell \\approx \\left(\\frac{k}{n}\\right)^{1/d}\n$$\n\nFor $n=1000$, $k=10$: $d=2 \\Rightarrow \\ell = 0.1$, $d=10 \\Rightarrow 0.63$, $d=100 \\Rightarrow 0.955$, $d=1000 \\Rightarrow 0.9954$. Almost the entire feature space is required to find the 10-NN once $d$ is large.\n\n**Cover-Hart 1967 (extra slides):** as $n \\to \\infty$, $\\epsilon_{1\\text{-NN}} \\le 2\\,\\epsilon_{\\text{Bayes}}$.\n\n## Diagrams\n\n### kNN algorithm in three steps\n\n```mermaid\nflowchart LR\n  Q([test point x]) --> D[1. Compute distance to every<br>training point]\n  D --> R[2. Rank by distance,<br>keep k smallest]\n  R --> V[3. Majority vote of<br>k labels]\n  V --> P([predicted label ŷ])\n```\n\n### Underfitting / Optimal / Overfitting on a 2D classification problem\n\n```mermaid\nflowchart LR\n  subgraph U[Underfitting]\n    U1[\"Linear<br>boundary\"]\n    U2[\"High train error\"]\n    U3[\"High test error\"]\n  end\n  subgraph O[Optimal]\n    O1[\"Mildly curved<br>boundary\"]\n    O2[\"Moderate train error\"]\n    O3[\"Lowest test error\"]\n  end\n  subgraph V[Overfitting]\n    V1[\"Wiggly<br>boundary\"]\n    V2[\"Near-zero train error\"]\n    V3[\"High test error\"]\n  end\n```\n\nSource: [[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=26|slide 26]] names the three regimes explicitly.\n\n### Train-error vs test-error against k\n\n```mermaid\nflowchart LR\n  K([k = 1]) -->|\"train: 0,<br>test: high (noisy)\"| Mid\n  Mid([k = k*]) -->|\"train: rising,<br>test: minimum\"| Big\n  Big([k → n]) -->|\"train: ~majority class,<br>test: high (underfit)\"| End([predicts<br>class prior])\n```\n\nPick $k$ at the **minimizer of validation error** ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=85|slide 85]]).\n\n### Voronoi decision regions for 1-NN\n\nThe 1-NN decision boundary is the union of perpendicular bisectors between pairs of opposite-class training points. The result is a **Voronoi tesselation** — each cell is the set of query points closest to one training example ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=57|slide 57]]).\n\n### Curse of dimensionality — points-needed-to-cover-a-grid\n\n```mermaid\nflowchart LR\n  D1[\"d = 1<br>4 points\"] --> D2[\"d = 2<br>4² = 16 points\"] --> D3[\"d = 3<br>4³ = 64 points\"] --> Dn[\"d general<br>4^d points\"]\n```\n\nSame fixed resolution requires *exponentially* more points as $d$ grows ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=95|slide 95]]).\n\n## Practical issues with kNN\n\nSummarised from [[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=86|slides 86–94]]:\n\n| Issue | Why it bites kNN | Fix |\n| --- | --- | --- |\n| Different feature scales | Larger-range features dominate the distance | Linearly scale to $[0,1]$, or z-score |\n| Irrelevant attributes | Add noise to distances | Drop them, or learn per-feature weights |\n| Redundant / correlated attributes | Same fix space gets double-counted | Drop or reweight |\n| Class noise | 1-NN happily adopts a mislabelled neighbour | Use $k > 1$ (vote smooths) |\n| Test cost | $O(kdN)$ — recomputed for every query | kd-trees (see later), LSH, condensing, dimension subset |\n| Storage | All training data must be retained | Condensing, prototype selection |\n| High dim | Distances become uninformative | Dimensionality reduction (later course) |\n\n## Mock-exam connections\n\n- **§1d** (\"1-NN training error is 0\") — true; comes directly from [[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=75|slide 75]] (\"K=1 always works perfectly on training data\") and the construction: each training point is its own nearest neighbour.\n- **§2c** (which classifiers achieve zero training error on a 2D layout) — k-NN with $k$ small fits any consistent layout exactly; **3-NN** can fail when the true labels look like XOR with one nearby contradicting point.\n- See [[exam-blueprint#Topic coverage map]].\n\n## Open questions\n\n- The proof on the extra slides shows 1-NN ≤ 2× Bayes. Does the constant tighten for $k > 1$? The slide deck claims \"similar guarantees\" without specifying.\n- The \"we will see this later\" comment about kd-trees ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=92|slide 92]]) does not appear to surface in this course's syllabus — confirm whether kd-trees are tested.\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/10-Courses/Statistical-Learning/lectures/lecture-01-knn.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/10-Courses/Statistical-Learning/lectures/lecture-01-knn.md",
+            "content": "---\ntags: [lecture]\ncourse: Statistical-Learning\nsource: SLP-Lec1-knn(1).pdf\nlecture: 01\nslides: \"[[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf|Open slides ↗]]\"\ncreated: 2026-05-03\n---\n\n# Lecture 01 — Introduction & k-NN\n\n## Overview\n\nTwo-part introduction. Part 1 sets up the **vocabulary of supervised learning** — features/attributes (columns), data points/instances (rows), the levels-of-measurement hierarchy (nominal/ordinal/interval/ratio → categorical vs. numerical), and the supervised-learning task as estimating $f: \\mathbf{x} \\to y$ from a labelled dataset $\\{(\\mathbf{x}^{(i)}, y^{(i)})\\}_{i=1}^n$. It also previews **regression vs. classification**, **Occam's razor** as the bias for simpler models, and the **underfitting / optimal / overfitting** trichotomy on a 2D classification example.\n\nPart 2 introduces **k-Nearest Neighbours** as the simplest possible learning algorithm and uses it to ground every conceptual hook the rest of the course will use: **distance metrics**, **decision boundaries** (Voronoi cells in the limit), **hyperparameter selection** via train/val/test splits and cross-validation, the bias-variance behaviour of $k$, and the **curse of dimensionality** (formalised in the extra slides).\n\nThe lecture's core slogan: *\"Learning amounts to simply storing training data\"* ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=44|slide 44]]) — kNN is **lazy** / **instance-based**: training is free, all the work happens at query time.\n\n## Key concepts\n\n- [[k-nearest-neighbors]] — predict by majority vote over the $k$ closest training points.\n- [[minkowski-distance]] — generic family $\\bigl(\\sum_r |x_r - z_r|^p\\bigr)^{1/p}$; $p=1$ Manhattan, $p=2$ Euclidean.\n- [[voronoi-diagram]] — visualises the 1-NN decision regions; each cell is the locus of points closest to one training example.\n- [[curse-of-dimensionality]] — distances stop being informative as $d \\to \\infty$; the kNN assumption that \"similar points share labels\" breaks down.\n- [[overfitting-underfitting]] — $k$ controls the trade-off; small $k$ overfits, large $k$ underfits.\n- [[hyperparameter]] — $k$ and the distance metric are *set* not *learned*.\n- [[train-validation-test-split]] — three-way split: train fits the model, val selects hyperparameters, test gives an unbiased generalization estimate.\n- [[cross-validation]] — rotate the validation fold; average across folds for a more robust estimate.\n- [[feature-normalization]] — kNN is scale-sensitive; normalize features before computing distances.\n\n## Equations\n\n**Minkowski distance** with parameter $p$:\n\n$$\n\\mathrm{dist}(\\mathbf{x}, \\mathbf{z}) = \\left( \\sum_{r=1}^{d} |x_r - z_r|^p \\right)^{1/p}\n$$\n\n- $p=1$: **Manhattan** $\\sum_r |x_r - z_r|$.\n- $p=2$: **Euclidean** $\\sqrt{\\sum_r (x_r - z_r)^2}$.\n\n**1-NN classifier** ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=49|slide 49]]):\n\n$$\n\\mathbf{x}^{*} = \\arg\\min_{\\mathbf{x}^{(i)} \\in \\text{train}} \\mathrm{dist}\\!\\bigl(\\mathbf{x}^{(i)}, \\mathbf{x}\\bigr), \\qquad \\hat{y} = t^{*}.\n$$\n\nFor *ranking* nearest neighbours the $\\sqrt{\\cdot}$ in Euclidean distance can be skipped — argmin is invariant under monotonic transforms ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=50|slide 50]]).\n\n**z-score normalization** for feature scaling: $\\tilde{x}_j = (x_j - \\mu_j) / \\sigma_j$ ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=86|slide 86]]).\n\n**Test-time complexity:** $O(kdN)$ for kNN — distance to all $N$ training points, each in $\\mathbb{R}^d$, plus $k$ retrieval ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=91|slide 91]]).\n\n**Curse of dimensionality formalisation** (extra slides, [[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=104|slide 104]]). Smallest hypercube in $[0,1]^d$ containing the $k$ nearest neighbours of a test point has edge length\n\n$$\n\\ell \\approx \\left(\\frac{k}{n}\\right)^{1/d}\n$$\n\nFor $n=1000$, $k=10$: $d=2 \\Rightarrow \\ell = 0.1$, $d=10 \\Rightarrow 0.63$, $d=100 \\Rightarrow 0.955$, $d=1000 \\Rightarrow 0.9954$. Almost the entire feature space is required to find the 10-NN once $d$ is large.\n\n**Cover-Hart 1967 (extra slides):** as $n \\to \\infty$, $\\epsilon_{1\\text{-NN}} \\le 2\\,\\epsilon_{\\text{Bayes}}$.\n\n## Diagrams\n\n### kNN algorithm in three steps\n\n```mermaid\nflowchart LR\n  Q([test point x]) --> D[1. Compute distance to every<br>training point]\n  D --> R[2. Rank by distance,<br>keep k smallest]\n  R --> V[3. Majority vote of<br>k labels]\n  V --> P([predicted label ŷ])\n```\n\n### Underfitting / Optimal / Overfitting on a 2D classification problem\n\n```mermaid\nflowchart LR\n  subgraph U[Underfitting]\n    U1[\"Linear<br>boundary\"]\n    U2[\"High train error\"]\n    U3[\"High test error\"]\n  end\n  subgraph O[Optimal]\n    O1[\"Mildly curved<br>boundary\"]\n    O2[\"Moderate train error\"]\n    O3[\"Lowest test error\"]\n  end\n  subgraph V[Overfitting]\n    V1[\"Wiggly<br>boundary\"]\n    V2[\"Near-zero train error\"]\n    V3[\"High test error\"]\n  end\n```\n\nSource: [[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=26|slide 26]] names the three regimes explicitly.\n\n### Train-error vs test-error against k\n\n```mermaid\nflowchart LR\n  K([k = 1]) -->|\"train: 0,<br>test: high (noisy)\"| Mid\n  Mid([k = k*]) -->|\"train: rising,<br>test: minimum\"| Big\n  Big([k → n]) -->|\"train: ~majority class,<br>test: high (underfit)\"| End([predicts<br>class prior])\n```\n\nPick $k$ at the **minimizer of validation error** ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=85|slide 85]]).\n\n### Voronoi decision regions for 1-NN\n\nThe 1-NN decision boundary is the union of perpendicular bisectors between pairs of opposite-class training points. The result is a **Voronoi tesselation** — each cell is the set of query points closest to one training example ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=57|slide 57]]).\n\n### Curse of dimensionality — points-needed-to-cover-a-grid\n\n```mermaid\nflowchart LR\n  D1[\"d = 1<br>4 points\"] --> D2[\"d = 2<br>4² = 16 points\"] --> D3[\"d = 3<br>4³ = 64 points\"] --> Dn[\"d general<br>4^d points\"]\n```\n\nSame fixed resolution requires *exponentially* more points as $d$ grows ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=95|slide 95]]).\n\n## Practical issues with kNN\n\nSummarised from [[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=86|slides 86–94]]:\n\n| Issue | Why it bites kNN | Fix |\n| --- | --- | --- |\n| Different feature scales | Larger-range features dominate the distance | Linearly scale to $[0,1]$, or z-score |\n| Irrelevant attributes | Add noise to distances | Drop them, or learn per-feature weights |\n| Redundant / correlated attributes | Same fix space gets double-counted | Drop or reweight |\n| Class noise | 1-NN happily adopts a mislabelled neighbour | Use $k > 1$ (vote smooths) |\n| Test cost | $O(kdN)$ — recomputed for every query | kd-trees (see later), LSH, condensing, dimension subset |\n| Storage | All training data must be retained | Condensing, prototype selection |\n| High dim | Distances become uninformative | Dimensionality reduction (later course) |\n\n## Mock-exam connections\n\n- **§1d** (\"1-NN training error is 0\") — true; comes directly from [[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=75|slide 75]] (\"K=1 always works perfectly on training data\") and the construction: each training point is its own nearest neighbour.\n- **§2c** (which classifiers achieve zero training error on a 2D layout) — k-NN with $k$ small fits any consistent layout exactly; **3-NN** can fail when the true labels look like XOR with one nearby contradicting point.\n- See [[exam-blueprint#Topic coverage map]].\n\n## Open questions\n\n- The proof on the extra slides shows 1-NN ≤ 2× Bayes. Does the constant tighten for $k > 1$? The slide deck claims \"similar guarantees\" without specifying.\n- The \"we will see this later\" comment about kd-trees ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=92|slide 92]]) does not appear to surface in this course's syllabus — confirm whether kd-trees are tested.\n"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Now the 9 concept notes (all NEW for L01)."
+        }
+      ],
+      "timestamp": "2026-05-03T10:52:53.689Z"
+    },
+    {
+      "id": "31276eef-3c4c-448e-a611-a4bf9cd0b3df",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01T7L4ueDU7zWP6jaiEF5TM5",
+          "title": "Write 20-Concepts/k-nearest-neighbors.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/k-nearest-neighbors.md",
+              "newText": "---\ntags: [concept]\ncourses: [Statistical-Learning]\nsources:\n  - course: Statistical-Learning\n    file: SLP-Lec1-knn(1).pdf\ncreated: 2026-05-03\n---\n\n# k-Nearest Neighbours\n\n## Definition\n\nA **non-parametric, instance-based** classifier (also useful for regression). At training time it just stores the labelled dataset $\\{(\\mathbf{x}^{(i)}, y^{(i)})\\}_{i=1}^n$. At query time, given a test point $\\mathbf{x}$:\n\n1. Compute $\\mathrm{dist}(\\mathbf{x}, \\mathbf{x}^{(i)})$ for every training point.\n2. Take the $k$ training points with the smallest distances.\n3. Predict the label by **majority vote** among those $k$ neighbours (for classification) or by averaging their labels (for regression).\n\nFor $k=1$ this reduces to **nearest-neighbour**: $\\mathbf{x}^{*} = \\arg\\min_{\\mathbf{x}^{(i)}} \\mathrm{dist}(\\mathbf{x}^{(i)}, \\mathbf{x})$, $\\hat{y} = t^{*}$.\n\n## Why it matters\n\n- **Simplest credible learner.** No training cost, no parametric assumption, no optimization. The decision boundary is whatever the data implies.\n- **Naturally complex boundaries.** With enough data the 1-NN boundary is the union of perpendicular bisectors → a [[voronoi-diagram]] over training points; can fit arbitrarily intricate shapes.\n- **Bayes-rate within a factor of 2.** Cover & Hart 1967: as $n \\to \\infty$, $\\epsilon_{1\\text{-NN}} \\le 2\\,\\epsilon_{\\text{Bayes}}$.\n- **Foundation for the course.** Every later concept — distance metrics, decision boundaries, hyperparameter tuning, train/val/test splits, [[curse-of-dimensionality]], [[overfitting-underfitting]] — first appears here.\n\n## $k$ as a complexity dial\n\n| $k$ | Decision boundary | Train error | Test error |\n| --- | --- | --- | --- |\n| 1 | Wiggly, picks up every noise point | 0 | High (overfits) |\n| moderate | Smooth | Rises with $k$ | Minimum at some $k^*$ |\n| $\\to n$ | Constant (predicts class prior) | High | High (underfits) |\n\nChoose $k$ by [[cross-validation]], picking the $k$ that minimizes validation error.\n\n## Algorithmic skeleton\n\n```python\nimport numpy as np\n\ndef knn_predict(X_train, y_train, x_query, k=3):\n    # Squared Euclidean distance — sqrt is monotonic, can be skipped.\n    d2 = np.sum((X_train - x_query) ** 2, axis=1)\n    nn_idx = np.argpartition(d2, k)[:k]      # k smallest distances\n    nn_labels = y_train[nn_idx]\n    # Majority vote (binary or multi-class)\n    values, counts = np.unique(nn_labels, return_counts=True)\n    return values[np.argmax(counts)]\n```\n\n## Costs and limits\n\n- **Test-time complexity:** $O(kdN)$ — must compute $d$-dim distance to all $N$ training points.\n- **Storage:** must keep all training data.\n- **Curse of dimensionality:** in high $d$, points drawn from a probability distribution become roughly equidistant; \"nearest\" is no longer meaningfully near. The $k$-NN of a test point in $[0,1]^d$ require a hypercube of edge $\\ell \\approx (k/n)^{1/d}$, which → 1 fast.\n- **Scale-sensitive:** features with larger ranges dominate the distance — see [[feature-normalization]].\n- **Class-noise sensitive at $k=1$:** one mislabelled training point causes a misclassification region; voting with $k > 1$ smooths it ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=64|slide 64]]).\n\n## Exam-relevant facts\n\n- **1-NN training error is always 0** ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=75|slide 75]]). Each training point is its own closest neighbour.\n- **kNN does not explicitly compute a decision boundary** — it can be inferred from the data and the chosen distance metric ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=51|slide 51]]).\n- **$k$ and the distance metric are hyperparameters** — set, not learned ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=73|slide 73]]).\n\n## Related\n\n- [[minkowski-distance]] — the family of distances kNN can use.\n- [[voronoi-diagram]] — visualizes the 1-NN decision boundary.\n- [[curse-of-dimensionality]] — kNN's biggest theoretical limit.\n- [[overfitting-underfitting]] — picking $k$ navigates this.\n- [[cross-validation]] — how to choose $k$.\n- [[feature-normalization]] — required preprocessing.\n- [[hyperparameter]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/k-nearest-neighbors.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/k-nearest-neighbors.md",
+            "content": "---\ntags: [concept]\ncourses: [Statistical-Learning]\nsources:\n  - course: Statistical-Learning\n    file: SLP-Lec1-knn(1).pdf\ncreated: 2026-05-03\n---\n\n# k-Nearest Neighbours\n\n## Definition\n\nA **non-parametric, instance-based** classifier (also useful for regression). At training time it just stores the labelled dataset $\\{(\\mathbf{x}^{(i)}, y^{(i)})\\}_{i=1}^n$. At query time, given a test point $\\mathbf{x}$:\n\n1. Compute $\\mathrm{dist}(\\mathbf{x}, \\mathbf{x}^{(i)})$ for every training point.\n2. Take the $k$ training points with the smallest distances.\n3. Predict the label by **majority vote** among those $k$ neighbours (for classification) or by averaging their labels (for regression).\n\nFor $k=1$ this reduces to **nearest-neighbour**: $\\mathbf{x}^{*} = \\arg\\min_{\\mathbf{x}^{(i)}} \\mathrm{dist}(\\mathbf{x}^{(i)}, \\mathbf{x})$, $\\hat{y} = t^{*}$.\n\n## Why it matters\n\n- **Simplest credible learner.** No training cost, no parametric assumption, no optimization. The decision boundary is whatever the data implies.\n- **Naturally complex boundaries.** With enough data the 1-NN boundary is the union of perpendicular bisectors → a [[voronoi-diagram]] over training points; can fit arbitrarily intricate shapes.\n- **Bayes-rate within a factor of 2.** Cover & Hart 1967: as $n \\to \\infty$, $\\epsilon_{1\\text{-NN}} \\le 2\\,\\epsilon_{\\text{Bayes}}$.\n- **Foundation for the course.** Every later concept — distance metrics, decision boundaries, hyperparameter tuning, train/val/test splits, [[curse-of-dimensionality]], [[overfitting-underfitting]] — first appears here.\n\n## $k$ as a complexity dial\n\n| $k$ | Decision boundary | Train error | Test error |\n| --- | --- | --- | --- |\n| 1 | Wiggly, picks up every noise point | 0 | High (overfits) |\n| moderate | Smooth | Rises with $k$ | Minimum at some $k^*$ |\n| $\\to n$ | Constant (predicts class prior) | High | High (underfits) |\n\nChoose $k$ by [[cross-validation]], picking the $k$ that minimizes validation error.\n\n## Algorithmic skeleton\n\n```python\nimport numpy as np\n\ndef knn_predict(X_train, y_train, x_query, k=3):\n    # Squared Euclidean distance — sqrt is monotonic, can be skipped.\n    d2 = np.sum((X_train - x_query) ** 2, axis=1)\n    nn_idx = np.argpartition(d2, k)[:k]      # k smallest distances\n    nn_labels = y_train[nn_idx]\n    # Majority vote (binary or multi-class)\n    values, counts = np.unique(nn_labels, return_counts=True)\n    return values[np.argmax(counts)]\n```\n\n## Costs and limits\n\n- **Test-time complexity:** $O(kdN)$ — must compute $d$-dim distance to all $N$ training points.\n- **Storage:** must keep all training data.\n- **Curse of dimensionality:** in high $d$, points drawn from a probability distribution become roughly equidistant; \"nearest\" is no longer meaningfully near. The $k$-NN of a test point in $[0,1]^d$ require a hypercube of edge $\\ell \\approx (k/n)^{1/d}$, which → 1 fast.\n- **Scale-sensitive:** features with larger ranges dominate the distance — see [[feature-normalization]].\n- **Class-noise sensitive at $k=1$:** one mislabelled training point causes a misclassification region; voting with $k > 1$ smooths it ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=64|slide 64]]).\n\n## Exam-relevant facts\n\n- **1-NN training error is always 0** ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=75|slide 75]]). Each training point is its own closest neighbour.\n- **kNN does not explicitly compute a decision boundary** — it can be inferred from the data and the chosen distance metric ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=51|slide 51]]).\n- **$k$ and the distance metric are hyperparameters** — set, not learned ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=73|slide 73]]).\n\n## Related\n\n- [[minkowski-distance]] — the family of distances kNN can use.\n- [[voronoi-diagram]] — visualizes the 1-NN decision boundary.\n- [[curse-of-dimensionality]] — kNN's biggest theoretical limit.\n- [[overfitting-underfitting]] — picking $k$ navigates this.\n- [[cross-validation]] — how to choose $k$.\n- [[feature-normalization]] — required preprocessing.\n- [[hyperparameter]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-05-03T10:53:53.288Z"
+    },
+    {
+      "id": "e6dcdef9-1b9a-4ba2-9f9a-840ab2540fac",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01EjxTQfATv6UbBnDPFeVd92",
+          "title": "Write 20-Concepts/minkowski-distance.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/minkowski-distance.md",
+              "newText": "---\ntags: [concept]\ncourses: [Statistical-Learning]\nsources:\n  - course: Statistical-Learning\n    file: SLP-Lec1-knn(1).pdf\ncreated: 2026-05-03\n---\n\n# Minkowski Distance\n\n## Definition\n\nA parametric family of distance metrics on $\\mathbb{R}^d$ indexed by $p \\ge 1$:\n\n$$\n\\mathrm{dist}_p(\\mathbf{x}, \\mathbf{z}) = \\left( \\sum_{r=1}^{d} |x_r - z_r|^p \\right)^{1/p}\n$$\n\nSpecial cases:\n\n- **$p = 1$ Manhattan ($L_1$) distance:** $\\sum_r |x_r - z_r|$. Sum of axis-aligned coordinate differences.\n- **$p = 2$ Euclidean ($L_2$) distance:** $\\sqrt{\\sum_r (x_r - z_r)^2}$. The geometric straight-line distance.\n- **$p \\to \\infty$ Chebyshev ($L_\\infty$):** $\\max_r |x_r - z_r|$. Largest single-coordinate gap.\n\n## Why it matters\n\n[[k-nearest-neighbors|kNN]] depends entirely on its distance metric. *\"The nearest-neighbor algorithm relies on a distance metric: the better that metric reflects label similarity, the better the results will be\"* ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=46|slide 46]]).\n\nThe choice of $p$ changes the *geometry* of the kNN decision boundary (e.g., $L_1$ produces axis-aligned diamond-shaped neighbourhoods; $L_2$ gives spheres).\n\n## Skip the square root for ranking\n\nWhen the goal is just to *rank* points — as in finding nearest neighbours — the monotonic outer transform can be dropped. For Euclidean distance:\n\n$$\n\\arg\\min_i \\|\\mathbf{x} - \\mathbf{x}^{(i)}\\|_2 \\;\\equiv\\; \\arg\\min_i \\|\\mathbf{x} - \\mathbf{x}^{(i)}\\|_2^2\n$$\n\nSaves a $\\sqrt{\\cdot}$ per training example ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=50|slide 50]]).\n\n## When *not* to use vanilla Minkowski\n\n- When features are on different scales — first apply [[feature-normalization]].\n- When some features are irrelevant — they pollute the sum (slide 88). Use feature weighting or selection.\n- When the data has discrete / categorical features — Hamming or Jaccard may be more meaningful.\n\n## Related\n\n- [[k-nearest-neighbors]]\n- [[feature-normalization]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/minkowski-distance.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/minkowski-distance.md",
+            "content": "---\ntags: [concept]\ncourses: [Statistical-Learning]\nsources:\n  - course: Statistical-Learning\n    file: SLP-Lec1-knn(1).pdf\ncreated: 2026-05-03\n---\n\n# Minkowski Distance\n\n## Definition\n\nA parametric family of distance metrics on $\\mathbb{R}^d$ indexed by $p \\ge 1$:\n\n$$\n\\mathrm{dist}_p(\\mathbf{x}, \\mathbf{z}) = \\left( \\sum_{r=1}^{d} |x_r - z_r|^p \\right)^{1/p}\n$$\n\nSpecial cases:\n\n- **$p = 1$ Manhattan ($L_1$) distance:** $\\sum_r |x_r - z_r|$. Sum of axis-aligned coordinate differences.\n- **$p = 2$ Euclidean ($L_2$) distance:** $\\sqrt{\\sum_r (x_r - z_r)^2}$. The geometric straight-line distance.\n- **$p \\to \\infty$ Chebyshev ($L_\\infty$):** $\\max_r |x_r - z_r|$. Largest single-coordinate gap.\n\n## Why it matters\n\n[[k-nearest-neighbors|kNN]] depends entirely on its distance metric. *\"The nearest-neighbor algorithm relies on a distance metric: the better that metric reflects label similarity, the better the results will be\"* ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=46|slide 46]]).\n\nThe choice of $p$ changes the *geometry* of the kNN decision boundary (e.g., $L_1$ produces axis-aligned diamond-shaped neighbourhoods; $L_2$ gives spheres).\n\n## Skip the square root for ranking\n\nWhen the goal is just to *rank* points — as in finding nearest neighbours — the monotonic outer transform can be dropped. For Euclidean distance:\n\n$$\n\\arg\\min_i \\|\\mathbf{x} - \\mathbf{x}^{(i)}\\|_2 \\;\\equiv\\; \\arg\\min_i \\|\\mathbf{x} - \\mathbf{x}^{(i)}\\|_2^2\n$$\n\nSaves a $\\sqrt{\\cdot}$ per training example ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=50|slide 50]]).\n\n## When *not* to use vanilla Minkowski\n\n- When features are on different scales — first apply [[feature-normalization]].\n- When some features are irrelevant — they pollute the sum (slide 88). Use feature weighting or selection.\n- When the data has discrete / categorical features — Hamming or Jaccard may be more meaningful.\n\n## Related\n\n- [[k-nearest-neighbors]]\n- [[feature-normalization]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-05-03T10:54:23.429Z"
+    },
+    {
+      "id": "ddc754a2-0b78-4f34-88f3-268032d4aa99",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01AD4zcH8Lqu8Wywt39MPtcL",
+          "title": "Write 20-Concepts/voronoi-diagram.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/voronoi-diagram.md",
+              "newText": "---\ntags: [concept]\ncourses: [Statistical-Learning]\nsources:\n  - course: Statistical-Learning\n    file: SLP-Lec1-knn(1).pdf\ncreated: 2026-05-03\n---\n\n# Voronoi Diagram\n\n## Definition\n\nA partition of a metric space into **cells**, one per training point, where each cell is the locus of query points closest to that training point. Formally, for training points $\\{\\mathbf{x}^{(1)}, \\dots, \\mathbf{x}^{(n)}\\}$, the Voronoi cell of $\\mathbf{x}^{(i)}$ is\n\n$$\nV_i = \\bigl\\{\\mathbf{q} \\in \\mathbb{R}^d \\;\\big|\\; \\mathrm{dist}(\\mathbf{q}, \\mathbf{x}^{(i)}) \\le \\mathrm{dist}(\\mathbf{q}, \\mathbf{x}^{(j)}) \\text{ for all } j \\neq i\\bigr\\}.\n$$\n\nCell boundaries are perpendicular bisectors of segments between adjacent training points.\n\n## Why it matters\n\nThe Voronoi diagram **is the 1-NN classifier**:\n\n- Each query falls in exactly one cell → predicted label = label of that cell's training point.\n- The 1-NN decision boundary is the union of cell-boundary segments **between cells of opposite classes**. Cell-boundaries between same-class cells are *not* part of the decision boundary.\n\nThis makes the 1-NN decision boundary **piecewise linear** in $\\mathbb{R}^d$, but with potentially exponentially many pieces.\n\n> *\"Decision boundaries: Voronoi diagram visualization — show how input space divided into classes; each line segment is equidistant between two points of opposite classes.\"* ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=57|slide 57]])\n\n## Geometry\n\n```mermaid\nflowchart LR\n  A([Training point A]) -->|\"region V_A\"| RA[Voronoi cell of A]\n  B([Training point B]) -->|\"region V_B\"| RB[Voronoi cell of B]\n  RA --- BD[\"boundary = perpendicular<br>bisector of AB\"]\n  RB --- BD\n```\n\nFor two points the boundary is a single line (in 2D) or hyperplane (in $\\mathbb{R}^d$). For $n$ points the diagram is a tessellation of convex polytopes.\n\n## Why kNN ($k>1$) does *not* trace a Voronoi diagram\n\nFor $k > 1$, the decision rule is a vote among the $k$ closest training points, not \"label of the single closest.\" The boundary is no longer the Voronoi tesselation — it smooths out the cell-by-cell decisions and tends to ignore lone noisy points.\n\n## Related\n\n- [[k-nearest-neighbors]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/voronoi-diagram.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/voronoi-diagram.md",
+            "content": "---\ntags: [concept]\ncourses: [Statistical-Learning]\nsources:\n  - course: Statistical-Learning\n    file: SLP-Lec1-knn(1).pdf\ncreated: 2026-05-03\n---\n\n# Voronoi Diagram\n\n## Definition\n\nA partition of a metric space into **cells**, one per training point, where each cell is the locus of query points closest to that training point. Formally, for training points $\\{\\mathbf{x}^{(1)}, \\dots, \\mathbf{x}^{(n)}\\}$, the Voronoi cell of $\\mathbf{x}^{(i)}$ is\n\n$$\nV_i = \\bigl\\{\\mathbf{q} \\in \\mathbb{R}^d \\;\\big|\\; \\mathrm{dist}(\\mathbf{q}, \\mathbf{x}^{(i)}) \\le \\mathrm{dist}(\\mathbf{q}, \\mathbf{x}^{(j)}) \\text{ for all } j \\neq i\\bigr\\}.\n$$\n\nCell boundaries are perpendicular bisectors of segments between adjacent training points.\n\n## Why it matters\n\nThe Voronoi diagram **is the 1-NN classifier**:\n\n- Each query falls in exactly one cell → predicted label = label of that cell's training point.\n- The 1-NN decision boundary is the union of cell-boundary segments **between cells of opposite classes**. Cell-boundaries between same-class cells are *not* part of the decision boundary.\n\nThis makes the 1-NN decision boundary **piecewise linear** in $\\mathbb{R}^d$, but with potentially exponentially many pieces.\n\n> *\"Decision boundaries: Voronoi diagram visualization — show how input space divided into classes; each line segment is equidistant between two points of opposite classes.\"* ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=57|slide 57]])\n\n## Geometry\n\n```mermaid\nflowchart LR\n  A([Training point A]) -->|\"region V_A\"| RA[Voronoi cell of A]\n  B([Training point B]) -->|\"region V_B\"| RB[Voronoi cell of B]\n  RA --- BD[\"boundary = perpendicular<br>bisector of AB\"]\n  RB --- BD\n```\n\nFor two points the boundary is a single line (in 2D) or hyperplane (in $\\mathbb{R}^d$). For $n$ points the diagram is a tessellation of convex polytopes.\n\n## Why kNN ($k>1$) does *not* trace a Voronoi diagram\n\nFor $k > 1$, the decision rule is a vote among the $k$ closest training points, not \"label of the single closest.\" The boundary is no longer the Voronoi tesselation — it smooths out the cell-by-cell decisions and tends to ignore lone noisy points.\n\n## Related\n\n- [[k-nearest-neighbors]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-05-03T10:54:36.588Z"
+    },
+    {
+      "id": "669bd3b7-c94d-4cf6-8e56-f9be37781e47",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01J1LgUPd8bRZzTtmSULPdDW",
+          "title": "Write 20-Concepts/curse-of-dimensionality.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/curse-of-dimensionality.md",
+              "newText": "---\ntags: [concept]\ncourses: [Statistical-Learning]\nsources:\n  - course: Statistical-Learning\n    file: SLP-Lec1-knn(1).pdf\ncreated: 2026-05-03\n---\n\n# Curse of Dimensionality\n\n## Definition\n\nThe collection of pathologies that arise when working with high-dimensional feature spaces ($d \\gg 1$):\n\n1. **Sample sparsity.** To cover a $d$-dimensional grid at fixed resolution requires *exponentially* many points: 4 values per axis → $4^d$ grid points ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=95|slide 95]]).\n2. **Distances concentrate.** Points sampled from a distribution become roughly equidistant from each other; \"nearest\" stops being informative.\n3. **Volume concentrates near the boundary.** Most of the volume of a high-dim hypercube is near its surface.\n4. **Required training-set size grows exponentially with $d$** to maintain a given density.\n\n## Formalisation for kNN ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=104|slide 104]])\n\nImagine training data sampled uniformly from $[0,1]^d$. For a test point, let $\\ell$ be the edge length of the smallest hypercube containing its $k$ nearest neighbours. Then\n\n$$\n\\ell^d \\approx \\frac{k}{n}, \\qquad \\ell \\approx \\left(\\frac{k}{n}\\right)^{1/d}.\n$$\n\nFor $n = 1000$, $k = 10$:\n\n| $d$ | $\\ell$ |\n| --- | --- |\n| 2 | 0.10 |\n| 10 | 0.63 |\n| 100 | 0.955 |\n| 1000 | 0.9954 |\n\nBy $d \\approx 100$, the \"10 nearest neighbours\" of a test point require almost the entire feature space. At that point those neighbours aren't meaningfully *near* — they're just the 10 closest of a uniformly-spread crowd.\n\nTo shrink $\\ell$ back to $0.1$ at large $d$ would need\n\n$$\nn = k \\cdot \\left(\\frac{1}{\\ell}\\right)^d = k \\cdot 10^d\n$$\n\nwhich is exponential in $d$. *\"For $d > 100$ we would need far more data points than there are electrons in the universe\"* (extra slide).\n\n## Why it matters\n\n- Breaks the **kNN assumption** that \"similar points share similar labels\": there's no longer a meaningful notion of \"similar\" in raw feature space.\n- Motivates **dimensionality reduction** ([[principal-component-analysis|PCA]] and friends in L18–19) and **kernel methods** (L15–16) which work in *induced* feature spaces with structure.\n- Makes brute-force grid-search hyperparameter tuning infeasible at high $d$.\n\n## Mitigations\n\n- Drop irrelevant features (raises effective signal-to-noise per dimension).\n- Project to lower dimension via PCA or random projection.\n- Use distance metrics learned for the task (\"metric learning\" — slide 98 mention).\n- Replace the inner product with a [[kernel-trick|kernel]] adapted to the data geometry.\n\n## Related\n\n- [[k-nearest-neighbors]] — the canonical victim.\n- [[principal-component-analysis]]\n- [[kernel-trick]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/curse-of-dimensionality.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/curse-of-dimensionality.md",
+            "content": "---\ntags: [concept]\ncourses: [Statistical-Learning]\nsources:\n  - course: Statistical-Learning\n    file: SLP-Lec1-knn(1).pdf\ncreated: 2026-05-03\n---\n\n# Curse of Dimensionality\n\n## Definition\n\nThe collection of pathologies that arise when working with high-dimensional feature spaces ($d \\gg 1$):\n\n1. **Sample sparsity.** To cover a $d$-dimensional grid at fixed resolution requires *exponentially* many points: 4 values per axis → $4^d$ grid points ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=95|slide 95]]).\n2. **Distances concentrate.** Points sampled from a distribution become roughly equidistant from each other; \"nearest\" stops being informative.\n3. **Volume concentrates near the boundary.** Most of the volume of a high-dim hypercube is near its surface.\n4. **Required training-set size grows exponentially with $d$** to maintain a given density.\n\n## Formalisation for kNN ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=104|slide 104]])\n\nImagine training data sampled uniformly from $[0,1]^d$. For a test point, let $\\ell$ be the edge length of the smallest hypercube containing its $k$ nearest neighbours. Then\n\n$$\n\\ell^d \\approx \\frac{k}{n}, \\qquad \\ell \\approx \\left(\\frac{k}{n}\\right)^{1/d}.\n$$\n\nFor $n = 1000$, $k = 10$:\n\n| $d$ | $\\ell$ |\n| --- | --- |\n| 2 | 0.10 |\n| 10 | 0.63 |\n| 100 | 0.955 |\n| 1000 | 0.9954 |\n\nBy $d \\approx 100$, the \"10 nearest neighbours\" of a test point require almost the entire feature space. At that point those neighbours aren't meaningfully *near* — they're just the 10 closest of a uniformly-spread crowd.\n\nTo shrink $\\ell$ back to $0.1$ at large $d$ would need\n\n$$\nn = k \\cdot \\left(\\frac{1}{\\ell}\\right)^d = k \\cdot 10^d\n$$\n\nwhich is exponential in $d$. *\"For $d > 100$ we would need far more data points than there are electrons in the universe\"* (extra slide).\n\n## Why it matters\n\n- Breaks the **kNN assumption** that \"similar points share similar labels\": there's no longer a meaningful notion of \"similar\" in raw feature space.\n- Motivates **dimensionality reduction** ([[principal-component-analysis|PCA]] and friends in L18–19) and **kernel methods** (L15–16) which work in *induced* feature spaces with structure.\n- Makes brute-force grid-search hyperparameter tuning infeasible at high $d$.\n\n## Mitigations\n\n- Drop irrelevant features (raises effective signal-to-noise per dimension).\n- Project to lower dimension via PCA or random projection.\n- Use distance metrics learned for the task (\"metric learning\" — slide 98 mention).\n- Replace the inner product with a [[kernel-trick|kernel]] adapted to the data geometry.\n\n## Related\n\n- [[k-nearest-neighbors]] — the canonical victim.\n- [[principal-component-analysis]]\n- [[kernel-trick]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-05-03T10:54:49.708Z"
+    },
+    {
+      "id": "9af521b3-10d3-47f7-a444-2b8c4127ca94",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01E4fpKJdQKmqkt6KpxnjEfp",
+          "title": "Write 20-Concepts/overfitting-underfitting.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/overfitting-underfitting.md",
+              "newText": "---\ntags: [concept]\ncourses: [Statistical-Learning]\nsources:\n  - course: Statistical-Learning\n    file: SLP-Lec1-knn(1).pdf\ncreated: 2026-05-03\n---\n\n# Overfitting / Underfitting\n\n## Definition\n\nTwo failure modes of fitting a predictor $f$ to a finite training set:\n\n- **Underfitting** — the model is too simple to capture the structure in the data. Train error is high, test error is also high. Symptom: bias dominates.\n- **Overfitting** — the model is so flexible that it has memorised noise in the training set. Train error is very low (often zero), but test error is high because the patterns it learned do not generalise. Symptom: variance dominates.\n- **Optimal** — somewhere in the middle: model just flexible enough to capture real structure but not enough to chase noise. Train and test errors are both moderate, with the smallest test error.\n\nThe canonical visual is three decision boundaries on the same 2D classification problem: a near-straight line (underfit), a gently-curved line (optimal), a wiggly line that snakes around individual training points (overfit). Slide 26 of L01 names them explicitly: \"Underfitting / Optimal / Overfitting\" ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=26|slide 26]]).\n\n## How model complexity controls the regime\n\nThe U-shape of test error in model complexity is universal:\n\n```mermaid\nflowchart LR\n  C1[\"Low complexity<br>(underfit)\"] -->|\"increase capacity\"| C2[\"Optimal<br>(min test error)\"]\n  C2 -->|\"keep increasing\"| C3[\"High complexity<br>(overfit)\"]\n```\n\nKnobs that move along this axis differ by algorithm:\n\n| Algorithm | Knob → low complexity | Knob → high complexity |\n| --- | --- | --- |\n| [[k-nearest-neighbors|kNN]] | $k \\to n$ | $k = 1$ |\n| Decision tree | shallow / aggressive pruning | grow deep, no prune |\n| Polynomial regression | low degree | high degree |\n| Regularised models | large $\\lambda$ | $\\lambda \\to 0$ |\n| Boosting | few rounds | many rounds |\n| MLP | few hidden units | many hidden units |\n\n## Diagnosing\n\n- **Train error ≪ test error** → likely overfitting. Reduce capacity, add regularization, get more data.\n- **Train error high *and* close to test error** → likely underfitting. Increase capacity or use richer features.\n- The two error curves vs. training-set size also separate the regimes: in overfitting the gap between train and test error stays large; in underfitting both errors plateau at a high value. (See L11 bias–variance treatment.)\n\n## Occam's razor and why simple wins\n\nAmong candidate models that fit the training data equally well, prefer the simpler one — it generalises better in expectation. L01 names this **Occam's razor** explicitly when contrasting a clean linear fit vs. a wiggly polynomial through the same 4 points ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=21|slide 21]]).\n\n## Related\n\n- [[bias-variance-decomposition]] — formalises the trade-off (L11).\n- [[cross-validation]] — how to detect the regime in practice.\n- [[k-nearest-neighbors]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/overfitting-underfitting.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/overfitting-underfitting.md",
+            "content": "---\ntags: [concept]\ncourses: [Statistical-Learning]\nsources:\n  - course: Statistical-Learning\n    file: SLP-Lec1-knn(1).pdf\ncreated: 2026-05-03\n---\n\n# Overfitting / Underfitting\n\n## Definition\n\nTwo failure modes of fitting a predictor $f$ to a finite training set:\n\n- **Underfitting** — the model is too simple to capture the structure in the data. Train error is high, test error is also high. Symptom: bias dominates.\n- **Overfitting** — the model is so flexible that it has memorised noise in the training set. Train error is very low (often zero), but test error is high because the patterns it learned do not generalise. Symptom: variance dominates.\n- **Optimal** — somewhere in the middle: model just flexible enough to capture real structure but not enough to chase noise. Train and test errors are both moderate, with the smallest test error.\n\nThe canonical visual is three decision boundaries on the same 2D classification problem: a near-straight line (underfit), a gently-curved line (optimal), a wiggly line that snakes around individual training points (overfit). Slide 26 of L01 names them explicitly: \"Underfitting / Optimal / Overfitting\" ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=26|slide 26]]).\n\n## How model complexity controls the regime\n\nThe U-shape of test error in model complexity is universal:\n\n```mermaid\nflowchart LR\n  C1[\"Low complexity<br>(underfit)\"] -->|\"increase capacity\"| C2[\"Optimal<br>(min test error)\"]\n  C2 -->|\"keep increasing\"| C3[\"High complexity<br>(overfit)\"]\n```\n\nKnobs that move along this axis differ by algorithm:\n\n| Algorithm | Knob → low complexity | Knob → high complexity |\n| --- | --- | --- |\n| [[k-nearest-neighbors|kNN]] | $k \\to n$ | $k = 1$ |\n| Decision tree | shallow / aggressive pruning | grow deep, no prune |\n| Polynomial regression | low degree | high degree |\n| Regularised models | large $\\lambda$ | $\\lambda \\to 0$ |\n| Boosting | few rounds | many rounds |\n| MLP | few hidden units | many hidden units |\n\n## Diagnosing\n\n- **Train error ≪ test error** → likely overfitting. Reduce capacity, add regularization, get more data.\n- **Train error high *and* close to test error** → likely underfitting. Increase capacity or use richer features.\n- The two error curves vs. training-set size also separate the regimes: in overfitting the gap between train and test error stays large; in underfitting both errors plateau at a high value. (See L11 bias–variance treatment.)\n\n## Occam's razor and why simple wins\n\nAmong candidate models that fit the training data equally well, prefer the simpler one — it generalises better in expectation. L01 names this **Occam's razor** explicitly when contrasting a clean linear fit vs. a wiggly polynomial through the same 4 points ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=21|slide 21]]).\n\n## Related\n\n- [[bias-variance-decomposition]] — formalises the trade-off (L11).\n- [[cross-validation]] — how to detect the regime in practice.\n- [[k-nearest-neighbors]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-05-03T10:55:06.418Z"
+    },
+    {
+      "id": "5d6fe1fb-ac8b-44cd-96c0-036aad5893f9",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_019agGoQfnVpGnjvrdfrheNG",
+          "title": "Write 20-Concepts/hyperparameter.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/hyperparameter.md",
+              "newText": "---\ntags: [concept]\ncourses: [Statistical-Learning]\nsources:\n  - course: Statistical-Learning\n    file: SLP-Lec1-knn(1).pdf\ncreated: 2026-05-03\n---\n\n# Hyperparameter\n\n## Definition\n\nA **hyperparameter** is a choice about the learning algorithm that is *set* by the practitioner rather than *learned* from the training data. Contrast with **parameters**, which are the quantities the algorithm fits to data (e.g., the weights of a linear model, the centroids of a clustering).\n\n> *\"What is the best value of k to use? What is the best distance to use? These are hyperparameters: choices about the algorithm that we set rather than learn.\"* ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=73|slide 73]])\n\n## Examples across the course\n\n| Algorithm | Hyperparameters | Parameters (learned) |\n| --- | --- | --- |\n| [[k-nearest-neighbors]] | $k$, distance metric, feature weights | None — kNN stores data |\n| Decision tree | max-depth, min-samples-split, impurity criterion | The tree structure & split thresholds |\n| Linear SVM | regularisation $C$ | weight vector $\\mathbf{w}$, bias $b$ |\n| Kernel SVM | $C$, kernel, kernel parameters | dual variables $\\alpha_i$ |\n| Ridge / Lasso | regularisation $\\lambda$ | $\\mathbf{w}$ |\n| Boosting | number of rounds $T$, base learner | per-round stumps and $\\alpha_t$ weights |\n| MLP | architecture, learning rate, batch size, optimizer, regularisation | weights & biases |\n| K-means | number of clusters $K$, initialisation | centroid positions |\n\n## Why the distinction matters\n\n- **You cannot tune hyperparameters on the test set.** That contaminates the test score and gives an over-optimistic estimate of generalisation.\n- **You also cannot tune them on the training set.** For [[k-nearest-neighbors|kNN]] the slide deck spells out the trap: *\"K = 1 always works perfectly on training data\"* — picking $k$ to minimize training error always picks $k = 1$ ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=75|slide 75]]).\n- **The standard recipe:** [[train-validation-test-split]] — fit on train, choose hyperparameters on validation, *finally* evaluate the chosen model on test. Or use [[cross-validation]] to make better use of limited data.\n\n## Tuning strategies\n\n- **Grid search** — try every combination on a discrete grid.\n- **Random search** — sample combinations randomly; often more efficient when only a few hyperparameters matter.\n- **Bayesian / model-based search** — use past trials to guide the next one.\n- **Cross-validation** — wrap any of the above in a k-fold loop to get a more robust estimate.\n\n## Related\n\n- [[train-validation-test-split]]\n- [[cross-validation]]\n- [[overfitting-underfitting]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/hyperparameter.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/hyperparameter.md",
+            "content": "---\ntags: [concept]\ncourses: [Statistical-Learning]\nsources:\n  - course: Statistical-Learning\n    file: SLP-Lec1-knn(1).pdf\ncreated: 2026-05-03\n---\n\n# Hyperparameter\n\n## Definition\n\nA **hyperparameter** is a choice about the learning algorithm that is *set* by the practitioner rather than *learned* from the training data. Contrast with **parameters**, which are the quantities the algorithm fits to data (e.g., the weights of a linear model, the centroids of a clustering).\n\n> *\"What is the best value of k to use? What is the best distance to use? These are hyperparameters: choices about the algorithm that we set rather than learn.\"* ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=73|slide 73]])\n\n## Examples across the course\n\n| Algorithm | Hyperparameters | Parameters (learned) |\n| --- | --- | --- |\n| [[k-nearest-neighbors]] | $k$, distance metric, feature weights | None — kNN stores data |\n| Decision tree | max-depth, min-samples-split, impurity criterion | The tree structure & split thresholds |\n| Linear SVM | regularisation $C$ | weight vector $\\mathbf{w}$, bias $b$ |\n| Kernel SVM | $C$, kernel, kernel parameters | dual variables $\\alpha_i$ |\n| Ridge / Lasso | regularisation $\\lambda$ | $\\mathbf{w}$ |\n| Boosting | number of rounds $T$, base learner | per-round stumps and $\\alpha_t$ weights |\n| MLP | architecture, learning rate, batch size, optimizer, regularisation | weights & biases |\n| K-means | number of clusters $K$, initialisation | centroid positions |\n\n## Why the distinction matters\n\n- **You cannot tune hyperparameters on the test set.** That contaminates the test score and gives an over-optimistic estimate of generalisation.\n- **You also cannot tune them on the training set.** For [[k-nearest-neighbors|kNN]] the slide deck spells out the trap: *\"K = 1 always works perfectly on training data\"* — picking $k$ to minimize training error always picks $k = 1$ ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=75|slide 75]]).\n- **The standard recipe:** [[train-validation-test-split]] — fit on train, choose hyperparameters on validation, *finally* evaluate the chosen model on test. Or use [[cross-validation]] to make better use of limited data.\n\n## Tuning strategies\n\n- **Grid search** — try every combination on a discrete grid.\n- **Random search** — sample combinations randomly; often more efficient when only a few hyperparameters matter.\n- **Bayesian / model-based search** — use past trials to guide the next one.\n- **Cross-validation** — wrap any of the above in a k-fold loop to get a more robust estimate.\n\n## Related\n\n- [[train-validation-test-split]]\n- [[cross-validation]]\n- [[overfitting-underfitting]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-05-03T10:55:22.777Z"
+    },
+    {
+      "id": "69c7b760-43ac-46c9-8206-7ec08027c4a0",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01JoiVmbwoPmswT7Zxf44vvD",
+          "title": "Write 20-Concepts/train-validation-test-split.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/train-validation-test-split.md",
+              "newText": "---\ntags: [concept]\ncourses: [Statistical-Learning]\nsources:\n  - course: Statistical-Learning\n    file: SLP-Lec1-knn(1).pdf\ncreated: 2026-05-03\n---\n\n# Train / Validation / Test Split\n\n## Definition\n\nPartition a labelled dataset into three disjoint sets, each with a distinct role:\n\n- **Train** — the data the learning algorithm fits its parameters on.\n- **Validation (or \"dev\")** — used to compare candidate hyperparameter settings or model variants. The model is repeatedly *evaluated* on validation but never *fit* to it.\n- **Test** — held out completely until a single, final, unbiased evaluation of the chosen model.\n\n> *\"Idea #3: Split data into train, val, and test; choose hyperparameters on val and evaluate on test. Better!\"* ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=78|slide 78]])\n\n## Why three sets, not two\n\nL01 walks through the alternatives ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=74|slides 74–78]]):\n\n| Idea | What's wrong |\n| --- | --- |\n| #1: Pick hyperparameters that work best on **the training data** | $k = 1$ kNN always gets 0 train error → trivially \"wins\". No information about generalisation. |\n| #2: Train / test only — pick hyperparameters by **best test score** | Once you've used test to choose, it's no longer unbiased. You have no idea how the model performs on truly new data. |\n| #3: Train / val / test | Hyperparameters chosen on val, final score reported on test (used **once**). |\n| #4: Cross-validation | Same logic as #3 but uses every fold of train+val rotation for a more robust val estimate. |\n\n## Common ratios\n\nThere is no single right answer; it depends on dataset size:\n\n- Small data: 60/20/20.\n- Medium data: 70/15/15 or 80/10/10.\n- Big data: 98/1/1 (so that 1% test is still tens of thousands of points).\n\n## Pitfalls\n\n- **Test-set leakage** — touching the test set during model selection invalidates the unbiased-estimate guarantee.\n- **Distribution shift between splits** — random shuffling assumes IID. For time series, use a chronological split. For grouped data, split by group (e.g., patients), not by row.\n- **Tuning over too many hyperparameters with a small val set** — eventually you overfit to validation. Cross-validation reduces this.\n\n## Related\n\n- [[cross-validation]]\n- [[hyperparameter]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/train-validation-test-split.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/train-validation-test-split.md",
+            "content": "---\ntags: [concept]\ncourses: [Statistical-Learning]\nsources:\n  - course: Statistical-Learning\n    file: SLP-Lec1-knn(1).pdf\ncreated: 2026-05-03\n---\n\n# Train / Validation / Test Split\n\n## Definition\n\nPartition a labelled dataset into three disjoint sets, each with a distinct role:\n\n- **Train** — the data the learning algorithm fits its parameters on.\n- **Validation (or \"dev\")** — used to compare candidate hyperparameter settings or model variants. The model is repeatedly *evaluated* on validation but never *fit* to it.\n- **Test** — held out completely until a single, final, unbiased evaluation of the chosen model.\n\n> *\"Idea #3: Split data into train, val, and test; choose hyperparameters on val and evaluate on test. Better!\"* ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=78|slide 78]])\n\n## Why three sets, not two\n\nL01 walks through the alternatives ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=74|slides 74–78]]):\n\n| Idea | What's wrong |\n| --- | --- |\n| #1: Pick hyperparameters that work best on **the training data** | $k = 1$ kNN always gets 0 train error → trivially \"wins\". No information about generalisation. |\n| #2: Train / test only — pick hyperparameters by **best test score** | Once you've used test to choose, it's no longer unbiased. You have no idea how the model performs on truly new data. |\n| #3: Train / val / test | Hyperparameters chosen on val, final score reported on test (used **once**). |\n| #4: Cross-validation | Same logic as #3 but uses every fold of train+val rotation for a more robust val estimate. |\n\n## Common ratios\n\nThere is no single right answer; it depends on dataset size:\n\n- Small data: 60/20/20.\n- Medium data: 70/15/15 or 80/10/10.\n- Big data: 98/1/1 (so that 1% test is still tens of thousands of points).\n\n## Pitfalls\n\n- **Test-set leakage** — touching the test set during model selection invalidates the unbiased-estimate guarantee.\n- **Distribution shift between splits** — random shuffling assumes IID. For time series, use a chronological split. For grouped data, split by group (e.g., patients), not by row.\n- **Tuning over too many hyperparameters with a small val set** — eventually you overfit to validation. Cross-validation reduces this.\n\n## Related\n\n- [[cross-validation]]\n- [[hyperparameter]]\n"
+          }
+        }
+      ],
+      "timestamp": "2026-05-03T10:55:37.088Z"
+    },
+    {
+      "id": "390a13ee-0d21-4ba6-ac1c-728885405a3d",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01DbjNdYGtbM6hxkX4yPGnZW",
+          "title": "Write 20-Concepts/cross-validation.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/cross-validation.md",
+              "newText": "---\ntags: [concept]\ncourses: [Statistical-Learning]\nsources:\n  - course: Statistical-Learning\n    file: SLP-Lec1-knn(1).pdf\ncreated: 2026-05-03\n---\n\n# Cross-Validation\n\n## Definition\n\nA resampling procedure for estimating the generalisation error of a model — and especially for selecting hyperparameters — when data is too scarce to spend a chunk on a single validation set.\n\n**$k$-fold cross-validation:** partition the available (non-test) data into $k$ equal-sized folds. For each fold $i \\in \\{1, \\dots, k\\}$:\n\n1. Train on the union of the other $k - 1$ folds.\n2. Evaluate on fold $i$.\n\nAverage the $k$ scores. The result is a less variance-prone estimate of out-of-sample performance than a single train/val split.\n\n> *\"Idea #4: Cross-Validation: Split data into folds, try each fold as validation and average the results — gives a more robust estimate of the results!\"* ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=79|slide 79]])\n\n## Variants\n\n- **$k$-fold** — standard, $k = 5$ or $k = 10$ in practice.\n- **Leave-one-out (LOO)** — $k = n$. Maximally data-efficient but expensive; estimate has high variance because successive training sets differ in only one point.\n- **Stratified $k$-fold** — preserves the class proportions in each fold. Default for classification with imbalanced labels.\n- **Repeated $k$-fold** — re-shuffle and repeat the whole CV scheme; average scores across repetitions.\n- **Time-series CV** — train on a prefix, validate on the next chunk; never validate on data older than your train set.\n\n## How to use it for hyperparameter selection\n\n```python\nfor hp in hyperparameter_grid:\n    scores = []\n    for fold in k_folds(X_train, y_train, k=5):\n        train_idx, val_idx = fold\n        model = fit(X_train[train_idx], y_train[train_idx], hp)\n        scores.append(score(model, X_train[val_idx], y_train[val_idx]))\n    cv_score[hp] = mean(scores)\n\nbest_hp = argmax(cv_score)\nfinal_model = fit(X_train, y_train, best_hp)   # refit on all train+val\nreport(score(final_model, X_test, y_test))     # one-shot on held-out test\n```\n\nThe **test set is still held out** — CV replaces the train/val split only.\n\n## What it is *not*\n\n- **Not a substitute for a held-out test set.** If you pick hyperparameters by CV, the CV score is biased by selection. Report the test score on data the procedure never saw.\n- **Not free from data leakage.** Any preprocessing that uses statistics across rows (PCA, normalization, feature selection) must be re-fit *inside* each fold, not on the full data, to keep the val fold genuinely unseen.\n\n## Related\n\n- [[train-validation-test-split]]\n- [[hyperparameter]]\n- [[k-nearest-neighbors]] — used to select $k$.\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/cross-validation.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/cross-validation.md",
+            "content": "---\ntags: [concept]\ncourses: [Statistical-Learning]\nsources:\n  - course: Statistical-Learning\n    file: SLP-Lec1-knn(1).pdf\ncreated: 2026-05-03\n---\n\n# Cross-Validation\n\n## Definition\n\nA resampling procedure for estimating the generalisation error of a model — and especially for selecting hyperparameters — when data is too scarce to spend a chunk on a single validation set.\n\n**$k$-fold cross-validation:** partition the available (non-test) data into $k$ equal-sized folds. For each fold $i \\in \\{1, \\dots, k\\}$:\n\n1. Train on the union of the other $k - 1$ folds.\n2. Evaluate on fold $i$.\n\nAverage the $k$ scores. The result is a less variance-prone estimate of out-of-sample performance than a single train/val split.\n\n> *\"Idea #4: Cross-Validation: Split data into folds, try each fold as validation and average the results — gives a more robust estimate of the results!\"* ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=79|slide 79]])\n\n## Variants\n\n- **$k$-fold** — standard, $k = 5$ or $k = 10$ in practice.\n- **Leave-one-out (LOO)** — $k = n$. Maximally data-efficient but expensive; estimate has high variance because successive training sets differ in only one point.\n- **Stratified $k$-fold** — preserves the class proportions in each fold. Default for classification with imbalanced labels.\n- **Repeated $k$-fold** — re-shuffle and repeat the whole CV scheme; average scores across repetitions.\n- **Time-series CV** — train on a prefix, validate on the next chunk; never validate on data older than your train set.\n\n## How to use it for hyperparameter selection\n\n```python\nfor hp in hyperparameter_grid:\n    scores = []\n    for fold in k_folds(X_train, y_train, k=5):\n        train_idx, val_idx = fold\n        model = fit(X_train[train_idx], y_train[train_idx], hp)\n        scores.append(score(model, X_train[val_idx], y_train[val_idx]))\n    cv_score[hp] = mean(scores)\n\nbest_hp = argmax(cv_score)\nfinal_model = fit(X_train, y_train, best_hp)   # refit on all train+val\nreport(score(final_model, X_test, y_test))     # one-shot on held-out test\n```\n\nThe **test set is still held out** — CV replaces the train/val split only.\n\n## What it is *not*\n\n- **Not a substitute for a held-out test set.** If you pick hyperparameters by CV, the CV score is biased by selection. Report the test score on data the procedure never saw.\n- **Not free from data leakage.** Any preprocessing that uses statistics across rows (PCA, normalization, feature selection) must be re-fit *inside* each fold, not on the full data, to keep the val fold genuinely unseen.\n\n## Related\n\n- [[train-validation-test-split]]\n- [[hyperparameter]]\n- [[k-nearest-neighbors]] — used to select $k$.\n"
+          }
+        }
+      ],
+      "timestamp": "2026-05-03T10:55:50.688Z"
+    },
+    {
+      "id": "4db2a6d4-0ff6-4336-a967-c4b7511617f9",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01PSYvFjKmB29eL1vyr2P5fS",
+          "title": "Write 20-Concepts/feature-normalization.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/feature-normalization.md",
+              "newText": "---\ntags: [concept]\ncourses: [Statistical-Learning]\nsources:\n  - course: Statistical-Learning\n    file: SLP-Lec1-knn(1).pdf\ncreated: 2026-05-03\n---\n\n# Feature Normalization\n\n## Definition\n\nPre-processing each numerical feature so they are on comparable scales. Two common schemes:\n\n- **Min–max scaling** — linearly map each feature into $[0, 1]$:\n  $$\\tilde{x}_j = \\frac{x_j - \\min_j}{\\max_j - \\min_j}.$$\n- **Z-score (standardisation)** — center to zero mean, scale to unit variance:\n  $$\\tilde{x}_j = \\frac{x_j - \\mu_j}{\\sigma_j}.$$\n\n> *\"If some attributes (coordinates of $x$) have larger ranges, they are treated as more important. Normalize scale: linearly scale each feature into $[0,1]$, or scale each dimension to have 0 mean and variance 1: $(x_j - m)/\\sigma$.\"* ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=86|slide 86]])\n\n## Why it matters\n\nAlgorithms that rely on **distances or inner products** weight features implicitly by their scale. If `weight` is in grams (range $\\sim 100$) and `acidity` is in pH (range $\\sim 5$), the Euclidean distance is dominated by `weight` even when `acidity` is the more informative feature.\n\nAffected algorithms include [[k-nearest-neighbors]], [[k-means]], [[principal-component-analysis]] (depends on covariances), [[support-vector-machine|SVMs]] (depend on inner products and the regularization term $\\|w\\|^2$), gradient-descent-trained linear / neural models (large-scale features dominate gradients).\n\nLargely **unaffected**: tree-based methods (decision trees, random forest, gradient boosting) — they make axis-aligned splits and are invariant to monotonic per-feature transformations.\n\n## Where to fit the scaler\n\nIn a pipeline with cross-validation:\n\n- **Fit on train only.** Compute $\\mu_j, \\sigma_j$ (or $\\min, \\max$) on the training fold.\n- **Apply the same transform to validation and test.** Otherwise statistics from the val/test set leak into training.\n\n## Beyond min-max and z-score\n\n- **Robust scaling** — use median and IQR instead of mean and std. Less sensitive to outliers.\n- **Log transform** — for heavy-tailed or strictly positive features (counts, prices, durations).\n- **Per-feature weighting** — explicitly multiply each feature by a chosen weight $w_j$ so the distance becomes $\\sqrt{\\sum_j w_j (x_j - z_j)^2}$. Equivalent to fitting a (diagonal) Mahalanobis distance.\n\n## Related\n\n- [[k-nearest-neighbors]]\n- [[minkowski-distance]]\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/feature-normalization.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/feature-normalization.md",
+            "content": "---\ntags: [concept]\ncourses: [Statistical-Learning]\nsources:\n  - course: Statistical-Learning\n    file: SLP-Lec1-knn(1).pdf\ncreated: 2026-05-03\n---\n\n# Feature Normalization\n\n## Definition\n\nPre-processing each numerical feature so they are on comparable scales. Two common schemes:\n\n- **Min–max scaling** — linearly map each feature into $[0, 1]$:\n  $$\\tilde{x}_j = \\frac{x_j - \\min_j}{\\max_j - \\min_j}.$$\n- **Z-score (standardisation)** — center to zero mean, scale to unit variance:\n  $$\\tilde{x}_j = \\frac{x_j - \\mu_j}{\\sigma_j}.$$\n\n> *\"If some attributes (coordinates of $x$) have larger ranges, they are treated as more important. Normalize scale: linearly scale each feature into $[0,1]$, or scale each dimension to have 0 mean and variance 1: $(x_j - m)/\\sigma$.\"* ([[30-Sources/Statistical-Learning/pdf/SLP-Lec1-knn(1).pdf#page=86|slide 86]])\n\n## Why it matters\n\nAlgorithms that rely on **distances or inner products** weight features implicitly by their scale. If `weight` is in grams (range $\\sim 100$) and `acidity` is in pH (range $\\sim 5$), the Euclidean distance is dominated by `weight` even when `acidity` is the more informative feature.\n\nAffected algorithms include [[k-nearest-neighbors]], [[k-means]], [[principal-component-analysis]] (depends on covariances), [[support-vector-machine|SVMs]] (depend on inner products and the regularization term $\\|w\\|^2$), gradient-descent-trained linear / neural models (large-scale features dominate gradients).\n\nLargely **unaffected**: tree-based methods (decision trees, random forest, gradient boosting) — they make axis-aligned splits and are invariant to monotonic per-feature transformations.\n\n## Where to fit the scaler\n\nIn a pipeline with cross-validation:\n\n- **Fit on train only.** Compute $\\mu_j, \\sigma_j$ (or $\\min, \\max$) on the training fold.\n- **Apply the same transform to validation and test.** Otherwise statistics from the val/test set leak into training.\n\n## Beyond min-max and z-score\n\n- **Robust scaling** — use median and IQR instead of mean and std. Less sensitive to outliers.\n- **Log transform** — for heavy-tailed or strictly positive features (counts, prices, durations).\n- **Per-feature weighting** — explicitly multiply each feature by a chosen weight $w_j$ so the distance becomes $\\sqrt{\\sum_j w_j (x_j - z_j)^2}$. Equivalent to fitting a (diagonal) Mahalanobis distance.\n\n## Related\n\n- [[k-nearest-neighbors]]\n- [[minkowski-distance]]\n"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Now flashcards for L01."
+        }
+      ],
+      "timestamp": "2026-05-03T10:56:04.812Z"
+    },
+    {
+      "id": "727c861b-1001-46f7-8789-c679171cecb0",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_019VpDUBCnc3YvctQq4qv4Vz",
+          "title": "Write 40-Reviews/Statistical-Learning/flashcards/lecture-01.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/40-Reviews/Statistical-Learning/flashcards/lecture-01.md",
+              "newText": "---\ntags: [flashcards, Statistical-Learning]\ncourse: Statistical-Learning\nlecture: 01\nsource: SLP-Lec1-knn(1).pdf\ncreated: 2026-05-03\n---\n\n# Lecture 01 — k-NN flashcards\n\nWhat is the training error of a 1-NN classifier on its training set, and why?\n?\nAlways 0. Each training point is its own nearest neighbour, so it predicts its own label correctly. (This is a §1d mock-exam point.)\n\nIn one sentence, what does the kNN classifier do at test time?\n?\nCompute the distance from the query to every stored training point, take the $k$ closest, and predict by majority vote of their labels.\n\nHow is \"training\" performed for kNN?\n?\nTrivially — just store the labelled training data. kNN is *lazy* / *instance-based*; no parameters are fit.\n\nWrite the Minkowski distance formula and identify $p=1$ and $p=2$.\n?\n$\\mathrm{dist}_p(\\mathbf{x}, \\mathbf{z}) = \\bigl(\\sum_{r=1}^{d} |x_r - z_r|^p\\bigr)^{1/p}$. $p=1$ is Manhattan ($L_1$), $p=2$ is Euclidean ($L_2$).\n\nWhy can you skip the square root in Euclidean distance when running 1-NN?\n?\n$\\sqrt{\\cdot}$ is monotonic, so $\\arg\\min_i \\|x - x^{(i)}\\|_2 = \\arg\\min_i \\|x - x^{(i)}\\|_2^2$. Saves a sqrt per training example.\n\nDefine a Voronoi diagram and connect it to nearest-neighbour classification.\n?\nA partition of the input space into cells, one per training point, where each cell contains the query points whose nearest training point is *that* one. The 1-NN decision boundary is the union of cell-boundary segments between cells of opposite classes.\n\nWhat's the test-time computational complexity of kNN?\n?\n$O(kdN)$ — distance to all $N$ training points, each in $\\mathbb{R}^d$, plus selecting the $k$ smallest.\n\nHow does kNN's training error change as $k$ grows?\n?\nIt increases monotonically (roughly). At $k=1$ training error is 0; at $k=n$ it predicts the majority class for every query.\n\nHow does kNN's test (or validation) error change as $k$ grows?\n?\nU-shaped. High at $k=1$ (overfit / noise sensitive), drops to a minimum at some $k^*$, rises again as $k$ becomes too large (underfit). Pick $k = \\arg\\min$ validation error.\n\nWhat goes wrong if you choose $k$ to minimise *training* error?\n?\nYou always pick $k=1$, because 1-NN has zero training error. This is the classic \"use train to pick hyperparameter\" trap on slide 75.\n\nWhat goes wrong if you choose $k$ to minimise *test* error?\n?\nYou contaminate the test set: it's no longer an unbiased estimate of generalisation. Use a separate validation set (or cross-validation), and reserve test for one final evaluation.\n\nDescribe the train / validation / test split and the role of each.\n?\nTrain: fit model parameters. Validation: pick hyperparameters / compare model variants. Test: held out, used **once** at the end for an unbiased generalisation estimate.\n\nWhat is $k$-fold cross-validation and what does it estimate more robustly than a single train/val split?\n?\nPartition the (non-test) data into $k$ folds, train on $k-1$ and validate on the remaining 1, rotating through all folds and averaging. The average score is a lower-variance estimate of out-of-sample performance / a better signal for hyperparameter choice.\n\nState the Cover–Hart 1967 result for 1-NN.\n?\nAs $n \\to \\infty$, the 1-NN error rate is at most twice the Bayes-optimal error rate: $\\epsilon_{1\\text{-NN}} \\le 2\\,\\epsilon_{\\mathrm{Bayes}}$.\n\nWhat is the curse of dimensionality, in one sentence?\n?\nIn high dimensions, training data become sparse and pairwise distances concentrate, so the kNN assumption that \"similar points share labels\" breaks down — neighbours are no longer meaningfully near.\n\nFor data uniform in $[0,1]^d$ with $n$ training points, how big is the hypercube needed to capture the $k$ nearest neighbours of a test point?\n?\n$\\ell \\approx (k/n)^{1/d}$. For $n=1000, k=10$: $d=2 \\to \\ell=0.1$; $d=10 \\to 0.63$; $d=100 \\to 0.955$ (almost the entire space).\n\nWhy is feature normalization important for kNN but not for decision trees?\n?\nkNN distances weight features by their numeric range, so larger-scale features dominate. Decision trees split on per-feature thresholds and are invariant to monotonic per-feature rescalings.\n\nName two ways to normalize features and write the formula for each.\n?\nMin-max: $\\tilde{x}_j = (x_j - \\min_j) / (\\max_j - \\min_j)$. Z-score: $\\tilde{x}_j = (x_j - \\mu_j) / \\sigma_j$.\n\nWhy does increasing $k$ make kNN more robust to label noise?\n?\nA single mislabelled training point can dominate the 1-NN decision in its neighbourhood. With $k > 1$, the noisy point is one vote out of $k$, so it gets outvoted by correctly-labelled neighbours.\n\nWhat is a hyperparameter, and how does it differ from a parameter?\n?\nA hyperparameter is a choice about the algorithm that you set, not learn from data (e.g., $k$ in kNN, $\\lambda$ in ridge, depth of a tree). A parameter is fit from training data (e.g., a weight vector $w$).\n\nName three computational mitigations for kNN's high test-time cost.\n?\n(1) Pre-sort training points into a fast spatial structure like a kd-tree; (2) compute approximate distances (e.g., locality-sensitive hashing); (3) condense the training set by removing redundant points; or use only a subset of dimensions.\n\nWhat is Occam's razor in the context of model selection?\n?\nAmong models that fit the training data equally well, prefer the simpler one — it generalises better in expectation. Lecture 1 illustrates this with a clean line vs. a wiggly curve through the same 4 points.\n\nName the three regimes shown on the standard 2D classification visual in Lecture 1.\n?\n**Underfitting** (boundary too simple, both errors high), **Optimal** (smooth boundary, lowest test error), and **Overfitting** (wiggly boundary chasing individual points, near-zero train error but high test error).\n\nWhat's the difference between regression and classification, in one sentence each?\n?\nRegression: predict a continuous numeric target $y \\in \\mathbb{R}$. Classification: predict a discrete label $y \\in \\{c_1, \\ldots, c_K\\}$.\n\nFor a kNN classifier with quantitative features of very different scales, what's the canonical pre-processing step before computing distances?\n?\nNormalize each feature — e.g., z-score $(x_j - \\mu_j) / \\sigma_j$ or min-max $(x_j - \\min) / (\\max - \\min)$ — so no feature dominates the distance just because of its numeric range.\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/40-Reviews/Statistical-Learning/flashcards/lecture-01.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/40-Reviews/Statistical-Learning/flashcards/lecture-01.md",
+            "content": "---\ntags: [flashcards, Statistical-Learning]\ncourse: Statistical-Learning\nlecture: 01\nsource: SLP-Lec1-knn(1).pdf\ncreated: 2026-05-03\n---\n\n# Lecture 01 — k-NN flashcards\n\nWhat is the training error of a 1-NN classifier on its training set, and why?\n?\nAlways 0. Each training point is its own nearest neighbour, so it predicts its own label correctly. (This is a §1d mock-exam point.)\n\nIn one sentence, what does the kNN classifier do at test time?\n?\nCompute the distance from the query to every stored training point, take the $k$ closest, and predict by majority vote of their labels.\n\nHow is \"training\" performed for kNN?\n?\nTrivially — just store the labelled training data. kNN is *lazy* / *instance-based*; no parameters are fit.\n\nWrite the Minkowski distance formula and identify $p=1$ and $p=2$.\n?\n$\\mathrm{dist}_p(\\mathbf{x}, \\mathbf{z}) = \\bigl(\\sum_{r=1}^{d} |x_r - z_r|^p\\bigr)^{1/p}$. $p=1$ is Manhattan ($L_1$), $p=2$ is Euclidean ($L_2$).\n\nWhy can you skip the square root in Euclidean distance when running 1-NN?\n?\n$\\sqrt{\\cdot}$ is monotonic, so $\\arg\\min_i \\|x - x^{(i)}\\|_2 = \\arg\\min_i \\|x - x^{(i)}\\|_2^2$. Saves a sqrt per training example.\n\nDefine a Voronoi diagram and connect it to nearest-neighbour classification.\n?\nA partition of the input space into cells, one per training point, where each cell contains the query points whose nearest training point is *that* one. The 1-NN decision boundary is the union of cell-boundary segments between cells of opposite classes.\n\nWhat's the test-time computational complexity of kNN?\n?\n$O(kdN)$ — distance to all $N$ training points, each in $\\mathbb{R}^d$, plus selecting the $k$ smallest.\n\nHow does kNN's training error change as $k$ grows?\n?\nIt increases monotonically (roughly). At $k=1$ training error is 0; at $k=n$ it predicts the majority class for every query.\n\nHow does kNN's test (or validation) error change as $k$ grows?\n?\nU-shaped. High at $k=1$ (overfit / noise sensitive), drops to a minimum at some $k^*$, rises again as $k$ becomes too large (underfit). Pick $k = \\arg\\min$ validation error.\n\nWhat goes wrong if you choose $k$ to minimise *training* error?\n?\nYou always pick $k=1$, because 1-NN has zero training error. This is the classic \"use train to pick hyperparameter\" trap on slide 75.\n\nWhat goes wrong if you choose $k$ to minimise *test* error?\n?\nYou contaminate the test set: it's no longer an unbiased estimate of generalisation. Use a separate validation set (or cross-validation), and reserve test for one final evaluation.\n\nDescribe the train / validation / test split and the role of each.\n?\nTrain: fit model parameters. Validation: pick hyperparameters / compare model variants. Test: held out, used **once** at the end for an unbiased generalisation estimate.\n\nWhat is $k$-fold cross-validation and what does it estimate more robustly than a single train/val split?\n?\nPartition the (non-test) data into $k$ folds, train on $k-1$ and validate on the remaining 1, rotating through all folds and averaging. The average score is a lower-variance estimate of out-of-sample performance / a better signal for hyperparameter choice.\n\nState the Cover–Hart 1967 result for 1-NN.\n?\nAs $n \\to \\infty$, the 1-NN error rate is at most twice the Bayes-optimal error rate: $\\epsilon_{1\\text{-NN}} \\le 2\\,\\epsilon_{\\mathrm{Bayes}}$.\n\nWhat is the curse of dimensionality, in one sentence?\n?\nIn high dimensions, training data become sparse and pairwise distances concentrate, so the kNN assumption that \"similar points share labels\" breaks down — neighbours are no longer meaningfully near.\n\nFor data uniform in $[0,1]^d$ with $n$ training points, how big is the hypercube needed to capture the $k$ nearest neighbours of a test point?\n?\n$\\ell \\approx (k/n)^{1/d}$. For $n=1000, k=10$: $d=2 \\to \\ell=0.1$; $d=10 \\to 0.63$; $d=100 \\to 0.955$ (almost the entire space).\n\nWhy is feature normalization important for kNN but not for decision trees?\n?\nkNN distances weight features by their numeric range, so larger-scale features dominate. Decision trees split on per-feature thresholds and are invariant to monotonic per-feature rescalings.\n\nName two ways to normalize features and write the formula for each.\n?\nMin-max: $\\tilde{x}_j = (x_j - \\min_j) / (\\max_j - \\min_j)$. Z-score: $\\tilde{x}_j = (x_j - \\mu_j) / \\sigma_j$.\n\nWhy does increasing $k$ make kNN more robust to label noise?\n?\nA single mislabelled training point can dominate the 1-NN decision in its neighbourhood. With $k > 1$, the noisy point is one vote out of $k$, so it gets outvoted by correctly-labelled neighbours.\n\nWhat is a hyperparameter, and how does it differ from a parameter?\n?\nA hyperparameter is a choice about the algorithm that you set, not learn from data (e.g., $k$ in kNN, $\\lambda$ in ridge, depth of a tree). A parameter is fit from training data (e.g., a weight vector $w$).\n\nName three computational mitigations for kNN's high test-time cost.\n?\n(1) Pre-sort training points into a fast spatial structure like a kd-tree; (2) compute approximate distances (e.g., locality-sensitive hashing); (3) condense the training set by removing redundant points; or use only a subset of dimensions.\n\nWhat is Occam's razor in the context of model selection?\n?\nAmong models that fit the training data equally well, prefer the simpler one — it generalises better in expectation. Lecture 1 illustrates this with a clean line vs. a wiggly curve through the same 4 points.\n\nName the three regimes shown on the standard 2D classification visual in Lecture 1.\n?\n**Underfitting** (boundary too simple, both errors high), **Optimal** (smooth boundary, lowest test error), and **Overfitting** (wiggly boundary chasing individual points, near-zero train error but high test error).\n\nWhat's the difference between regression and classification, in one sentence each?\n?\nRegression: predict a continuous numeric target $y \\in \\mathbb{R}$. Classification: predict a discrete label $y \\in \\{c_1, \\ldots, c_K\\}$.\n\nFor a kNN classifier with quantitative features of very different scales, what's the canonical pre-processing step before computing distances?\n?\nNormalize each feature — e.g., z-score $(x_j - \\mu_j) / \\sigma_j$ or min-max $(x_j - \\min) / (\\max - \\min)$ — so no feature dominates the distance just because of its numeric range.\n"
+          }
+        },
+        {
+          "type": "text",
+          "text": "L01 ingest complete. Pausing here to give you a check-in point before pushing through L02–L19. Each lecture follows the same shape (read PDF → lecture note → concept extraction → flashcards), and each one is ~5–10 tool calls of reading plus the writes. Given how long L01 took, the realistic path is to keep going lecture-by-lecture, briefly noting progress between each.\n\nQuick L01 summary:\n\n- **Lecture note:** `10-Courses/Statistical-Learning/lectures/lecture-01-knn.md` — with full slide citations, Mermaid diagrams (algorithm, under/optimal/overfit, error-vs-k, COD grid), all key equations, mock-exam connections.\n- **8 new concept notes** in `20-Concepts/`: `k-nearest-neighbors`, `minkowski-distance`, `voronoi-diagram`, `curse-of-dimensionality`, `overfitting-underfitting`, `hyperparameter`, `train-validation-test-split`, `cross-validation`, `feature-normalization` (9 actually).\n- **24 flashcards** at `40-Reviews/Statistical-Learning/flashcards/lecture-01.md` covering exam-relevant nuance (1-NN training error = 0; choice of $k$; CV; COD; tie-break with $k>1$ for noise; Cover-Hart bound; etc.).Continuing to L02 (`SLP-lec2(1).pdf`)."
+        },
+        {
+          "type": "plan",
+          "entries": [
+            {
+              "content": "Write course manifest",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Read mock exam fully",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Draft & confirm exam blueprint outline",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Write exam-blueprint.md",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Phase 2 plan: glob 20-Concepts/, draft lecture-by-lecture ingest table, get approval",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Ingest L01 k-NN",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Ingest L02 linear classifiers / perceptron",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Ingest L03 intro to neural nets",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L04 MLPs",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L05 backprop",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L06 improving MLPs",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L07 LR schedules / training deep nets",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L08 decision trees",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L09 linear SVMs",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L10 loss functions & regularizers",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L11 bias-variance",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L12 bagging",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L13 boosting",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L14 AdaBoost",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L15 kernels I",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L16 kernels II",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L17 k-means",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L18 PCA",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest L19 dim-reduction II",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Phase 3 reconcile: cross-link blueprint, fill gaps, summary",
+              "priority": "medium",
+              "status": "pending"
+            }
+          ]
+        }
+      ],
+      "timestamp": "2026-05-03T10:56:26.159Z"
+    },
+    {
+      "id": "9b54e202-022f-469c-af99-f49b8d8cdafb",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_014HAremoe3vpyWezyaJM1rq",
+          "title": "mdls -name kMDItemNumberOfPages \"/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/pdf/SLP-lec2(1).pdf\"",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "mdls -name kMDItemNumberOfPages \"/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/pdf/SLP-lec2(1).pdf\"",
+            "description": "L02 page count"
+          }
+        }
+      ],
+      "timestamp": "2026-05-03T10:57:33.501Z"
+    },
+    {
+      "id": "f4395736-808a-456b-8060-3caac727f572",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01SoYHwB72H42rDcfFjnx3jf",
+          "title": "Read 30-Sources/Statistical-Learning/pdf/SLP-lec2(1).pdf",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/pdf/SLP-lec2(1).pdf"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/pdf/SLP-lec2(1).pdf",
+            "pages": "1-15"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "**L02 chunk 1 (pp 1-15):** Lecture 2 motivates logistic regression / sigmoid output by listing perceptron limitations:\n- only binary classification\n- doesn't stop unless data is linearly separable\n- when separable, returns *some* arbitrary hyperplane — no notion of \"best\"\n- step output is binary (±1) — no confidence\n\nThe pivot: **\"Idea: output probabilities\"** — correct points near the boundary should get a lower confidence than points well-separated. Slide 15: the neuron as a predictor — (1) compute how far each point is from the boundary, (2) points on boundary should output 0.5, move toward 0 or 1 either side. This sets up the sigmoid replacing the step."
+        }
+      ],
+      "timestamp": "2026-05-03T10:57:44.831Z"
+    },
+    {
+      "id": "a10ec01a-22f8-4e7b-a6d4-993d783b0a68",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01F7kSKQ6G8dVDuqiv5Rvh5J",
+          "title": "Read 30-Sources/Statistical-Learning/pdf/SLP-lec2(1).pdf",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/pdf/SLP-lec2(1).pdf"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/30-Sources/Statistical-Learning/pdf/SLP-lec2(1).pdf",
+            "pages": "16-30"
+          }
+        }
+      ],
+      "timestamp": "2026-05-03T10:58:38.779Z"
+    },
+    {
+      "id": "a0a9d645-501a-470b-ae3c-8863ec35b257",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "continue"
+        }
+      ],
+      "timestamp": "2026-05-03T11:01:39.740Z"
+    },
+    {
+      "id": "d2f2f28c-b00b-4b2f-bada-16ca4578e8cd",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "continue"
+        }
+      ],
+      "timestamp": "2026-05-03T11:01:57.679Z"
+    }
+  ],
+  "savedAt": "2026-05-03T11:01:57.696Z"
+}

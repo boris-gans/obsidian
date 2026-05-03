@@ -1,0 +1,201 @@
+{
+  "version": 1,
+  "sessionId": "bb9e6235-d7d6-4736-a19b-d33d2bbd0061",
+  "agentId": "claude-code-acp",
+  "messages": [
+    {
+      "id": "ef3467e9-5a2f-4cb3-885a-0b1604a86302",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "bring back all my templates and my ingest script via git also my claude.md"
+        }
+      ],
+      "timestamp": "2026-04-27T20:09:42.767Z"
+    },
+    {
+      "id": "1b274c59-1695-4bd5-a2ba-0c1c366ee653",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "agent_thought",
+          "text": ""
+        }
+      ],
+      "timestamp": "2026-04-27T20:09:44.896Z"
+    },
+    {
+      "id": "8f409082-4b6b-4417-b787-73540848b09e",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_013cMnChS8fUEvP8ahEYynDP",
+          "title": "git log --all --oneline -- CLAUDE.md | head -20",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "git log --all --oneline -- CLAUDE.md | head -20",
+            "description": "Find commits touching CLAUDE.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T20:09:45.283Z"
+    },
+    {
+      "id": "49ee4dfc-091f-4c07-b953-b75811ba91e9",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01987ttpb3MepxokKd6zLJSf",
+          "title": "git log --all --oneline --diff-filter=D --name-only | head -100",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "git log --all --oneline --diff-filter=D --name-only | head -100",
+            "description": "Find commits where files were deleted"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T20:09:46.046Z"
+    },
+    {
+      "id": "b0aeed00-335e-4d1e-917a-0fcb3a6e7568",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01RKUowsLQ3bZjeY2YCiKpxH",
+          "title": "ls -la /Users/mattporteous/Obsidian/School/",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls -la /Users/mattporteous/Obsidian/School/",
+            "description": "List current vault contents"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "Found it. The most recent backup commit deleted CLAUDE.md, the ingest script, and all templates. Restoring from the commit before that."
+        }
+      ],
+      "timestamp": "2026-04-27T20:09:46.792Z"
+    },
+    {
+      "id": "d5fa6d8b-5458-4535-a229-485cda42ce94",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_015op1VKNVnQiJe64nTNfRtc",
+          "title": "git show c336e30 --stat | head -20",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "git show c336e30 --stat | head -20",
+            "description": "Show prior commit's contents"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T20:09:52.352Z"
+    },
+    {
+      "id": "0f3fc02c-893e-45b6-8fb4-bbcede9e0bd8",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_011EeHneyVcGzBW8CZZ21CHs",
+          "title": "git ls-tree c336e30 -- CLAUDE.md 99-Templates bin",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "git ls-tree c336e30 -- CLAUDE.md 99-Templates bin",
+            "description": "Verify files exist in prior commit"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T20:09:53.097Z"
+    },
+    {
+      "id": "23872c58-5a29-49a7-bc91-2f9c1252afd6",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_0131geCdMBeJGkSpzcZeWRF2",
+          "title": "git checkout c336e30 -- CLAUDE.md 99-Templates bin",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "git checkout c336e30 -- CLAUDE.md 99-Templates bin",
+            "description": "Restore files from prior commit"
+          }
+        }
+      ],
+      "timestamp": "2026-04-27T20:09:57.372Z"
+    },
+    {
+      "id": "331d9f3c-b88a-4961-957f-0d1690c5ebc2",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01PGEbwnDSqt4FwsRDFahYb5",
+          "title": "ls -la /Users/mattporteous/Obsidian/School/99-Templates /Users/mattporteous/Obsidian/School/bin && ls -la /Users/mattporteous/Obsidian/School/CLAUDE.md",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls -la /Users/mattporteous/Obsidian/School/99-Templates /Users/mattporteous/Obsidian/School/bin && ls -la /Users/mattporteous/Obsidian/School/CLAUDE.md",
+            "description": "Verify restored files"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Restored from commit `c336e30` (vault backup 2026-04-26 19:06:37):\n\n- `CLAUDE.md` (15.6 KB)\n- `99-Templates/` — `concept.md`, `generate-mock.md`, `grounded-question.md`, `lecture.md`\n- `bin/ingest-slides.sh`\n\nFiles are staged but not committed. Note: there's a stray `concept.md.md` in the repo root from before — let me know if you want it removed."
+        }
+      ],
+      "timestamp": "2026-04-27T20:10:01.422Z"
+    },
+    {
+      "id": "ba8969de-30bf-41bd-84d3-520621bf1d13",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "Neural networks\n- [[recall/loss-functions|Loss functions]]\n\t- [[recall/cross-entropy-softmax|Cross-entropy + softmax]]\n\t- [[recall/binary-cross-entropy|BCE]]\n\t- [[recall/regression-losses|MSE / MAE / Huber]]\n- [[recall/activation-functions|Activation functions]]\n- [[recall/backpropagation|Backpropagation]]\n\t- [[recall/vanishing-exploding-gradients|Vanishing and exploding gradients]]\n\t\t- [[recall/weight-initialization|Weight Initialization (Xavier / He)]]\n- [[recall/gradient-descent|Gradient descent]]\n\t- [[recall/mini-batch-sgd|Mini-batch SGD]]\n\t- [[recall/momentum|Momentum]]\n\t- [[recall/adam-optimizer|Adam]]\n- [[recall/batch-normalization|Batch Normalization]]\n- [[recall/residual-connections|Residual connections]]\n- [[recall/layer-normalization|Layer Normalization]]\n- [[recall/dropout|Dropout]]\n\nAutoencoders\n- [[recall/autoencoder-bottleneck|Latent space (bottleneck)]]\n- [[recall/denoising-autoencoder|Denoising autoencoder]]\n- [[recall/variational-autoencoder|Variational autoencoder]]\n\t- [[recall/kl-divergence|KL divergence]]\n\t- [[recall/reparameterization-trick|Reparameterisation trick]]\n\nCNNs\n- [[recall/convolution|Convolution]]\n\t- [[recall/conv-output-shape|output shape formula]]\n\t- [[recall/conv-parameter-count|parameter count]]\n\t- [[recall/padding-stride|padding / stride]]\n- [[recall/pooling|Pooling (max / avg / global)]]\n- [[recall/receptive-field|Receptive field]]\n- [[recall/equivariance-vs-invariance|Translation equivariance vs invariance]]\n- [[recall/data-augmentation|Data augmentation]]\n\nEdges & detection\n- [[recall/image-gradient|Image gradient]]\n\t- [[recall/sobel-prewitt|Sobel / Prewitt]]\n- [[recall/canny-edge-detector|Canny edge detector]]\n\t- [[recall/non-maximum-suppression|Non-maximum suppression]]\n\t- [[recall/hysteresis-thresholding|Hysteresis thresholding]]\n- [[recall/laplacian-log|Laplacian / LoG (zero-crossings)]]\n- [[recall/hough-transform|Hough transform]]\n\t- [[recall/hough-lines|lines]]\n\t- [[recall/hough-circles|circles]]\n- [[recall/yolo|Object detection (YOLO)]]\n\t- [[recall/anchor-boxes|Anchor boxes]]\n\t- [[recall/detr|DETR]]\n- [[recall/iou-map|IoU / mAP]]\n\nFourier Transformations\n- [[recall/fourier-transform-2d|2d Fourier transform]]\n- [[recall/convolution-theorem|Convolution Theorem]]\n- [[recall/nyquist-aliasing|Nyquist / aliasing]]\n- [[recall/fourier-filters|filters]]\n\t- [[recall/low-pass-filter|low-pass filter]]\n\t- [[recall/high-pass-filter|high-pass filter]]\n\t- [[recall/band-pass-filter|band-pass filter]]\n- [[recall/wiener-deconvolution|wiener deconvolution]]\n- [[recall/deconvolution|deconvolution]]\n- [[recall/fourier-shift-theorem|Fourier shift theorem]]\n- [[recall/fourier-resizing|Fourier resizing]]\n\nSelf Attention \n- [[recall/scaled-dot-product-attention|Scaled dot-product (Q/K/V, √d_k)]]\n- [[recall/multi-head-attention|Multi-head attention]]\n- [[recall/cross-attention|Cross-attention]]\n- [[recall/positional-encoding|Positional Encoding]]\n\nCNN architectures\n- [[recall/resnet|ResNet]]\n- [[recall/inception|Inception]]\n- [[recall/vision-transformer|Vision Transformer (ViT)]]\n- [[recall/transfer-learning|Transfer learning]]\n- [[recall/vggnet|VGG]]\n- [[recall/densenet|DenseNet]]\n\nPyTorch\n- [[recall/broadcasting|Broadcasting]]\n- [[recall/pytorch-autograd|Autograd]]\n\t- [[recall/autograd-backward|backward]]\n\t- [[recall/no-grad-detach|no_grad / detach]]\n\t- [[recall/zero-grad|zero_grad]]\n- [[recall/view-vs-reshape|view vs reshape (contiguous)]]\n- [[recall/pytorch-tensors|Tensors / dtype / device]]\n\nSegmentation\n- [[recall/unet|U-Net (skip-concat)]]\n- [[recall/encoder-decoder|Encoder-decoder]]\n- [[recall/transposed-convolution|Transposed convolution]]\n- [[recall/pixel-wise-ce|Pixel-wise / weighted CE]]\n- [[recall/dice-loss|Dice loss]]\n- [[recall/segmentation-taxonomy|Semantic vs instance vs panoptic]]\n\nSIFT & feature matching\n- [[recall/sift-keypoint-detection|SIFT keypoint detector]]\n\t- [[recall/scale-space-pyramid|Scale-space pyramid (octaves)]]\n\t- [[recall/difference-of-gaussian|Difference of Gaussian]]\n\t- [[recall/laplacian-of-gaussian|Laplacian of Gaussian]]\n- [[recall/harris-corner-detector|Harris corner detector]]\n\t- [[recall/structure-tensor|Structure tensor]]\n- [[recall/sift-descriptor|SIFT descriptor (4×4 grid, 128-D)]]\n- [[recall/ransac|RANSAC]]\n- [[recall/kabsch-algorithm|Kabsch (SVD)]]\n- [[recall/icp-algorithm|Iterative Closest Point (ICP)]]\n\nSelf-supervised learning (SSL)\n- [[recall/clip|CLIP]]\n- [[recall/contrastive-learning|Contrastive learning]]\n\t- [[recall/triplet-loss|Triplet loss]]\n\t- [[recall/nt-xent|NT-Xent / InfoNCE]]\n\t- [[recall/siamese-network|Siamese network]]\n\t- [[recall/simclr|SimCLR]]\n- [[recall/face-recognition|Face recognition (verification vs identification)]]\n\nBinary objects\n- [[recall/shape-descriptors|Shape descriptors]]\n\t- [[recall/solidity|Solidity]]\n\t- [[recall/compactness|Compactness]]\n- [[recall/image-moments|Image moments (centroid, orientation, eccentricity)]]\n- [[recall/connected-components|Connected components (4 vs 8 connectivity)]]\n\n\n\n\nwhich one of these things i should know could be q3 ( algorithm questions ) not based on the exam hypothesis just based on if they are algorithms or not"
+        }
+      ],
+      "timestamp": "2026-04-28T08:43:48.658Z"
+    },
+    {
+      "id": "4ed6cff9-43e2-419e-8e8e-22d0926db907",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "Here are the items that are genuine **algorithms** (multi-step procedures you could be asked to walk through), grouped by how clearly algorithmic they are.\n\n### Classic multi-step algorithms (most likely Q3 material)\n- **Canny edge detector** (+ non-maximum suppression, hysteresis thresholding)\n- **Hough transform** — lines and circles\n- **RANSAC**\n- **Kabsch (SVD)**\n- **ICP** (Iterative Closest Point)\n- **SIFT keypoint detector** (+ scale-space pyramid, DoG, LoG)\n- **Harris corner detector**\n- **SIFT descriptor**\n- **Connected components** (4 vs 8 connectivity)\n- **Backpropagation**\n- **Gradient descent** (mini-batch SGD, momentum, Adam)\n- **Autograd / backward** (reverse-mode AD)\n- **2D Fourier transform** (FFT)\n- **Wiener deconvolution**\n- **Non-maximum suppression** (also used standalone in detection)\n\n### Operators / single-step procedures (algorithmic but shorter)\n- **Convolution**\n- **Pooling** (max / avg / global)\n- **Transposed convolution**\n- **Sobel / Prewitt**\n- **Laplacian / LoG** (as an operator)\n- **Scaled dot-product attention**\n- **Multi-head attention**\n- **Cross-attention**\n- **Batch Normalization**\n- **Layer Normalization**\n- **Dropout**\n- **Fourier resizing** (zero-pad / crop in frequency)\n- **Reparameterisation trick** (VAE sampling step)\n- **Weight initialization** (Xavier / He — procedural recipe)\n\n### Borderline (training schemes / pipelines that have algorithmic structure)\n- **Denoising autoencoder** (training procedure)\n- **VAE** (encode → sample via reparam → decode → ELBO)\n- **YOLO** (grid + anchor + NMS pipeline)\n- **DETR** (set prediction + Hungarian matching)\n- **SimCLR** (augment pair → encode → project → NT-Xent)\n- **CLIP** (paired encoders + contrastive matrix)\n- **Data augmentation** (only if asked as a pipeline)\n\n### Not algorithms (formulas, concepts, architectures, metrics)\nLoss functions (CE/softmax, BCE, MSE/MAE/Huber), activation functions, KL divergence, latent space, vanishing/exploding gradients, residual connections, output-shape / parameter-count formulas, padding/stride, receptive field, equivariance vs invariance, IoU / mAP, anchor boxes, convolution theorem, Nyquist / aliasing, filter types (low/high/band-pass), Fourier shift theorem, positional encoding, ResNet / Inception / VGG / DenseNet / ViT / U-Net / encoder-decoder (architectures), transfer learning, broadcasting, view vs reshape, tensors/dtype/device, no_grad / detach, zero_grad, pixel-wise/weighted CE, Dice loss, semantic vs instance vs panoptic, structure tensor (a matrix, not a procedure on its own), triplet loss, NT-Xent/InfoNCE (formulas), Siamese network, contrastive learning (concept), face recognition (task), shape descriptors (solidity, compactness), image moments.\n\nIf I had to give you the **shortlist to drill as full step-by-step walkthroughs**: Canny, Hough, RANSAC, Kabsch, ICP, SIFT (detector + descriptor), Harris, connected components, backprop, Adam, FFT, Wiener deconvolution."
+        }
+      ],
+      "timestamp": "2026-04-28T08:43:52.349Z"
+    }
+  ],
+  "savedAt": "2026-04-28T08:44:32.538Z"
+}

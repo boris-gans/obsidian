@@ -1,0 +1,558 @@
+{
+  "version": 1,
+  "sessionId": "66662b58-3c45-431b-a10a-7effde90eb82",
+  "agentId": "claude-code-acp",
+  "messages": [
+    {
+      "id": "3a6b0101-1d05-4fbd-91b2-23e45273507b",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "@[[CLAUDE]] \nexplain this to me:\n\n\nFourier & sampling — from scratch\n1. The problem it solves\nYou have a noisy photo and you want to blur it (smooth out grain), or resize it (downsample for a thumbnail), or detect what kind of texture is in it (stripes? checkerboard? smooth gradient?). You could do all of these by sliding kernels in the spatial domain — and convolution does work — but each one feels ad-hoc and slow. There's a deeper view: every image is secretly a sum of sinusoidal patterns at different frequencies, orientations, and amplitudes. If you have access to that decomposition, blurring becomes \"delete high frequencies,\" sharpening becomes \"amplify high frequencies,\" and resizing becomes \"delete the frequencies that won't fit.\" The Fourier transform gives you that decomposition. Sampling theory tells you what frequencies your image can possibly contain given its pixel grid — and what goes wrong when you try to throw pixels away."
+        }
+      ],
+      "timestamp": "2026-04-26T12:18:17.339Z"
+    },
+    {
+      "id": "0d29ec10-45af-4346-b7ed-6a8d0a8d0eaa",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "I'll find the relevant lectures and concept notes on Fourier and sampling, then ground my explanation in them."
+        }
+      ],
+      "timestamp": "2026-04-26T12:18:20.080Z"
+    },
+    {
+      "id": "1cc119ca-5870-4ccd-be16-baf890dee9bb",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_018bQwvAb8VMeahr6A9vujD7",
+          "title": "Find `10-Courses/Computer-Vision/lectures/lecture-*fourier*.md`",
+          "status": "completed",
+          "kind": "search",
+          "content": [],
+          "locations": [],
+          "rawInput": {
+            "pattern": "10-Courses/Computer-Vision/lectures/lecture-*fourier*.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T12:18:21.810Z"
+    },
+    {
+      "id": "3f95f2cf-f991-4ce1-93f7-7a06fcba9633",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01JwemmCv6ocVXj3ogjUBC3o",
+          "title": "Find `20-Concepts/*fourier*.md`",
+          "status": "completed",
+          "kind": "search",
+          "content": [],
+          "locations": [],
+          "rawInput": {
+            "pattern": "20-Concepts/*fourier*.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T12:18:22.759Z"
+    },
+    {
+      "id": "52f8c7a9-1917-45f0-9752-c337420aa05a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_011YjNLNW8v1fgJgzic177cK",
+          "title": "Find `20-Concepts/*sampling*.md`",
+          "status": "completed",
+          "kind": "search",
+          "content": [],
+          "locations": [],
+          "rawInput": {
+            "pattern": "20-Concepts/*sampling*.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T12:18:23.163Z"
+    },
+    {
+      "id": "cf5098c2-153b-4be0-83fe-2e2c3a2abc9f",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_017HcEKnXvXUwa1KTkQAoYqz",
+          "title": "Find `20-Concepts/*aliasing*.md`",
+          "status": "completed",
+          "kind": "search",
+          "content": [],
+          "locations": [],
+          "rawInput": {
+            "pattern": "20-Concepts/*aliasing*.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T12:18:23.402Z"
+    },
+    {
+      "id": "a12c2731-26e5-4d11-a9e7-d2f7566e00a5",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01VFRMeXS2yWMR3rBtrWavEi",
+          "title": "Find `20-Concepts/*nyquist*.md`",
+          "status": "completed",
+          "kind": "search",
+          "content": [],
+          "locations": [],
+          "rawInput": {
+            "pattern": "20-Concepts/*nyquist*.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T12:18:23.689Z"
+    },
+    {
+      "id": "732a0830-bc5b-4cb3-b563-71f6e1bcdf8b",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_012uW6XxFc8NNYEyV6Y94DmF",
+          "title": "Find `10-Courses/Computer-Vision/lectures/lecture-09*.md`",
+          "status": "completed",
+          "kind": "search",
+          "content": [],
+          "locations": [],
+          "rawInput": {
+            "pattern": "10-Courses/Computer-Vision/lectures/lecture-09*.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T12:18:27.231Z"
+    },
+    {
+      "id": "26bf747c-8d0e-4590-98c0-f6d339a6add8",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_0142jdXxU8mwW1gtr1QVF27F",
+          "title": "Find `20-Concepts/*frequency*.md`",
+          "status": "completed",
+          "kind": "search",
+          "content": [],
+          "locations": [],
+          "rawInput": {
+            "pattern": "20-Concepts/*frequency*.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T12:18:27.609Z"
+    },
+    {
+      "id": "023327cc-d21b-429c-aa9b-af13e387c028",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01FcXHdybL4P3627B3PamypR",
+          "title": "Find `20-Concepts/*alias*.md`",
+          "status": "completed",
+          "kind": "search",
+          "content": [],
+          "locations": [],
+          "rawInput": {
+            "pattern": "20-Concepts/*alias*.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T12:18:28.094Z"
+    },
+    {
+      "id": "cc186fcb-1791-4da1-a413-f5ac08275328",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01HVkZeoiBkFsH8f3fW7fgQG",
+          "title": "Find `20-Concepts/convolution*.md`",
+          "status": "completed",
+          "kind": "search",
+          "content": [],
+          "locations": [],
+          "rawInput": {
+            "pattern": "20-Concepts/convolution*.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T12:18:28.419Z"
+    },
+    {
+      "id": "95bc8159-cd7c-4099-b95d-5f0adf894b2f",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_015cpE3qKhFHDKT95RDBpSwY",
+          "title": "Read 10-Courses/Computer-Vision/lectures/lecture-10-fourier-transform-2.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/10-Courses/Computer-Vision/lectures/lecture-10-fourier-transform-2.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/10-Courses/Computer-Vision/lectures/lecture-10-fourier-transform-2.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T12:18:34.832Z"
+    },
+    {
+      "id": "609b93ac-29df-4637-ba3b-bfb20e77499e",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01SNxC2pJjP81RRczfVEXEhW",
+          "title": "Read 20-Concepts/fourier-transform-2d.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/fourier-transform-2d.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/fourier-transform-2d.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T12:18:44.378Z"
+    },
+    {
+      "id": "3804f674-53a3-4347-b086-2d2c5129c8f6",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01B3BK2xHzdkE8xskf3X1LzB",
+          "title": "Read 20-Concepts/nyquist-theorem.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/nyquist-theorem.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/nyquist-theorem.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T12:18:44.659Z"
+    },
+    {
+      "id": "1cae90f5-03ef-44a4-afaf-54882b797e1f",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01Nj4utHcgmJLVPc3PAmyuez",
+          "title": "Read 20-Concepts/fourier-resizing.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/fourier-resizing.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/fourier-resizing.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T12:18:44.749Z"
+    },
+    {
+      "id": "9157365b-3d75-4686-854e-d5a5c5803bcb",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_017u4z5PBFRk1sGKnrRS773j",
+          "title": "Read 20-Concepts/convolution-theorem.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/convolution-theorem.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/convolution-theorem.md"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "Source-grounded unpacking of the passage. The user is preparing for an exam and the lecture's framing matters most, so I'll quote from the lecture and concept notes directly.\n\n---\n\nThe passage is a motivational pitch — it says \"here's why Fourier exists, before we do any math.\" It packs three big claims. Let me unpack each and tie it to what your lecture actually says.\n\n## Claim 1 — The same three tasks (blur, resize, detect texture) all become trivial in frequency space\n\nSpatial operations (blur, sharpen, edge-find) are normally done with sliding kernels — convolution. That works, but the connection between \"what kernel do I pick?\" and \"what am I trying to achieve?\" is opaque. The Fourier view replaces \"design a kernel\" with \"decide which frequencies to keep.\"\n\nYour lecture states this as the unifying claim of the whole topic:\n\n> The unifying claim: many spatial-domain image operations become **multiplication of complex numbers** in Fourier space, which is faster, easier to reason about, and exposes structure (signal vs noise vs PSF).\n> — `lecture-10-fourier-transform-2.md`\n\n## Claim 2 — Every image is a sum of sinusoidal patterns at different frequencies, orientations, amplitudes\n\nThis is exactly the definition of the 2D Fourier transform from your concept note:\n\n> The 2D Fourier transform decomposes an image $g(x,y)$ into a sum of complex 2D plane waves $e^{2\\pi i (x f_x + y f_y)}$. Each frequency $(f_x, f_y)$ is a single complex number — magnitude (how strongly that wave is present) and phase (where it is positioned).\n> — `fourier-transform-2d.md`\n\nSo the passage's three words map directly onto pieces of the math:\n- **frequency** → $|f| = \\sqrt{f_x^2 + f_y^2}$ (how fast the wave oscillates)\n- **orientation** → the *direction* of $(f_x, f_y)$ (a vertical-stripe pattern lives on the $f_x$ axis)\n- **amplitude** → the magnitude $|\\hat{g}(f_x,f_y)|$ (how strongly that one wave contributes)\n\n## Claim 3 — Blurring = delete high frequencies, sharpening = amplify them, resizing = delete the ones that don't fit\n\nThese are not three separate tricks — they're three uses of the *same* mask-and-multiply operation. Your lecture's filter table makes this concrete:\n\n> | Filter | Mask shape | Real-space effect | Use case |\n> |---|---|---|---|\n> | Low-pass | disc of 1s, soft edge ... | smoothing, blurring, noise removal | denoise, anti-alias |\n> | High-pass | disc of 0s, 1 outside | edges, fine detail, illumination removal | sharpening, edge map |\n> — `lecture-10-fourier-transform-2.md`\n\nSo:\n- **Blur** = low-pass = \"keep the centre disc, zero the rest\" (high frequencies are the fine detail and grain).\n- **Sharpen** = high-pass = the opposite (boost the outer ring).\n- **Resize down** = also \"keep the centre disc,\" but then resample at a coarser grid:\n\n> Keep only the central $L' \\times L'$ frequencies ... This **removes high frequencies** — anti-aliasing is built in (you can't fold high frequencies back as aliases if you've deleted them ...)\n> — `fourier-resizing.md`\n\nThe reason all three are \"the same operation\" is the convolution theorem — multiplying a Fourier-space mask is the same as convolving in real space, but in Fourier space the operation is just pointwise multiplication:\n\n> $$h(x) = f(x) * g(x) \\;\\;\\Longleftrightarrow\\;\\; \\hat{h}(\\zeta) = \\hat{f}(\\zeta) \\cdot \\hat{g}(\\zeta)$$\n> — `convolution-theorem.md`\n\n## Claim 4 — Sampling theory tells you what frequencies a pixel grid can contain, and what goes wrong if you throw pixels away\n\nA continuous scene contains arbitrarily fine detail; the pixel grid imposes a hard ceiling on what can be represented. That ceiling is **Nyquist**:\n\n> To capture all information of a band-limited continuous signal with maximum frequency $u_\\text{max}$, the sampling spacing $x_0$ must satisfy: $u_\\text{max} \\leq \\tfrac{1}{2 x_0}$\n> — `nyquist-theorem.md`\n\nThe \"what goes wrong when you throw pixels away\" half is **aliasing**. The mechanism (and why it follows from the Fourier view, not from any separate theory):\n\n> Sampling a continuous signal at spacing $x_0$ = multiplying it by an impulse train with period $x_0$. By the convolution theorem, in Fourier space this **convolves** the spectrum with another impulse train of period $1/x_0$ — i.e. it creates **copies** of the spectrum every $1/x_0$. ... If the original spectrum has support $|u| \\leq u_\\text{max}$, the copies don't overlap iff $\\tfrac{1}{x_0} \\geq 2 u_\\text{max}$. Otherwise the copies overlap → high frequencies fold into low ones → **aliasing**\n> — `nyquist-theorem.md`\n\nSo the punchline of the passage — \"what goes wrong when you throw pixels away\" — is: high frequencies that no longer fit don't politely disappear, they **fold back as fake low frequencies** (the moiré pattern on the building from slide 45). That's the whole reason `fourier-resizing` deletes the spectrum first: nothing left to fold.\n\n---\n\n## One-line summary the passage is angling at\n\nSpatial domain: each operation is a different ad-hoc kernel. Fourier domain: every operation is \"pick a mask, multiply.\" The same Fourier viewpoint then gives you, for free, the rule for what your pixel grid can and can't represent (Nyquist) and what failure looks like when you violate it (aliasing)."
+        }
+      ],
+      "timestamp": "2026-04-26T12:18:45.089Z"
+    },
+    {
+      "id": "c353fc17-8191-4da4-a247-61df18a4b387",
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "Okay now explain this topic cluster to me:\n\n**Fourier & sampling** (FT 2D, Nyquist, FFT, downsampling)\n\nso i can take notes and understand i t"
+        }
+      ],
+      "timestamp": "2026-04-26T12:20:06.464Z"
+    },
+    {
+      "id": "0b48f2f9-fdde-49df-a5d2-6506f377e3c4",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "Let me pull the rest of the relevant concept notes so I can ground this properly."
+        }
+      ],
+      "timestamp": "2026-04-26T12:20:08.850Z"
+    },
+    {
+      "id": "b0c929f0-293a-42b5-a002-24e288aa82dc",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01VDnaRYs6b64cXM8iABKhcm",
+          "title": "Find `20-Concepts/*pass-filter*.md`",
+          "status": "completed",
+          "kind": "search",
+          "content": [],
+          "locations": [],
+          "rawInput": {
+            "pattern": "20-Concepts/*pass-filter*.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T12:20:10.409Z"
+    },
+    {
+      "id": "b37a657a-356c-4dfe-a458-e19f7b7aa6a4",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01FLfq61L3mT2GRHsRxkcRj7",
+          "title": "Find `20-Concepts/*shift*.md`",
+          "status": "completed",
+          "kind": "search",
+          "content": [],
+          "locations": [],
+          "rawInput": {
+            "pattern": "20-Concepts/*shift*.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T12:20:11.050Z"
+    },
+    {
+      "id": "871d9e01-3547-400e-9ca3-6e5095b2eee5",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01SWrFxS9A1xfqRkWmteSgGx",
+          "title": "Find `20-Concepts/*fft*.md`",
+          "status": "completed",
+          "kind": "search",
+          "content": [],
+          "locations": [],
+          "rawInput": {
+            "pattern": "20-Concepts/*fft*.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T12:20:11.508Z"
+    },
+    {
+      "id": "3f904578-df06-4a0d-b8b4-89cc17fccbb3",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01YP78Tjkngi7rLPrNqzHg6i",
+          "title": "Find `20-Concepts/*deconv*.md`",
+          "status": "completed",
+          "kind": "search",
+          "content": [],
+          "locations": [],
+          "rawInput": {
+            "pattern": "20-Concepts/*deconv*.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T12:20:11.796Z"
+    },
+    {
+      "id": "1f918d41-02c9-4798-b64a-f3dc537dfbb0",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01431hNDCvNT6TPrFDQ5rsua",
+          "title": "Find `20-Concepts/*wiener*.md`",
+          "status": "completed",
+          "kind": "search",
+          "content": [],
+          "locations": [],
+          "rawInput": {
+            "pattern": "20-Concepts/*wiener*.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T12:20:12.236Z"
+    },
+    {
+      "id": "8c7e9b4a-8ab9-412f-94f2-cbcdc56692ed",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01PX5LDp2kfpjTK4ZsmQoeXW",
+          "title": "Read 20-Concepts/low-pass-filter.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/low-pass-filter.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/low-pass-filter.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T12:20:14.742Z"
+    },
+    {
+      "id": "31b83c35-895e-4ab1-9ef9-20da500e494a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01NR4ZigfSNTLvBfXSNWTUvp",
+          "title": "Read 20-Concepts/high-pass-filter.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/high-pass-filter.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/high-pass-filter.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T12:20:15.571Z"
+    },
+    {
+      "id": "3ffdb256-a0ac-4f27-9fc9-433b6d8285be",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_015QcoVTN3Jkvu9NBVXsufj8",
+          "title": "Read 20-Concepts/band-pass-filter.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/band-pass-filter.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/band-pass-filter.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T12:20:15.933Z"
+    },
+    {
+      "id": "7c886381-3b64-4fd5-89dd-b91e11e9f95a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_016NojNKrXyMzmWXYVNLwf29",
+          "title": "Read 20-Concepts/fourier-shift-theorem.md",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/fourier-shift-theorem.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/fourier-shift-theorem.md"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "Here's the cluster as one connected story, grounded in your lecture and concept notes. I've structured it the way you'd put it in a notebook: definition → mechanism → why it matters → connection to the next piece.\n\n---\n\n# The big picture\n\nThese four topics aren't four separate things. They're one chain:\n\n> 2D Fourier transform tells you *what frequencies are in your image*.  → FFT is *how you compute it fast*.  → That same fast machine lets you *filter and resize by manipulating frequencies*.  → Nyquist tells you the *one rule you can't break* when you change pixel count.\n\nYour lecture explicitly frames the whole topic this way:\n\n> The unifying claim: many spatial-domain image operations become **multiplication of complex numbers** in Fourier space, which is faster, easier to reason about, and exposes structure (signal vs noise vs PSF).\n> — `lecture-10-fourier-transform-2.md`\n\n---\n\n# 1. 2D Fourier Transform (FT 2D)\n\n## What it is\n\n> The 2D Fourier transform decomposes an image $g(x,y)$ into a sum of complex 2D plane waves $e^{2\\pi i (x f_x + y f_y)}$. Each frequency $(f_x, f_y)$ is a single complex number — magnitude (how strongly that wave is present) and phase (where it is positioned).\n> — `fourier-transform-2d.md`\n\n## The equations (memorise these — slide 2)\n\n$$\\hat{g}(f_x, f_y) = \\int_{-\\infty}^{\\infty} g(x,y)\\, e^{-2\\pi i (x f_x + y f_y)}\\, dx\\, dy$$\n\n$$g(x,y) = \\int_{-\\infty}^{\\infty} \\hat{g}(f_x, f_y)\\, e^{2\\pi i (x f_x + y f_y)}\\, df_x\\, df_y$$\n\nForward FT goes image → spectrum (note the **negative** exponent). Inverse FT goes spectrum → image (positive exponent). They are perfect inverses — no information is lost.\n\n## How to read a spectrum image\n\nThree things are non-obvious and exam-worthy:\n\n**(a) Each pixel encodes the whole image.**\n> 1 pixel in Fourier space contains information about **all** pixels in real space.  1 pixel in real space contributes to **all** pixels in Fourier space.\n> — `fourier-transform-2d.md`\n\n**(b) The centre is low frequency, the edges are high frequency** — but only after `fftshift`:\n> For $N=7$ the raw 1D FFT frequencies come out as $[0, \\tfrac{1}{7}, \\tfrac{2}{7}, \\tfrac{3}{7}, -\\tfrac{3}{7}, -\\tfrac{2}{7}, -\\tfrac{1}{7}]$. After `fftshift` they reorder to negative→positive ... In 2D, `fftshift` puts the DC term at the centre — which is what every \"spectrum image\" you see assumes.\n> — `fourier-transform-2d.md`\n\n**(c) Why spectra are always plotted as $\\log(A+1)$:**\n> Natural-image shells decay roughly as $1/\\sqrt{f_x^2+f_y^2}$ — that's why spectrum images are plotted as $\\log(A+1)$ (otherwise the centre saturates and the rest is black).\n> — `fourier-transform-2d.md`\n\n## Mental model\n\n- **Centre of spectrum** = slow stuff (overall brightness, big shapes)\n- **Outer ring** = fast stuff (edges, fine detail, noise)\n- **Direction in spectrum** = orientation of the stripes in the image (vertical stripes → energy on horizontal axis of the spectrum, because the *gradient* runs horizontally)\n- **Magnitude** = how strong that wave is. **Phase** = where it sits.\n\n---\n\n# 2. FFT (the algorithm) and why it transforms convolution\n\n## The convolution theorem — the load-bearing identity\n\n> Convolution in one domain is **pointwise multiplication** in the other:\n> $$h(x) = f(x) * g(x) \\;\\;\\Longleftrightarrow\\;\\; \\hat{h}(\\zeta) = \\hat{f}(\\zeta) \\cdot \\hat{g}(\\zeta)$$\n> $$h(x) = f(x)\\, g(x) \\;\\;\\Longleftrightarrow\\;\\; \\hat{h}(\\zeta) = \\hat{f}(\\zeta) * \\hat{g}(\\zeta)$$\n> — `convolution-theorem.md`\n\nThis is *the* reason Fourier matters for vision. Convolving a kernel over an image (slow, $O(nk)$) becomes multiplying two arrays (fast, $O(n)$ once you're in Fourier space).\n\n## Why FFT makes this practical\n\nThe FFT computes the Fourier transform in $O(n \\log n)$ instead of $O(n^2)$. The full pipeline:\n\n> 1. Forward FFT of input $f$ → $O(n \\log n)$\n> 2. Forward FFT of kernel $g$ → $O(k \\log k)$ with $k \\leq n$\n> 3. Pointwise multiply → $O(n)$\n> 4. Inverse FFT → $O(n \\log n)$\n>\n> Total: $O(n \\log n)$. For large kernels (template matching, big Gaussian blurs) this is dramatically faster than spatial convolution.\n> — `convolution-theorem.md`\n\n## When NOT to use FFT-based convolution (exam trap)\n\n> - Small kernels ($3{\\times}3$, $5{\\times}5$): direct convolution is faster (lower constants, no FFT setup).\n> - Need exact zero-padding semantics that differ from circular convolution: FFT does **circular** convolution unless you pad — be careful at borders.\n> — `convolution-theorem.md`\n\nSo the FFT route wins for big kernels (large blurs, template matching), loses for tiny $3\\times3$ ones.\n\n## What this enables — the filtering toolkit\n\nOnce you can move into frequency space cheaply, *any* image filter is just \"design a mask $H(u,v)$, multiply, transform back.\" Three masks cover most cases:\n\n| Filter | Mask | Effect | Use |\n|---|---|---|---|\n| Low-pass | disc of 1s, soft edge | smoothing, blurring, noise removal | denoise, anti-alias |\n| High-pass | disc of 0s, 1 outside | edges, fine detail, illumination removal | sharpening, edge map |\n| Band-pass | annulus / \"donut\" of 1s | structures at one scale | texture analysis, feature detection |\n\n— `lecture-10-fourier-transform-2.md`\n\n**Critical detail — soft edges:**\n> Use a **soft** mask edge — a hard binary boundary causes ringing artefacts after inverse FFT. Common soft kernels: Raised cosine, Windowed sinc, Butterworth ... Gaussian\n> — `low-pass-filter.md`\n\nA hard cutoff in frequency = sinc ringing in the image. That's a common exam point.\n\n---\n\n# 3. Downsampling (Fourier-space resizing)\n\n## The mechanism\n\nTo shrink an $L \\times L$ image to $L' \\times L'$ ($L' < L$):\n\n> Keep only the central $L' \\times L'$ frequencies:\n> $$\\hat{I}_\\text{new}(u,v) = \\begin{cases} \\hat{I}(u,v) & \\text{if } |u|, |v| \\leq L'/2 \\\\ 0 & \\text{otherwise} \\end{cases}$$\n> — `fourier-resizing.md`\n\nTo *up*sample, do the opposite: zero-pad the spectrum to the new size, inverse-transform.\n\n## Why this beats `cv2.resize`\n\n> - **Theoretically better** for upsampling — sinc-interpolation is the ideal band-limited interpolant, and zero-padded IFFT gives exactly that.\n> - **Built-in anti-aliasing** for downsampling.\n> - Useful when frequencies *matter* (scientific imaging) or when you're already in Fourier space.\n> - More expensive than spatial interpolation, so don't reach for it unconditionally.\n> — `fourier-resizing.md`\n\nThe key word is \"anti-aliasing built-in.\" Cropping the spectrum *deletes* high frequencies before resampling. Spatial-domain downsampling (just throwing away every other pixel) doesn't — and that's where Nyquist comes in.\n\n---\n\n# 4. Nyquist — the rule\n\n## The statement\n\n> To capture all information of a band-limited continuous signal with maximum frequency $u_\\text{max}$, the sampling spacing $x_0$ must satisfy:\n> $$u_\\text{max} \\leq \\frac{1}{2 x_0}$$\n> Equivalently: sampling **rate** $1/x_0 \\geq 2 u_\\text{max}$ (twice the highest frequency, the **Nyquist rate**).\n> — `nyquist-theorem.md`\n\n## Why it's true (the derivation that ties everything together)\n\nThis is the most elegant payoff of the cluster — Nyquist *follows from the convolution theorem*:\n\n> Sampling a continuous signal at spacing $x_0$ = multiplying it by an impulse train with period $x_0$. By the convolution theorem, in Fourier space this **convolves** the spectrum with another impulse train of period $1/x_0$ — i.e. it creates **copies** of the spectrum every $1/x_0$.\n>\n> If the original spectrum has support $|u| \\leq u_\\text{max}$, the copies don't overlap iff $\\tfrac{1}{x_0} \\geq 2 u_\\text{max}$.\n>\n> Otherwise the copies overlap → high frequencies fold into low ones → **aliasing** (e.g. the moiré on the building in slide 45).\n> — `nyquist-theorem.md`\n\nSo *sampling = spectrum replication*. Aliasing is what happens when those replicas overlap. The factor of 2 is just the geometry of \"two copies $1/x_0$ apart, each of half-width $u_\\text{max}$, must not collide.\"\n\n## Practical consequences for vision\n\n> - Hard pixel-grid downsampling without prior low-pass filter → aliasing. Use [[low-pass-filter]] or [[fourier-resizing]] (which crops the spectrum, automatically anti-aliased).\n> - Camera sensor pitch sets the maximum recoverable spatial frequency; lens MTF beyond that is wasted.\n> — `nyquist-theorem.md`\n\n> If the smallest feature you care about has size $x$, you must sample with frequency $\\geq 2/x$ (i.e. spacing $\\leq x/2$). \"Smallest feature 10 nm → measure every 5 nm or finer.\"\n> — `nyquist-theorem.md`\n\n---\n\n# How the four pieces interlock\n\n```mermaid\nflowchart TD\n    FT[\"FT 2D<br/>image ↔ spectrum\"] --> CT[\"Convolution theorem<br/>convolve ↔ multiply\"]\n    CT --> FFT[\"FFT<br/>O(n log n) round-trip\"]\n    FFT --> Filt[\"Frequency filtering<br/>(LPF / HPF / BPF)\"]\n    FFT --> Res[\"Spectrum-crop<br/>downsampling\"]\n    Res -.->|\"if you skip the crop and just<br/>throw away pixels\"| Alias[\"Aliasing\"]\n    CT --> NyqDeriv[\"Sampling = impulse train ×<br/>→ spectrum copies every 1/x₀\"]\n    NyqDeriv --> Nyq[\"Nyquist:<br/>1/x₀ ≥ 2 u_max\"]\n    Nyq -.-> Alias\n```\n\nThe diagram says: the FT gives you the right view; the convolution theorem makes that view *cheap* via the FFT; cheapness lets you filter and resize in frequency space; and the *same* convolution theorem proves Nyquist, which is the rule those frequency-space resizes obey for free but spatial-domain shortcuts violate.\n\n---\n\n# Exam-style mental checklist\n\nWhen you see a problem in this cluster, walk it down this list:\n\n1. **What domain am I in?** Spatial $g(x,y)$ or Fourier $\\hat{g}(u,v)$? Forward FT has $e^{-2\\pi i \\cdot}$, inverse has $e^{+2\\pi i \\cdot}$.\n2. **Where are low/high frequencies in the picture I'm looking at?** Centre = low, after `fftshift`.\n3. **Convolution or multiplication?** They swap when you change domain (convolution theorem).\n4. **If the question is about cost:** big kernel → FFT route ($O(n\\log n)$), small kernel → spatial.\n5. **If the question is about resizing:** cropping the central $L'\\times L'$ spectrum is the anti-aliased downsample. Zero-padding is the band-limited upsample.\n6. **If the question is about why throwing pixels away breaks things:** sampling × impulse train → spectrum copies every $1/x_0$ → if they overlap, you get aliasing. Need $1/x_0 \\geq 2u_\\text{max}$.\n7. **If the question is about a hard-edged frequency mask:** ringing in the image, because hard rectangle in frequency = sinc in space.\n\n---\n\n## Two open issues your lecture flags (slide 29 / slide 26)\n\nThese are the kind of detail that an instructor likes to test:\n\n- **Why does the shift theorem use raw `fftfreq` but the filtering pipeline uses `fftshift`?** Two different conventions for indexing the same frequency grid. Filtering masks are written assuming \"DC at the centre\" (so you can draw a disc); the shift trick uses `fftfreq`'s raw layout because the phase ramp formula is written in the FFT's native indexing.\n- **Spectrum-crop vs. blur-then-decimate** — both give anti-aliased downsampling, but spectrum-crop is exact (sharp brick-wall LPF + perfect resample); blur-then-decimate is cheaper and gives a softer cutoff. Your lecture leaves this as an open question."
+        }
+      ],
+      "timestamp": "2026-04-26T12:20:16.293Z"
+    }
+  ],
+  "savedAt": "2026-04-26T12:21:36.845Z"
+}

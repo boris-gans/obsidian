@@ -1,0 +1,29 @@
+{
+  "pluginList": [
+    "YishenTu/claudian",
+    "RAIT-09/obsidian-agent-client"
+  ],
+  "pluginSubListFrozenVersion": [
+    {
+      "repo": "YishenTu/claudian",
+      "version": ""
+    },
+    {
+      "repo": "RAIT-09/obsidian-agent-client",
+      "version": "latest"
+    }
+  ],
+  "themesList": [],
+  "updateAtStartup": true,
+  "updateThemesAtStartup": true,
+  "enableAfterInstall": true,
+  "loggingEnabled": false,
+  "loggingPath": "BRAT-log",
+  "loggingVerboseEnabled": false,
+  "debuggingMode": false,
+  "notificationsEnabled": true,
+  "globalTokenName": "",
+  "personalAccessToken": "",
+  "selectLatestPluginVersionByDefault": false,
+  "allowIncompatiblePlugins": false
+}

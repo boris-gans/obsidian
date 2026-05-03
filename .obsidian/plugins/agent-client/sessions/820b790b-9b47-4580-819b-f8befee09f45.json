@@ -1,0 +1,895 @@
+{
+  "version": 1,
+  "sessionId": "820b790b-9b47-4580-819b-f8befee09f45",
+  "agentId": "claude-code-acp",
+  "messages": [
+    {
+      "id": "8557234d-de97-4fa3-9d19-e1fbb31c1363",
+      "role": "user",
+      "content": [
+        {
+          "type": "text_with_context",
+          "text": "Ingest 11 Computer Vision lecture decks (10 → 20) into my Obsidian vault, embedding diagrams from the slides.\n\nVault: /Users/mattporteous/Obsidian/School\nPDFs:  30-Sources/Computer-Vision/pdf/{NN}_{name}.pdf\n\nRead CLAUDE.md first — it defines the slide-ingest workflow, image-embedding rules\n(default to slides-png/, lecture notes carry diagrams, concept notes get at most one),\nand the convention that ingest output is distinct from the live-capture templates.\n\nBefore writing notes:\n\n1. Verify image pre-extraction is complete. The previous run was Ctrl+C'd:\n   only lecture 10 has slides-png/ (and only ~42/49 slides), and images/ exists\n   for lectures 10–13 only. Run:\n       for d in 30-Sources/Computer-Vision/slides-png/*/; do\n         printf \"%s  %d slides\\n\" \"$(basename \"$d\")\" \"$(ls \"$d\" | wc -l)\"\n       done\n   If incomplete, run bin/ingest-slides.sh Computer-Vision (no input needed; ~5 min).\n\nFor each lecture 10 → 20 in numeric order:\n- Read the PDF\n- Search 20-Concepts/ first; extend existing notes instead of duplicating\n- Show a brief plan (lecture path + concept names + flashcard count + diagrams to embed)\n  then proceed; no need to wait for \"go\" between lectures\n- [[wikilink]] back to earlier-lecture concepts wherever this lecture builds on them\n- Embed slide images per CLAUDE.md (slides-png/ default, *Figure: ... (slide N).* caption)\n\nEnd with a summary table: lecture | concepts created | concepts extended | flashcards | total links.\n\nThe vault is empty for this batch — concepts created in early lectures become link\ntargets for later ones.",
+          "autoMentionContext": {
+            "noteName": "CLAUDE",
+            "notePath": "CLAUDE.md"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:46:54.216Z"
+    },
+    {
+      "id": "a83fee99-1779-4433-b4c4-0597004cf040",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "agent_thought",
+          "text": ""
+        }
+      ],
+      "timestamp": "2026-04-26T09:46:58.343Z"
+    },
+    {
+      "id": "4e1d3bb6-a8e2-4b15-8f25-f590cf4d801c",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01LEZ1zBvg486wJaXjrnHV3j",
+          "title": "for d in 30-Sources/Computer-Vision/slides-png/*/; do printf \"%s  %d slides\\n\" \"$(basename \"$d\")\" \"$(ls \"$d\" | wc -l)\"; done",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "for d in 30-Sources/Computer-Vision/slides-png/*/; do printf \"%s  %d slides\\n\" \"$(basename \"$d\")\" \"$(ls \"$d\" | wc -l)\"; done",
+            "description": "Check slides-png directories"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:47:00.114Z"
+    },
+    {
+      "id": "3ff12af6-90af-41bd-b2c0-0f132e34f235",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01PT1igHcjnwg5AHX2HHbvPR",
+          "title": "ls 30-Sources/Computer-Vision/pdf/",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls 30-Sources/Computer-Vision/pdf/",
+            "description": "List PDFs"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:47:01.412Z"
+    },
+    {
+      "id": "34742f8f-0e28-4f4d-8865-4ef6c740a0f4",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_019hGL9GG63DmWQcwohebYPq",
+          "title": "ls 30-Sources/Computer-Vision/images/ 2>/dev/null",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls 30-Sources/Computer-Vision/images/ 2>/dev/null",
+            "description": "List images directories"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:47:02.424Z"
+    },
+    {
+      "id": "6debee0e-ca9d-4982-99f6-6bd34775ce50",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01L4nSQdHhzXanbV1Lr1eesP",
+          "title": "ls 20-Concepts/ 2>/dev/null | head -50",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls 20-Concepts/ 2>/dev/null | head -50",
+            "description": "Check existing concepts"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "The slides-png pre-extraction is incomplete (only lecture 10, 42 slides). Let me check the script and run it."
+        }
+      ],
+      "timestamp": "2026-04-26T09:47:03.153Z"
+    },
+    {
+      "id": "a0d4d734-2fa6-4255-87e8-02e89b506917",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01GMuTigGYVubThGmaQ7mVZR",
+          "title": "Read bin/ingest-slides.sh",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/bin/ingest-slides.sh"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/bin/ingest-slides.sh"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        }
+      ],
+      "timestamp": "2026-04-26T09:47:09.311Z"
+    },
+    {
+      "id": "ce1d264c-364f-4851-af65-4d9eb52a45ec",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01EQ11rnEjTVhHdWRk4EsAEp",
+          "title": "git log --oneline bin/ingest-slides.sh",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "git log --oneline bin/ingest-slides.sh",
+            "description": "Check script history"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:47:19.223Z"
+    },
+    {
+      "id": "19f09c0c-6069-4852-ad88-097e133003ed",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01FxWyMk1wfFwWR8DyHGChxq",
+          "title": "git diff bin/ingest-slides.sh",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "git diff bin/ingest-slides.sh",
+            "description": "Check uncommitted changes"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:47:19.674Z"
+    },
+    {
+      "id": "e5877d10-0d88-4f7d-97c3-5217c6b29d1a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_017PPaMYCTtWDszqYtBKJyyQ",
+          "title": "which pdftoppm; pdftoppm -v 2>&1 | head -3",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "which pdftoppm; pdftoppm -v 2>&1 | head -3",
+            "description": "Check pdftoppm availability"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        }
+      ],
+      "timestamp": "2026-04-26T09:47:20.433Z"
+    },
+    {
+      "id": "2c9a573b-01b3-4e95-93e3-2faeb81237cb",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01E7zcuiGcdncSzpyeP8McsV",
+          "title": "ls 30-Sources/Computer-Vision/slides-png/10_fourier_transform2/ | head -10; echo \"---\"; ls 30-Sources/Computer-Vision/slides-png/10_fourier_transform2/ | tail -10",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls 30-Sources/Computer-Vision/slides-png/10_fourier_transform2/ | head -10; echo \"---\"; ls 30-Sources/Computer-Vision/slides-png/10_fourier_transform2/ | tail -10",
+            "description": "Check slide filename pattern"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:47:30.304Z"
+    },
+    {
+      "id": "dc84863e-8007-4679-8b2a-3e28dd86a28a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01TEm3RLDQxQq97JQp6bUSwv",
+          "title": "pdfinfo 30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf | grep -i pages",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "pdfinfo 30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf | grep -i pages",
+            "description": "Check page count of lecture 10"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "I need to extend the script to generate slides-png (it currently only does images/), then run it. Let me load TodoWrite and update the script."
+        }
+      ],
+      "timestamp": "2026-04-26T09:47:31.843Z"
+    },
+    {
+      "id": "e0060e7b-f6d6-44eb-b65c-fe20c56bdc9e",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01LcFVfWapJCfYpq5EMH6qzM",
+          "title": "ToolSearch",
+          "status": "completed",
+          "kind": "other",
+          "content": [],
+          "rawInput": {
+            "query": "select:TodoWrite",
+            "max_results": 1
+          }
+        },
+        {
+          "type": "plan",
+          "entries": [
+            {
+              "content": "Extend ingest-slides.sh to generate slides-png",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Run ingest-slides.sh for Computer-Vision",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest lecture 10 (fourier_transform2)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest lecture 11 (feature_detectors)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest lecture 12 (feature_detectors2)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest lecture 13 (binary_object_characterization)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest lecture 14 (intro_to_pytorch_DL)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest lecture 15 (intro_to_DL)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest lecture 16 (CNNs)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest lecture 17 (advanced_architectures)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest lecture 18 (segmentation_and_object_detection)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest lecture 19 (self_supervised_and_contrastive_learning)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest lecture 20 (autoencoders)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Write summary table",
+              "priority": "medium",
+              "status": "pending"
+            }
+          ]
+        }
+      ],
+      "timestamp": "2026-04-26T09:47:40.794Z"
+    },
+    {
+      "id": "15c84bec-599d-4289-bbd2-918e056c96bc",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01XPi56S4ykYYGp3nd5WvCTv",
+          "title": "Edit bin/ingest-slides.sh",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/bin/ingest-slides.sh",
+              "newText": "\n[ -d \"$SRC\" ] || { echo \"No source folder: $SRC\"; exit 1; }\n\nmkdir -p \"$SRC/pdf\" \"$SRC/images\" \"$SRC/slides-png\"\n\nfor f in \"$SRC\"/*.pptx; do\n  [ -e \"$f\" ] || continue",
+              "oldText": "\n[ -d \"$SRC\" ] || { echo \"No source folder: $SRC\"; exit 1; }\n\nmkdir -p \"$SRC/pdf\" \"$SRC/images\"\n\nfor f in \"$SRC\"/*.pptx; do\n  [ -e \"$f\" ] || continue"
+            },
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/bin/ingest-slides.sh",
+              "newText": "\nfor pdf in \"$SRC\"/pdf/*.pdf; do\n  base=$(basename \"$pdf\" .pdf)\n\n  imgdir=\"$SRC/images/$base\"\n  if [ ! -d \"$imgdir\" ]; then\n    mkdir -p \"$imgdir\"\n    pdfimages -png \"$pdf\" \"$imgdir/img\"\n  fi\n\n  slidedir=\"$SRC/slides-png/$base\"\n  pages=$(pdfinfo \"$pdf\" | awk '/^Pages:/ {print $2}')\n  mkdir -p \"$slidedir\"\n  existing=$(ls \"$slidedir\" 2>/dev/null | wc -l | tr -d ' ')\n  if [ \"$existing\" != \"$pages\" ]; then\n    rm -f \"$slidedir\"/*.png\n    pdftoppm -png -r 120 \"$pdf\" \"$slidedir/slide\" -f 1 -l \"$pages\"\n    for f in \"$slidedir\"/slide-*.png; do\n      [ -e \"$f\" ] || continue\n      n=$(basename \"$f\" .png | sed 's/slide-//')\n      printf -v padded \"%02d\" \"$n\"\n      new=\"$slidedir/slide-$padded.png\"\n      [ \"$f\" = \"$new\" ] || mv \"$f\" \"$new\"\n    done\n  fi\ndone\necho \"Done.\"",
+              "oldText": "\nfor pdf in \"$SRC\"/pdf/*.pdf; do\n  base=$(basename \"$pdf\" .pdf)\n  outdir=\"$SRC/images/$base\"\n  if [ ! -d \"$outdir\" ]; then\n    mkdir -p \"$outdir\"\n    pdfimages -png \"$pdf\" \"$outdir/img\"\n  fi\ndone\necho \"Done.\""
+            }
+          ],
+          "locations": [
+            {
+              "line": 6,
+              "path": "/Users/mattporteous/Obsidian/School/bin/ingest-slides.sh"
+            },
+            {
+              "line": 16,
+              "path": "/Users/mattporteous/Obsidian/School/bin/ingest-slides.sh"
+            }
+          ],
+          "rawInput": {
+            "replace_all": false,
+            "file_path": "/Users/mattporteous/Obsidian/School/bin/ingest-slides.sh",
+            "old_string": "mkdir -p \"$SRC/pdf\" \"$SRC/images\"\n\nfor f in \"$SRC\"/*.pptx; do\n  [ -e \"$f\" ] || continue\n  base=$(basename \"$f\" .pptx)\n  [ -f \"$SRC/pdf/$base.pdf\" ] || soffice --headless --convert-to pdf --outdir \"$SRC/pdf\" \"$f\"\ndone\n\nfor pdf in \"$SRC\"/pdf/*.pdf; do\n  base=$(basename \"$pdf\" .pdf)\n  outdir=\"$SRC/images/$base\"\n  if [ ! -d \"$outdir\" ]; then\n    mkdir -p \"$outdir\"\n    pdfimages -png \"$pdf\" \"$outdir/img\"\n  fi\ndone\necho \"Done.\"",
+            "new_string": "mkdir -p \"$SRC/pdf\" \"$SRC/images\" \"$SRC/slides-png\"\n\nfor f in \"$SRC\"/*.pptx; do\n  [ -e \"$f\" ] || continue\n  base=$(basename \"$f\" .pptx)\n  [ -f \"$SRC/pdf/$base.pdf\" ] || soffice --headless --convert-to pdf --outdir \"$SRC/pdf\" \"$f\"\ndone\n\nfor pdf in \"$SRC\"/pdf/*.pdf; do\n  base=$(basename \"$pdf\" .pdf)\n\n  imgdir=\"$SRC/images/$base\"\n  if [ ! -d \"$imgdir\" ]; then\n    mkdir -p \"$imgdir\"\n    pdfimages -png \"$pdf\" \"$imgdir/img\"\n  fi\n\n  slidedir=\"$SRC/slides-png/$base\"\n  pages=$(pdfinfo \"$pdf\" | awk '/^Pages:/ {print $2}')\n  mkdir -p \"$slidedir\"\n  existing=$(ls \"$slidedir\" 2>/dev/null | wc -l | tr -d ' ')\n  if [ \"$existing\" != \"$pages\" ]; then\n    rm -f \"$slidedir\"/*.png\n    pdftoppm -png -r 120 \"$pdf\" \"$slidedir/slide\" -f 1 -l \"$pages\"\n    for f in \"$slidedir\"/slide-*.png; do\n      [ -e \"$f\" ] || continue\n      n=$(basename \"$f\" .png | sed 's/slide-//')\n      printf -v padded \"%02d\" \"$n\"\n      new=\"$slidedir/slide-$padded.png\"\n      [ \"$f\" = \"$new\" ] || mv \"$f\" \"$new\"\n    done\n  fi\ndone\necho \"Done.\""
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:47:53.094Z"
+    },
+    {
+      "id": "777219c1-6ab1-4676-b06a-8639c6f2437b",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_011ZGB9jknAP8BZG22HaTf2u",
+          "title": "bin/ingest-slides.sh Computer-Vision 2>&1 | tail -20",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "bin/ingest-slides.sh Computer-Vision 2>&1 | tail -20",
+            "description": "Run slide ingest script",
+            "timeout": 600000
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        }
+      ],
+      "timestamp": "2026-04-26T09:48:04.263Z"
+    },
+    {
+      "id": "1a26a183-eeb7-40d8-be31-e9706e9710d5",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01M92DPtCTcdoR3TCzvurtBN",
+          "title": "Edit bin/ingest-slides.sh",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/bin/ingest-slides.sh",
+              "newText": "    pdftoppm -png -r 120 \"$pdf\" \"$slidedir/slide\" -f 1 -l \"$pages\"\n    for f in \"$slidedir\"/slide-*.png; do\n      [ -e \"$f\" ] || continue\n      n=$(basename \"$f\" .png | sed 's/slide-//' | sed 's/^0*//')\n      [ -z \"$n\" ] && n=0\n      printf -v padded \"%02d\" \"$n\"\n      new=\"$slidedir/slide-$padded.png\"\n      [ \"$f\" = \"$new\" ] || mv \"$f\" \"$new\"",
+              "oldText": "    pdftoppm -png -r 120 \"$pdf\" \"$slidedir/slide\" -f 1 -l \"$pages\"\n    for f in \"$slidedir\"/slide-*.png; do\n      [ -e \"$f\" ] || continue\n      n=$(basename \"$f\" .png | sed 's/slide-//')\n      printf -v padded \"%02d\" \"$n\"\n      new=\"$slidedir/slide-$padded.png\"\n      [ \"$f\" = \"$new\" ] || mv \"$f\" \"$new\""
+            }
+          ],
+          "locations": [
+            {
+              "line": 32,
+              "path": "/Users/mattporteous/Obsidian/School/bin/ingest-slides.sh"
+            }
+          ],
+          "rawInput": {
+            "replace_all": false,
+            "file_path": "/Users/mattporteous/Obsidian/School/bin/ingest-slides.sh",
+            "old_string": "      n=$(basename \"$f\" .png | sed 's/slide-//')\n      printf -v padded \"%02d\" \"$n\"",
+            "new_string": "      n=$(basename \"$f\" .png | sed 's/slide-//' | sed 's/^0*//')\n      [ -z \"$n\" ] && n=0\n      printf -v padded \"%02d\" \"$n\""
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:48:24.724Z"
+    },
+    {
+      "id": "6e75ac7b-4768-4143-a666-fe43ce5aab8b",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_013FhfYU3kRMn1MbBPSshu72",
+          "title": "bin/ingest-slides.sh Computer-Vision 2>&1 | tail -20",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "bin/ingest-slides.sh Computer-Vision 2>&1 | tail -20",
+            "description": "Run slide ingest script",
+            "timeout": 600000
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:48:28.944Z"
+    },
+    {
+      "id": "d1af8b75-9b26-43d0-b31d-97a333a37787",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01Fqf3gipxYXDy3KiDmESYLs",
+          "title": "for d in 30-Sources/Computer-Vision/slides-png/*/; do printf \"%s  %d slides\\n\" \"$(basename \"$d\")\" \"$(ls \"$d\" | wc -l)\"; done",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "for d in 30-Sources/Computer-Vision/slides-png/*/; do printf \"%s  %d slides\\n\" \"$(basename \"$d\")\" \"$(ls \"$d\" | wc -l)\"; done",
+            "description": "Verify all slides extracted"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "All slides extracted. Let me verify the format and start with lecture 10."
+        }
+      ],
+      "timestamp": "2026-04-26T09:49:14.004Z"
+    },
+    {
+      "id": "ddfad329-ec3c-4f96-b4c0-61b39021cb20",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_0176JSzAYdbzwQuoc3APWene",
+          "title": "ls 30-Sources/Computer-Vision/slides-png/11_feature_detectors/ | head -5; echo \"---\"; ls 30-Sources/Computer-Vision/slides-png/11_feature_detectors/ | tail -5",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls 30-Sources/Computer-Vision/slides-png/11_feature_detectors/ | head -5; echo \"---\"; ls 30-Sources/Computer-Vision/slides-png/11_feature_detectors/ | tail -5",
+            "description": "Verify slide naming"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:49:19.326Z"
+    },
+    {
+      "id": "edd35f31-9c88-4ac7-bf7d-919311ea5e43",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01G1XkbJPhWwiYaA82Hmucn9",
+          "title": "ls 10-Courses/ 2>/dev/null; echo \"---\"; ls 99-Templates/ 2>/dev/null; echo \"---\"; ls 40-Reviews/ 2>/dev/null",
+          "status": "completed",
+          "kind": "execute",
+          "content": [],
+          "rawInput": {
+            "command": "ls 10-Courses/ 2>/dev/null; echo \"---\"; ls 99-Templates/ 2>/dev/null; echo \"---\"; ls 40-Reviews/ 2>/dev/null",
+            "description": "Check folder structure"
+          }
+        },
+        {
+          "type": "plan",
+          "entries": [
+            {
+              "content": "Extend ingest-slides.sh to generate slides-png",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Run ingest-slides.sh for Computer-Vision",
+              "priority": "medium",
+              "status": "completed"
+            },
+            {
+              "content": "Ingest lecture 10 (fourier_transform2)",
+              "priority": "medium",
+              "status": "in_progress"
+            },
+            {
+              "content": "Ingest lecture 11 (feature_detectors)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest lecture 12 (feature_detectors2)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest lecture 13 (binary_object_characterization)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest lecture 14 (intro_to_pytorch_DL)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest lecture 15 (intro_to_DL)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest lecture 16 (CNNs)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest lecture 17 (advanced_architectures)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest lecture 18 (segmentation_and_object_detection)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest lecture 19 (self_supervised_and_contrastive_learning)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Ingest lecture 20 (autoencoders)",
+              "priority": "medium",
+              "status": "pending"
+            },
+            {
+              "content": "Write summary table",
+              "priority": "medium",
+              "status": "pending"
+            }
+          ]
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "Reading lecture 10 PDF."
+        }
+      ],
+      "timestamp": "2026-04-26T09:49:20.271Z"
+    },
+    {
+      "id": "b4071dab-511e-4a7a-a440-980846771fa2",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_017Dqa6PzBUoY6dyU3Cru6ea",
+          "title": "Read 30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf",
+          "status": "failed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:49:34.934Z"
+    },
+    {
+      "id": "ced997bf-0403-453d-bc4e-a67472855992",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01W3eis87jM3LHbPCkQLTTtY",
+          "title": "Read 30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf",
+            "pages": "1-20"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:49:37.644Z"
+    },
+    {
+      "id": "ee883ad9-e1ce-4c17-a2a8-cae83b1e4c1a",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01ResukQnHdXAqVsxNAQoNV7",
+          "title": "Read 30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf",
+            "pages": "21-40"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:49:43.329Z"
+    },
+    {
+      "id": "b29a3fdb-2bf4-4058-b47d-edefdcebf3c0",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01JN3wGj9uKbwQrhLh6Jix2e",
+          "title": "Read 30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf",
+          "status": "completed",
+          "kind": "read",
+          "content": [],
+          "locations": [
+            {
+              "line": 1,
+              "path": "/Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/30-Sources/Computer-Vision/pdf/10_fourier_transform2.pdf",
+            "pages": "41-49"
+          }
+        },
+        {
+          "type": "agent_thought",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "text": "**Lecture 10 plan:** `lecture-10-fourier-transform-2.md`. New concepts: fourier-transform-2d, fft-shift, low-pass-filter, high-pass-filter, band-pass-filter, butterworth-filter, convolution-theorem, fourier-shift-theorem, fourier-resizing, deconvolution, wiener-filter, point-spread-function, nyquist-theorem, aliasing (14). Flashcards ~22. Slides embedded: 2, 7, 10, 11, 14, 16, 22, 24, 27, 30, 41, 43, 47, 48."
+        }
+      ],
+      "timestamp": "2026-04-26T09:49:51.367Z"
+    },
+    {
+      "id": "133c09cd-0c00-46eb-b985-0fc4dd1d4597",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01M1rrLdrcLLdYRWqXarNebD",
+          "title": "Write 10-Courses/Computer-Vision/lectures/lecture-10-fourier-transform-2.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/10-Courses/Computer-Vision/lectures/lecture-10-fourier-transform-2.md",
+              "newText": "---\ntags: [lecture]\ncourse: Computer-Vision\nsource: 10_fourier_transform2.pdf\nlecture: 10\ncreated: 2026-04-26\n---\n\n# Lecture 10 — Fourier transform 2\n\n## Overview\nBuilds on the 1D Fourier transform to the 2D case used for images. The bulk of the lecture motivates four practical applications of working in the frequency domain — filtering (low/high/band-pass), the convolution theorem, deconvolution, and sampling/Nyquist — and shows that operations that are awkward in pixel space (large-kernel convolution, sub-pixel shifts, anti-aliased resizing, blur removal) become simple multiplications or croppings of the spectrum.\n\n## Key concepts\n- [[fourier-transform-2d]] — 2D forward and inverse transform; each Fourier-space pixel encodes information about every spatial pixel.\n- [[fft-shift]] — re-orders FFT output so frequency 0 sits at the centre; needed to make spectra and centred masks line up.\n- [[low-pass-filter]] — keeps low frequencies; smooths and denoises.\n- [[high-pass-filter]] — removes low frequencies; emphasises edges and fine detail.\n- [[band-pass-filter]] — keeps an annulus of frequencies; targets a particular spatial scale.\n- [[butterworth-filter]] — soft-edged radial filter mask used to avoid ringing artefacts from hard binary masks.\n- [[convolution-theorem]] — convolution in real space ⇔ multiplication in Fourier space (and vice versa). The theoretical justification for calling the masking operations *filters*.\n- [[fourier-shift-theorem]] — translating an image is multiplication by a complex exponential in Fourier space. Enables sub-pixel shifts without interpolation.\n- [[fourier-resizing]] — downsample by cropping the spectrum, upsample by zero-padding it. Anti-aliasing is built in.\n- [[deconvolution]] — undoes a known blur; ill-posed because of noise and zeros in the PSF spectrum.\n- [[point-spread-function]] — the imaging system's blur kernel `h` in `g = f * h + η`.\n- [[wiener-filter]] — regularised deconvolution that trades inverse-filter sharpness for noise suppression using the SNR.\n- [[nyquist-theorem]] — sample at ≥ 2 × the highest frequency present, otherwise aliasing.\n- [[aliasing]] — high-frequency content folds back into low frequencies when undersampled.\n\n## Equations\n\n**2D Fourier transform**\n\n$$\\hat g(f_x, f_y) = \\int_{-\\infty}^{\\infty} g(x,y)\\, e^{-2\\pi i (xf_x + yf_y)} \\, dx\\, dy$$\n\n**Convolution theorem** (spatial ↔ frequency)\n\n$$h(x) = f(x) * g(x) \\;\\Longleftrightarrow\\; \\hat h(\\zeta) = \\hat f(\\zeta)\\,\\hat g(\\zeta)$$\n$$h(x) = f(x)\\,g(x)   \\;\\Longleftrightarrow\\; \\hat h(\\zeta) = \\hat f(\\zeta) * \\hat g(\\zeta)$$\n\n**Shift theorem**\n\n$$I(x - x_0,\\, y - y_0) \\;\\Longleftrightarrow\\; \\hat I(u,v)\\, e^{-2\\pi i (u x_0 + v y_0)/L}$$\n\n**Deconvolution model and Wiener solution**\n\n$$g = f * h + \\eta \\quad\\Rightarrow\\quad \\hat g = \\hat f \\cdot \\hat h + \\hat\\eta$$\n$$\\hat f_{\\text{est}}(u,v) = W(u,v)\\,\\hat g(u,v), \\qquad W(u,v) = \\frac{\\hat h^{*}(u,v)}{|\\hat h(u,v)|^{2} + \\lambda(u,v)}, \\qquad \\lambda = \\frac{S_\\eta}{S_f} = \\frac{1}{\\text{SNR}}$$\n\n**Nyquist criterion**\n\n$$u_{\\max} \\le \\frac{1}{2 x_0}$$\n\n**Convolution complexity**\n- FFT-based: O(n log n) (independent of kernel size)\n- Direct in real space: O(n k)\n\n## Diagrams\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-02.png]]\n*Figure: 2D Fourier transform — sum of plane waves and the forward/inverse pair (slide 2).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-07.png]]\n*Figure: cameraman image with magnitude and phase spectra; concentric rings at equal |f| (slide 7).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-10.png]]\n*Figure: low-pass filtering at radius 30 vs 60 — visible ringing from the hard circular mask (slide 10).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-11.png]]\n*Figure: hard circular mask vs Butterworth — soft mask removes the ringing (slide 11).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-14.png]]\n*Figure: high-pass filtering — edges become visible, low-frequency illumination is removed (slide 14).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-16.png]]\n*Figure: band-pass filtering with two annulus widths (slide 16).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-22.png]]\n*Figure: convolution theorem — equivalent paths through real and frequency domains (slide 22).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-24.png]]\n*Figure: O(n log n) FFT-convolution vs O(n k) direct convolution (slide 24).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-27.png]]\n*Figure: Fourier-space shift of an astronaut image (slide 27).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-30.png]]\n*Figure: 512×512 → 64×64 downsampling by cropping the centred spectrum (slide 30).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-41.png]]\n*Figure: Gaussian blur — naïve deconvolution (pure noise) vs Wiener with λ = 0.001 (slide 41).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-43.png]]\n*Figure: motion-blur deconvolution — naïve fails along the motion direction; regularised recovers structure (slide 43).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-47.png]]\n*Figure: sampling = convolution with an impulse train; spectrum is replicated at 1/x₀ (slide 47).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-48.png]]\n*Figure: Nyquist — when 1/x₀ < 2u_max the replicas overlap and produce aliasing (slide 48).*\n\n## Open questions\n- Practical heuristics for picking λ in Wiener filtering when neither S_f nor S_η is known.\n- When does FFT-based convolution actually beat direct convolution in practice? (kernel size threshold)\n- For the \"feature size\" intuition (slide 17), how do harmonics of non-sinusoidal features change the choice of cutoff?\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/10-Courses/Computer-Vision/lectures/lecture-10-fourier-transform-2.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/10-Courses/Computer-Vision/lectures/lecture-10-fourier-transform-2.md",
+            "content": "---\ntags: [lecture]\ncourse: Computer-Vision\nsource: 10_fourier_transform2.pdf\nlecture: 10\ncreated: 2026-04-26\n---\n\n# Lecture 10 — Fourier transform 2\n\n## Overview\nBuilds on the 1D Fourier transform to the 2D case used for images. The bulk of the lecture motivates four practical applications of working in the frequency domain — filtering (low/high/band-pass), the convolution theorem, deconvolution, and sampling/Nyquist — and shows that operations that are awkward in pixel space (large-kernel convolution, sub-pixel shifts, anti-aliased resizing, blur removal) become simple multiplications or croppings of the spectrum.\n\n## Key concepts\n- [[fourier-transform-2d]] — 2D forward and inverse transform; each Fourier-space pixel encodes information about every spatial pixel.\n- [[fft-shift]] — re-orders FFT output so frequency 0 sits at the centre; needed to make spectra and centred masks line up.\n- [[low-pass-filter]] — keeps low frequencies; smooths and denoises.\n- [[high-pass-filter]] — removes low frequencies; emphasises edges and fine detail.\n- [[band-pass-filter]] — keeps an annulus of frequencies; targets a particular spatial scale.\n- [[butterworth-filter]] — soft-edged radial filter mask used to avoid ringing artefacts from hard binary masks.\n- [[convolution-theorem]] — convolution in real space ⇔ multiplication in Fourier space (and vice versa). The theoretical justification for calling the masking operations *filters*.\n- [[fourier-shift-theorem]] — translating an image is multiplication by a complex exponential in Fourier space. Enables sub-pixel shifts without interpolation.\n- [[fourier-resizing]] — downsample by cropping the spectrum, upsample by zero-padding it. Anti-aliasing is built in.\n- [[deconvolution]] — undoes a known blur; ill-posed because of noise and zeros in the PSF spectrum.\n- [[point-spread-function]] — the imaging system's blur kernel `h` in `g = f * h + η`.\n- [[wiener-filter]] — regularised deconvolution that trades inverse-filter sharpness for noise suppression using the SNR.\n- [[nyquist-theorem]] — sample at ≥ 2 × the highest frequency present, otherwise aliasing.\n- [[aliasing]] — high-frequency content folds back into low frequencies when undersampled.\n\n## Equations\n\n**2D Fourier transform**\n\n$$\\hat g(f_x, f_y) = \\int_{-\\infty}^{\\infty} g(x,y)\\, e^{-2\\pi i (xf_x + yf_y)} \\, dx\\, dy$$\n\n**Convolution theorem** (spatial ↔ frequency)\n\n$$h(x) = f(x) * g(x) \\;\\Longleftrightarrow\\; \\hat h(\\zeta) = \\hat f(\\zeta)\\,\\hat g(\\zeta)$$\n$$h(x) = f(x)\\,g(x)   \\;\\Longleftrightarrow\\; \\hat h(\\zeta) = \\hat f(\\zeta) * \\hat g(\\zeta)$$\n\n**Shift theorem**\n\n$$I(x - x_0,\\, y - y_0) \\;\\Longleftrightarrow\\; \\hat I(u,v)\\, e^{-2\\pi i (u x_0 + v y_0)/L}$$\n\n**Deconvolution model and Wiener solution**\n\n$$g = f * h + \\eta \\quad\\Rightarrow\\quad \\hat g = \\hat f \\cdot \\hat h + \\hat\\eta$$\n$$\\hat f_{\\text{est}}(u,v) = W(u,v)\\,\\hat g(u,v), \\qquad W(u,v) = \\frac{\\hat h^{*}(u,v)}{|\\hat h(u,v)|^{2} + \\lambda(u,v)}, \\qquad \\lambda = \\frac{S_\\eta}{S_f} = \\frac{1}{\\text{SNR}}$$\n\n**Nyquist criterion**\n\n$$u_{\\max} \\le \\frac{1}{2 x_0}$$\n\n**Convolution complexity**\n- FFT-based: O(n log n) (independent of kernel size)\n- Direct in real space: O(n k)\n\n## Diagrams\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-02.png]]\n*Figure: 2D Fourier transform — sum of plane waves and the forward/inverse pair (slide 2).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-07.png]]\n*Figure: cameraman image with magnitude and phase spectra; concentric rings at equal |f| (slide 7).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-10.png]]\n*Figure: low-pass filtering at radius 30 vs 60 — visible ringing from the hard circular mask (slide 10).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-11.png]]\n*Figure: hard circular mask vs Butterworth — soft mask removes the ringing (slide 11).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-14.png]]\n*Figure: high-pass filtering — edges become visible, low-frequency illumination is removed (slide 14).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-16.png]]\n*Figure: band-pass filtering with two annulus widths (slide 16).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-22.png]]\n*Figure: convolution theorem — equivalent paths through real and frequency domains (slide 22).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-24.png]]\n*Figure: O(n log n) FFT-convolution vs O(n k) direct convolution (slide 24).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-27.png]]\n*Figure: Fourier-space shift of an astronaut image (slide 27).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-30.png]]\n*Figure: 512×512 → 64×64 downsampling by cropping the centred spectrum (slide 30).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-41.png]]\n*Figure: Gaussian blur — naïve deconvolution (pure noise) vs Wiener with λ = 0.001 (slide 41).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-43.png]]\n*Figure: motion-blur deconvolution — naïve fails along the motion direction; regularised recovers structure (slide 43).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-47.png]]\n*Figure: sampling = convolution with an impulse train; spectrum is replicated at 1/x₀ (slide 47).*\n\n![[../../30-Sources/Computer-Vision/slides-png/10_fourier_transform2/slide-48.png]]\n*Figure: Nyquist — when 1/x₀ < 2u_max the replicas overlap and produce aliasing (slide 48).*\n\n## Open questions\n- Practical heuristics for picking λ in Wiener filtering when neither S_f nor S_η is known.\n- When does FFT-based convolution actually beat direct convolution in practice? (kernel size threshold)\n- For the \"feature size\" intuition (slide 17), how do harmonics of non-sinusoidal features change the choice of cutoff?\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:50:15.325Z"
+    },
+    {
+      "id": "c1381cbf-4eda-4148-b1a1-cfe45437b198",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01MDbfxcTKdZDWSH6hWtzNbZ",
+          "title": "Write 20-Concepts/fourier-transform-2d.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/fourier-transform-2d.md",
+              "newText": "---\nname: 2D Fourier transform\ndescription: Decomposes a 2D image into a sum of sinusoidal plane waves; one Fourier-space pixel encodes information about every spatial pixel\ntype: concept\ntags: [concept, signal-processing]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# 2D Fourier transform\n\nThe 2D Fourier transform decomposes an image $g(x,y)$ into a weighted sum of complex exponentials (plane waves) of the form $e^{2\\pi i (xf_x + yf_y)}$.\n\n$$\\hat g(f_x, f_y) = \\mathcal{F}\\{g(x,y)\\} = \\int_{-\\infty}^{\\infty} g(x,y)\\, e^{-2\\pi i (xf_x + yf_y)}\\, dx\\, dy$$\n\n$$g(x,y) = \\mathcal{F}^{-1}\\{\\hat g(f_x,f_y)\\} = \\int_{-\\infty}^{\\infty} \\hat g(f_x,f_y)\\, e^{2\\pi i (xf_x + yf_y)}\\, df_x\\, df_y$$\n\n## Properties to keep in mind\n- **Each spatial pixel contributes to every Fourier-space pixel**, and conversely. The transform is global, not local.\n- Each Fourier-space pixel is a **complex number**: amplitude (how much of that frequency is present) and phase (where it is positioned). Visualisations usually show only the magnitude.\n- For real images, $\\hat g(-u,-v) = \\hat g(u,v)^*$ (conjugate symmetry), which is why we often need [[fft-shift]] to centre the spectrum for display.\n- Frequencies with the same magnitude $|f| = \\sqrt{f_x^2 + f_y^2}$ form **concentric rings** in the spectrum: centre = slow variations (overall shape), outer rings = high frequencies (edges, texture, noise).\n- Natural images are dominated by low frequencies; magnitudes decay roughly as $1/|f|$, which is why spectra are usually plotted as $\\log(|F| + 1)$.\n\n## Discrete frequency grid\nFor a length-N axis, after `fftshift` the frequency coordinates run from $-(N-1)/(2N)$ to $(N-1)/(2N)$ (e.g. $N=7$ gives $[-3/7, -2/7, -1/7, 0, 1/7, 2/7, 3/7]$).\n\n## Why it matters\nWorking in Fourier space turns hard spatial operations into simple element-wise ones — see [[convolution-theorem]], [[fourier-shift-theorem]], [[fourier-resizing]], [[low-pass-filter]], [[high-pass-filter]], [[band-pass-filter]], [[deconvolution]].\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/fourier-transform-2d.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/fourier-transform-2d.md",
+            "content": "---\nname: 2D Fourier transform\ndescription: Decomposes a 2D image into a sum of sinusoidal plane waves; one Fourier-space pixel encodes information about every spatial pixel\ntype: concept\ntags: [concept, signal-processing]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# 2D Fourier transform\n\nThe 2D Fourier transform decomposes an image $g(x,y)$ into a weighted sum of complex exponentials (plane waves) of the form $e^{2\\pi i (xf_x + yf_y)}$.\n\n$$\\hat g(f_x, f_y) = \\mathcal{F}\\{g(x,y)\\} = \\int_{-\\infty}^{\\infty} g(x,y)\\, e^{-2\\pi i (xf_x + yf_y)}\\, dx\\, dy$$\n\n$$g(x,y) = \\mathcal{F}^{-1}\\{\\hat g(f_x,f_y)\\} = \\int_{-\\infty}^{\\infty} \\hat g(f_x,f_y)\\, e^{2\\pi i (xf_x + yf_y)}\\, df_x\\, df_y$$\n\n## Properties to keep in mind\n- **Each spatial pixel contributes to every Fourier-space pixel**, and conversely. The transform is global, not local.\n- Each Fourier-space pixel is a **complex number**: amplitude (how much of that frequency is present) and phase (where it is positioned). Visualisations usually show only the magnitude.\n- For real images, $\\hat g(-u,-v) = \\hat g(u,v)^*$ (conjugate symmetry), which is why we often need [[fft-shift]] to centre the spectrum for display.\n- Frequencies with the same magnitude $|f| = \\sqrt{f_x^2 + f_y^2}$ form **concentric rings** in the spectrum: centre = slow variations (overall shape), outer rings = high frequencies (edges, texture, noise).\n- Natural images are dominated by low frequencies; magnitudes decay roughly as $1/|f|$, which is why spectra are usually plotted as $\\log(|F| + 1)$.\n\n## Discrete frequency grid\nFor a length-N axis, after `fftshift` the frequency coordinates run from $-(N-1)/(2N)$ to $(N-1)/(2N)$ (e.g. $N=7$ gives $[-3/7, -2/7, -1/7, 0, 1/7, 2/7, 3/7]$).\n\n## Why it matters\nWorking in Fourier space turns hard spatial operations into simple element-wise ones — see [[convolution-theorem]], [[fourier-shift-theorem]], [[fourier-resizing]], [[low-pass-filter]], [[high-pass-filter]], [[band-pass-filter]], [[deconvolution]].\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:50:55.235Z"
+    },
+    {
+      "id": "5f68c225-e795-4dd0-b38e-2b9843abad0c",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01VAr9Fyefa4FSzC7Xk8Y8cJ",
+          "title": "Write 20-Concepts/fft-shift.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/fft-shift.md",
+              "newText": "---\nname: fftshift\ndescription: Reorders FFT output so the zero-frequency component is at the centre, which is what spectrum plots and centred frequency masks expect\ntype: concept\ntags: [concept, signal-processing]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# fftshift\n\nStandard FFT routines return frequencies in the order\n$[0, 1/N, 2/N, \\dots, (N-1)/N]$ — i.e. positive frequencies first, then (under wrap-around) negative ones. `fftshift` rotates the array so that frequency 0 sits in the centre and the axes run from negative to positive.\n\nFor $N=7$:\n\n$$\\left[0,\\ \\tfrac{1}{7},\\ \\tfrac{2}{7},\\ \\tfrac{3}{7},\\ -\\tfrac{3}{7},\\ -\\tfrac{2}{7},\\ -\\tfrac{1}{7}\\right] \\;\\xrightarrow{\\text{fftshift}}\\; \\left[-\\tfrac{3}{7},\\ -\\tfrac{2}{7},\\ -\\tfrac{1}{7},\\ 0,\\ \\tfrac{1}{7},\\ \\tfrac{2}{7},\\ \\tfrac{3}{7}\\right]$$\n\n## When you need it\n- Plotting magnitude spectra so the bright DC term is at the image centre (otherwise it appears at the corners).\n- Building **centred** frequency masks (low-pass disc at the origin, [[band-pass-filter]] annulus around the origin) that are then multiplied with `fftshift(fft2(image))`.\n- After multiplication, apply `ifftshift` before `ifft2` to put DC back where the inverse FFT expects it.\n\n## When you don't need it\n[[fourier-shift-theorem]] (multiplying by a phase ramp) works on the un-shifted spectrum directly because both sides of the multiplication share the same convention.\n\nSee [[fourier-transform-2d]].\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/fft-shift.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/fft-shift.md",
+            "content": "---\nname: fftshift\ndescription: Reorders FFT output so the zero-frequency component is at the centre, which is what spectrum plots and centred frequency masks expect\ntype: concept\ntags: [concept, signal-processing]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# fftshift\n\nStandard FFT routines return frequencies in the order\n$[0, 1/N, 2/N, \\dots, (N-1)/N]$ — i.e. positive frequencies first, then (under wrap-around) negative ones. `fftshift` rotates the array so that frequency 0 sits in the centre and the axes run from negative to positive.\n\nFor $N=7$:\n\n$$\\left[0,\\ \\tfrac{1}{7},\\ \\tfrac{2}{7},\\ \\tfrac{3}{7},\\ -\\tfrac{3}{7},\\ -\\tfrac{2}{7},\\ -\\tfrac{1}{7}\\right] \\;\\xrightarrow{\\text{fftshift}}\\; \\left[-\\tfrac{3}{7},\\ -\\tfrac{2}{7},\\ -\\tfrac{1}{7},\\ 0,\\ \\tfrac{1}{7},\\ \\tfrac{2}{7},\\ \\tfrac{3}{7}\\right]$$\n\n## When you need it\n- Plotting magnitude spectra so the bright DC term is at the image centre (otherwise it appears at the corners).\n- Building **centred** frequency masks (low-pass disc at the origin, [[band-pass-filter]] annulus around the origin) that are then multiplied with `fftshift(fft2(image))`.\n- After multiplication, apply `ifftshift` before `ifft2` to put DC back where the inverse FFT expects it.\n\n## When you don't need it\n[[fourier-shift-theorem]] (multiplying by a phase ramp) works on the un-shifted spectrum directly because both sides of the multiplication share the same convention.\n\nSee [[fourier-transform-2d]].\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:51:12.887Z"
+    },
+    {
+      "id": "a5f2a924-3ca4-4fd5-8ddc-410bee8721b1",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01U2sWNpjo9oN3FBqzTzUNrv",
+          "title": "Write 20-Concepts/low-pass-filter.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/low-pass-filter.md",
+              "newText": "---\nname: Low-pass filter\ndescription: Frequency-domain filter that keeps low frequencies and removes high ones; produces smoothing, blurring, and noise removal\ntype: concept\ntags: [concept, filter]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Low-pass filter\n\n**Goal:** keep low frequencies, remove high frequencies.\n\n## How\nBuild a mask $H(u,v)$ that is 1 at the centre of the (centred) Fourier spectrum and 0 at the edges, then multiply element-wise with $\\hat I(u,v)$ and inverse-transform:\n\n$$g = \\mathcal{F}^{-1}\\bigl(H \\cdot \\mathcal{F}(I)\\bigr)$$\n\nA naive **hard circular mask** (1 inside radius $R$, 0 outside) introduces ringing artefacts in the inverse transform because a sharp boundary in Fourier space corresponds to a sinc in real space. Use a **soft mask** instead — raised cosine, windowed sinc, Gaussian, or [[butterworth-filter]].\n\n## Effects\n- Smoothing\n- Blurring\n- Noise removal (noise is broadband and dominant at high frequencies)\n\n## Choosing the radius\nTo remove SMALL features (noise, grain, fine detail) of size $s$, use a mask radius proportional to $1/s$ — i.e. block frequencies higher than the feature's fundamental.\n\n## Reference implementation (Gaussian)\n```python\ndef gaussian_lowpass_fft(img, sigma):\n    M, N = img.shape\n    u = np.arange(-M//2, M//2)\n    v = np.arange(-N//2, N//2)\n    U, V = np.meshgrid(v, u)\n    D2 = U**2 + V**2\n    H = np.exp(-D2 / (2 * sigma**2))\n    F = fftshift(fft2(img))\n    return np.real(ifft2(ifftshift(H * F)))\n```\n\nBuilt on [[fourier-transform-2d]] and the [[convolution-theorem]]; complement of [[high-pass-filter]].\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/low-pass-filter.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/low-pass-filter.md",
+            "content": "---\nname: Low-pass filter\ndescription: Frequency-domain filter that keeps low frequencies and removes high ones; produces smoothing, blurring, and noise removal\ntype: concept\ntags: [concept, filter]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# Low-pass filter\n\n**Goal:** keep low frequencies, remove high frequencies.\n\n## How\nBuild a mask $H(u,v)$ that is 1 at the centre of the (centred) Fourier spectrum and 0 at the edges, then multiply element-wise with $\\hat I(u,v)$ and inverse-transform:\n\n$$g = \\mathcal{F}^{-1}\\bigl(H \\cdot \\mathcal{F}(I)\\bigr)$$\n\nA naive **hard circular mask** (1 inside radius $R$, 0 outside) introduces ringing artefacts in the inverse transform because a sharp boundary in Fourier space corresponds to a sinc in real space. Use a **soft mask** instead — raised cosine, windowed sinc, Gaussian, or [[butterworth-filter]].\n\n## Effects\n- Smoothing\n- Blurring\n- Noise removal (noise is broadband and dominant at high frequencies)\n\n## Choosing the radius\nTo remove SMALL features (noise, grain, fine detail) of size $s$, use a mask radius proportional to $1/s$ — i.e. block frequencies higher than the feature's fundamental.\n\n## Reference implementation (Gaussian)\n```python\ndef gaussian_lowpass_fft(img, sigma):\n    M, N = img.shape\n    u = np.arange(-M//2, M//2)\n    v = np.arange(-N//2, N//2)\n    U, V = np.meshgrid(v, u)\n    D2 = U**2 + V**2\n    H = np.exp(-D2 / (2 * sigma**2))\n    F = fftshift(fft2(img))\n    return np.real(ifft2(ifftshift(H * F)))\n```\n\nBuilt on [[fourier-transform-2d]] and the [[convolution-theorem]]; complement of [[high-pass-filter]].\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:51:21.784Z"
+    },
+    {
+      "id": "ffb8dde5-e605-4fa4-8a2e-8d7b9c9ad111",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_014PfQVnz6J9Guttphwb5unt",
+          "title": "Write 20-Concepts/high-pass-filter.md",
+          "status": "completed",
+          "kind": "edit",
+          "content": [
+            {
+              "type": "diff",
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/high-pass-filter.md",
+              "newText": "---\nname: High-pass filter\ndescription: Frequency-domain filter that keeps high frequencies and removes low ones; emphasises edges and fine detail\ntype: concept\ntags: [concept, filter]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# High-pass filter\n\n**Goal:** keep high frequencies, remove low frequencies.\n\n## How\nBuild a mask that is 0 at the centre of the (centred) spectrum and 1 at the edges (the opposite of [[low-pass-filter]]). Multiply with $\\hat I$ and inverse-transform.\n\nAs with low-pass, prefer a soft mask (e.g. [[butterworth-filter]]) over a hard circular hole to avoid ringing.\n\n## Effects\n- Emphasises **edges and fine details**.\n- Removes slow, smooth variation:\n  - Gradual illumination changes\n  - Large uniform regions\n- Output often resembles an edge map or a sharpened version of the original.\n\n## Practical use\n- Edge detection (typically combined with other operations).\n- Sharpening filters (e.g. *original + scaled high-pass*).\n\n## Choosing the radius\nTo remove LARGE features (background gradients, slow shadows) of characteristic size $s$, use a mask radius proportional to $1/s$ — block frequencies below the feature's fundamental.\n\nBuilt on [[fourier-transform-2d]] and the [[convolution-theorem]]. See also [[band-pass-filter]] for keeping a specific scale.\n",
+              "oldText": null
+            }
+          ],
+          "locations": [
+            {
+              "path": "/Users/mattporteous/Obsidian/School/20-Concepts/high-pass-filter.md"
+            }
+          ],
+          "rawInput": {
+            "file_path": "/Users/mattporteous/Obsidian/School/20-Concepts/high-pass-filter.md",
+            "content": "---\nname: High-pass filter\ndescription: Frequency-domain filter that keeps high frequencies and removes low ones; emphasises edges and fine detail\ntype: concept\ntags: [concept, filter]\ncourses: [Computer-Vision]\nsource: 10_fourier_transform2.pdf\ncreated: 2026-04-26\n---\n\n# High-pass filter\n\n**Goal:** keep high frequencies, remove low frequencies.\n\n## How\nBuild a mask that is 0 at the centre of the (centred) spectrum and 1 at the edges (the opposite of [[low-pass-filter]]). Multiply with $\\hat I$ and inverse-transform.\n\nAs with low-pass, prefer a soft mask (e.g. [[butterworth-filter]]) over a hard circular hole to avoid ringing.\n\n## Effects\n- Emphasises **edges and fine details**.\n- Removes slow, smooth variation:\n  - Gradual illumination changes\n  - Large uniform regions\n- Output often resembles an edge map or a sharpened version of the original.\n\n## Practical use\n- Edge detection (typically combined with other operations).\n- Sharpening filters (e.g. *original + scaled high-pass*).\n\n## Choosing the radius\nTo remove LARGE features (background gradients, slow shadows) of characteristic size $s$, use a mask radius proportional to $1/s$ — block frequencies below the feature's fundamental.\n\nBuilt on [[fourier-transform-2d]] and the [[convolution-theorem]]. See also [[band-pass-filter]] for keeping a specific scale.\n"
+          }
+        }
+      ],
+      "timestamp": "2026-04-26T09:51:31.855Z"
+    },
+    {
+      "id": "3b4db451-718b-4b1f-9611-1156f6a45951",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_call",
+          "toolCallId": "toolu_01V9gDTYitrre2F4GeVQ6cQG",
+          "title": "Write",
+          "status": "pending",
+          "kind": "edit",
+          "locations": [],
+          "rawInput": {}
+        }
+      ],
+      "timestamp": "2026-04-26T09:51:38.015Z"
+    }
+  ],
+  "savedAt": "2026-04-26T09:51:39.614Z"
+}

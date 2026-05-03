@@ -1,0 +1,23 @@
+{
+  "id": "conv-1777209855328-8zegy4n64",
+  "providerId": "claude",
+  "title": "Master Fourier & Sampling",
+  "titleGenerationStatus": "success",
+  "createdAt": 1777209855328,
+  "updatedAt": 1777210791284,
+  "lastResponseAt": 1777209893343,
+  "sessionId": "53922ee8-afb1-458f-9a5f-a22e636002c6",
+  "providerState": {
+    "providerSessionId": "53922ee8-afb1-458f-9a5f-a22e636002c6"
+  },
+  "usage": {
+    "model": "haiku",
+    "inputTokens": 8,
+    "cacheCreationInputTokens": 1907,
+    "cacheReadInputTokens": 51998,
+    "contextWindow": 200000,
+    "contextTokens": 53913,
+    "percentage": 27,
+    "contextWindowIsAuthoritative": true
+  }
+}
