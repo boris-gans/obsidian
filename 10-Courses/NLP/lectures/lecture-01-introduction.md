@@ -13,7 +13,7 @@ created: 2026-05-02
 
 Course-opening deck. Defines NLP as an interdisciplinary field at the intersection of computer science, linguistics, mathematics, and AI, whose goal is to design computational systems that **analyze, interpret, and generate** natural language. Establishes the central distinction the course returns to repeatedly: natural languages were not designed to be unambiguous or machine-readable, so NLP systems must cope with uncertainty, multiple interpretations, and incomplete information.
 
-Update
+Updffate
 ## Key concepts
 
 - [[nlp-definition]] — NLP as an interdisciplinary computational field for analyze/interpret/generate
