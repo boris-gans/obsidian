@@ -3,7 +3,7 @@
     "id": "claude-code-acp",
     "displayName": "Claude Code",
     "apiKey": "",
-    "command": "/opt/homebrew/bin/claude-agent-acp",
+    "command": "/Users/borisgans/.vite-plus/bin/claude-agent-acp",
     "args": [],
     "env": []
   },
